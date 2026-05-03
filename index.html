@@ -1989,12 +1989,17 @@ body.is-home .app-footer { display: none; }
       <svg class="home-banner-art" viewBox="0 0 1400 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="bgGlow" cx="50%" cy="60%" r="80%">
-            <stop offset="0%" stop-color="#2C3854"/>
-            <stop offset="100%" stop-color="#1A2438"/>
+            <stop offset="0%" stop-color="#1E3470"/>
+            <stop offset="100%" stop-color="#0F2455"/>
           </radialGradient>
-          <linearGradient id="coralG" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#E87766"/>
-            <stop offset="100%" stop-color="#B0463A"/>
+          <linearGradient id="ukRed" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E2304F"/>
+            <stop offset="100%" stop-color="#9B0A20"/>
+          </linearGradient>
+          <linearGradient id="redToCream" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#C8102E"/>
+            <stop offset="50%" stop-color="#C8A36A"/>
+            <stop offset="100%" stop-color="#FAF6EE"/>
           </linearGradient>
           <pattern id="dotgrid" width="22" height="22" patternUnits="userSpaceOnUse">
             <circle cx="1" cy="1" r="1" fill="#FAF6EE" opacity="0.06"/>
@@ -2003,43 +2008,51 @@ body.is-home .app-footer { display: none; }
         <rect width="1400" height="420" fill="url(#bgGlow)"/>
         <rect width="1400" height="420" fill="url(#dotgrid)"/>
 
-        <!-- Soundwaves background -->
-        <g opacity="0.10" stroke="#FAF6EE" fill="none" stroke-width="1.5" stroke-linecap="round">
-          <path d="M0 210 Q 100 180 200 210 T 400 210 T 600 210 T 800 210 T 1000 210 T 1200 210 T 1400 210"/>
-          <path d="M0 240 Q 100 220 200 240 T 400 240 T 600 240 T 800 240 T 1000 240 T 1200 240 T 1400 240"/>
-          <path d="M0 180 Q 100 150 200 180 T 400 180 T 600 180 T 800 180 T 1000 180 T 1200 180 T 1400 180"/>
+        <!-- Soundwaves background, sottili -->
+        <g opacity="0.08" stroke="#FAF6EE" fill="none" stroke-width="1.2" stroke-linecap="round">
+          <path d="M0 215 Q 100 195 200 215 T 400 215 T 600 215 T 800 215 T 1000 215 T 1200 215 T 1400 215"/>
+          <path d="M0 250 Q 100 230 200 250 T 400 250 T 600 250 T 800 250 T 1000 250 T 1200 250 T 1400 250"/>
         </g>
 
-        <!-- HEADPHONES (centro) -->
-        <g transform="translate(700,210)">
-          <path d="M-130 0 a 130 130 0 0 1 260 0" fill="none" stroke="#FAF6EE" stroke-width="6" stroke-linecap="round"/>
-          <rect x="-150" y="-10" width="40" height="80" rx="10" fill="#FAF6EE"/>
-          <rect x="110" y="-10" width="40" height="80" rx="10" fill="#FAF6EE"/>
-          <circle cx="-130" cy="30" r="8" fill="url(#coralG)"/>
-          <circle cx="130" cy="30" r="8" fill="url(#coralG)"/>
+        <!-- BUBBLE LETTERALE (sinistra, centro-verticale, sotto il brand-co) -->
+        <g transform="translate(310, 235)">
+          <rect x="-150" y="-65" width="300" height="130" rx="16" fill="url(#ukRed)" opacity="0.94"/>
+          <path d="M140 35 L 175 55 L 152 22 Z" fill="#9B0A20"/>
+          <text x="0" y="-32" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#FAF6EE" letter-spacing="3" opacity="0.9" font-weight="500">LETTERALE</text>
+          <text x="0" y="6" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="26" fill="#FAF6EE" font-weight="700">rotolando nel</text>
+          <text x="0" y="36" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="26" fill="#FAF6EE" font-weight="700">profondo</text>
+          <line x1="-110" y1="20" x2="110" y2="20" stroke="#FAF6EE" stroke-width="1.5" opacity="0.65"/>
         </g>
 
-        <!-- BUBBLE LITERAL (sinistra) -->
-        <g transform="translate(280,150)">
-          <rect x="-130" y="-50" width="260" height="100" rx="16" fill="#D85D4F" opacity="0.92"/>
-          <path d="M120 30 L 150 50 L 130 20 Z" fill="#D85D4F" opacity="0.92"/>
-          <text x="0" y="-20" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#FAF6EE" letter-spacing="2.4" opacity="0.85">LETTERALE</text>
-          <text x="0" y="14" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#FAF6EE" font-weight="700">rotolando nel</text>
-          <text x="0" y="40" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#FAF6EE" font-weight="700">profondo</text>
-          <line x1="-90" y1="32" x2="90" y2="32" stroke="#FAF6EE" stroke-width="1.5" opacity="0.7"/>
+        <!-- FRECCIA gradient da rosso a cream al centro -->
+        <g>
+          <path d="M 480 245 Q 700 235, 920 255"
+                stroke="url(#redToCream)" stroke-width="3" fill="none"
+                stroke-dasharray="3 9" stroke-linecap="round" opacity="0.85"/>
+          <path d="M 905 249 L 928 255 L 905 261"
+                stroke="#FAF6EE" stroke-width="3" fill="none"
+                stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
         </g>
 
-        <!-- BUBBLE REAL (destra) -->
-        <g transform="translate(1120,260)">
-          <rect x="-145" y="-50" width="290" height="100" rx="16" fill="#FAF6EE"/>
-          <path d="M-130 30 L -160 50 L -135 20 Z" fill="#FAF6EE"/>
-          <text x="0" y="-20" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#5C8A6E" letter-spacing="2.4">SIGNIFICATO REALE</text>
-          <text x="0" y="14" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#1A2438" font-weight="700">darsi anima</text>
-          <text x="0" y="40" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#1A2438" font-weight="700">e corpo</text>
+        <!-- BUBBLE SIGNIFICATO REALE (destra, leggermente più in basso) -->
+        <g transform="translate(1090, 255)">
+          <rect x="-160" y="-65" width="320" height="130" rx="16" fill="#FAF6EE"/>
+          <path d="M-150 -35 L -185 -55 L -160 -20 Z" fill="#FAF6EE"/>
+          <text x="0" y="-32" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#5C8A6E" letter-spacing="3" font-weight="500">SIGNIFICATO REALE</text>
+          <text x="0" y="6" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="26" fill="#0F2455" font-weight="700">darsi anima</text>
+          <text x="0" y="36" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="26" fill="#0F2455" font-weight="700">e corpo</text>
         </g>
 
-        <!-- Titolo idiom centrale piccolo -->
-        <text x="700" y="350" text-anchor="middle" font-family="DM Mono, monospace" font-size="13" fill="#FAF6EE" opacity="0.7" letter-spacing="3">"rolling in the deep" — Adele, 2010</text>
+        <!-- Headphones decorative + caption in basso -->
+        <g transform="translate(700, 378)" opacity="0.85">
+          <path d="M-28 0 a 28 28 0 0 1 56 0" fill="none" stroke="#FAF6EE" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+          <rect x="-34" y="-3" width="11" height="20" rx="3" fill="#FAF6EE" opacity="0.75"/>
+          <rect x="23" y="-3" width="11" height="20" rx="3" fill="#FAF6EE" opacity="0.75"/>
+          <circle cx="-28" cy="8" r="2.6" fill="#C8102E"/>
+          <circle cx="28" cy="8" r="2.6" fill="#C8102E"/>
+        </g>
+
+        <text x="700" y="410" text-anchor="middle" font-family="DM Mono, monospace" font-size="12" fill="#FAF6EE" opacity="0.55" letter-spacing="2.5">"rolling in the deep" · Adele · 2010</text>
       </svg>
 
       <div class="banner-overlay">
@@ -2272,15 +2285,27 @@ async function loadSRT(songId) {
     if (!res.ok) {
       SRT_CACHE[songId] = '';
       SRT_LAST_STATUS = res.status === 404 ? 'missing' : 'error';
-      console.warn(`SRT not found: ${url} (status ${res.status})`);
+      console.warn(`[LiT] SRT not found: ${url} (status ${res.status})`);
       return '';
     }
-    const text = await res.text();
+    // Read as ArrayBuffer + decode UTF-8 (handles BOM and exotic encodings)
+    const buffer = await res.arrayBuffer();
+    let text = new TextDecoder('utf-8', { fatal: false }).decode(buffer);
+    if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1); // strip BOM
+    // Detect host fallback (Vercel/Netlify/etc returning HTML 200 instead of true 404)
+    const head = text.trimStart().slice(0, 32).toLowerCase();
+    if (head.startsWith('<!') || head.startsWith('<html') || head.includes('<head')) {
+      console.warn(`[LiT] ${url} returned HTML instead of SRT — file probably missing`);
+      SRT_CACHE[songId] = '';
+      SRT_LAST_STATUS = 'missing';
+      return '';
+    }
+    console.log(`[LiT] SRT loaded: ${url} (${text.length} chars)`);
     SRT_CACHE[songId] = text;
     SRT_LAST_STATUS = 'ok';
     return text;
   } catch (e) {
-    console.warn(`SRT load failed for ${songId} at ${url}:`, e);
+    console.warn(`[LiT] SRT load failed for ${songId} at ${url}:`, e);
     SRT_CACHE[songId] = '';
     SRT_LAST_STATUS = 'error';
     return '';
