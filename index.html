@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lost in Translation — English idioms from real songs</title>
+<meta name="author" content="Andrea Cerioli">
+<meta name="copyright" content="© 2026 Andrea Cerioli — Tutti i diritti riservati">
+<meta name="description" content="Web app didattica: gli idioms inglesi nascosti nelle canzoni che gli studenti ascoltano davvero. Scuola Sacra Famiglia — Orzinuovi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   LOST IN TRANSLATION — design system
+   Editorial / British paperback meets translation notebook
+   ========================================================= */
+
+:root {
+  --ink: #1A2438;
+  --ink-soft: #2C3854;
+  --ink-faint: #4A5575;
+  --paper: #FAF6EE;
+  --paper-soft: #F2EDE2;
+  --paper-line: #E5DCC9;
+  --paper-dark: #ECE3CE;
+  --coral: #D85D4F;
+  --coral-deep: #B0463A;
+  --coral-soft: #F4D8D2;
+  --gold: #C8A36A;
+  --gold-soft: #EDDFC4;
+  --green: #5C8A6E;
+  --green-soft: #D4E2D9;
+  --text: #2E2A23;
+  --text-soft: #5A554C;
+  --text-faint: #8A8473;
+  --hairline: #D9CFB8;
+
+  --f-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --f-body: 'Atkinson Hyperlegible', system-ui, -apple-system, sans-serif;
+  --f-mono: 'DM Mono', 'Courier New', monospace;
+
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+
+  --sh-sm: 0 2px 8px rgba(26,36,56,0.06);
+  --sh-md: 0 10px 28px rgba(26,36,56,0.08);
+  --sh-lg: 0 24px 56px rgba(26,36,56,0.14);
+
+  --t-fast: 180ms cubic-bezier(.4,0,.2,1);
+  --t-med: 320ms cubic-bezier(.4,0,.2,1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(216,93,79,0.04), transparent 50%),
+    radial-gradient(circle at 85% 80%, rgba(200,163,106,0.05), transparent 50%);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+a { color: var(--coral-deep); text-decoration: none; border-bottom: 1px solid currentColor; }
+a:hover { color: var(--coral); }
+svg { display: block; }
+img { max-width: 100%; height: auto; display: block; }
+
+::selection { background: var(--coral); color: var(--paper); }
+
+/* =========================================================
+   TOPBAR
+   ========================================================= */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+  padding: 14px 32px;
+  background: rgba(250,246,238,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--paper-line);
+}
+body.is-home .topbar { display: none; }
+
+.brand {
+  display: flex; align-items: center; gap: 14px;
+  padding: 4px 6px;
+  border-radius: var(--r-sm);
+  transition: background var(--t-fast);
+}
+.brand:hover { background: var(--paper-dark); }
+.brand-mark {
+  position: relative;
+  display: inline-flex; align-items: baseline; justify-content: center;
+  width: 44px; height: 44px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--r-xs);
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: 26px;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  padding-top: 4px;
+}
+.brand-mark small {
+  font-size: 11px;
+  font-style: normal;
+  color: var(--coral);
+  letter-spacing: 0;
+  margin-left: 1px;
+}
+.brand-text { display: flex; flex-direction: column; line-height: 1.1; text-align: left; }
+.brand-text strong {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.brand-text small {
+  font-size: 11px;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+.topnav { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+.topnav button {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 14px;
+  border-radius: var(--r-sm);
+  color: var(--text-soft);
+  font-size: 14px;
+  font-weight: 700;
+  transition: all var(--t-fast);
+  position: relative;
+}
+.topnav button svg { width: 17px; height: 17px; }
+.topnav button:hover { color: var(--ink); background: var(--paper-dark); }
+.topnav button.active { color: var(--paper); background: var(--ink); }
+.topnav button.active svg { color: var(--coral); }
+
+.count-badge {
+  display: inline-block;
+  min-width: 20px;
+  padding: 0 6px;
+  background: var(--coral);
+  color: var(--paper);
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  font-family: var(--f-mono);
+}
+.topnav button.active .count-badge { background: var(--paper); color: var(--ink); }
+
+/* =========================================================
+   VIEW SYSTEM
+   ========================================================= */
+.view { display: none; animation: viewIn 320ms ease both; }
+.view.active { display: block; }
+@keyframes viewIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+/* =========================================================
+   HOME — no-scroll layout
+   ========================================================= */
+.home-noscroll {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 38vh 1fr;
+  overflow: hidden;
+}
+
+.home-banner {
+  position: relative;
+  background: var(--ink);
+  overflow: hidden;
+}
+.home-banner-art {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+}
+.banner-overlay {
+  position: absolute; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 36px;
+  z-index: 5;
+}
+.banner-overlay .brand-mark { background: var(--paper); color: var(--ink); }
+.banner-overlay .brand-text strong { color: var(--paper); }
+.banner-overlay .brand-text small { color: var(--paper-soft); opacity: 0.8; }
+.banner-nav {
+  display: flex; gap: 6px;
+  background: rgba(250,246,238,0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(250,246,238,0.2);
+  border-radius: 99px;
+  padding: 5px;
+}
+.banner-nav-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px;
+  border-radius: 99px;
+  color: var(--paper);
+  opacity: 0.78;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all var(--t-fast);
+}
+.banner-nav-btn svg { width: 15px; height: 15px; }
+.banner-nav-btn:hover { opacity: 1; background: rgba(250,246,238,0.1); }
+.banner-nav-btn.active { background: var(--paper); color: var(--ink); opacity: 1; }
+
+.home-content {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  padding: 36px 64px 36px 64px;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+.home-text h1 {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: clamp(34px, 4.4vw, 58px);
+  line-height: 1.02;
+  color: var(--ink);
+  letter-spacing: -0.025em;
+  margin-bottom: 18px;
+}
+.home-text h1 em {
+  font-style: italic;
+  color: var(--coral);
+  font-weight: 700;
+}
+.home-text h1 .strike {
+  position: relative;
+  font-style: italic;
+  color: var(--text-faint);
+  font-weight: 400;
+}
+.home-text h1 .strike::after {
+  content: ""; position: absolute;
+  left: -2%; right: -2%;
+  top: 52%; height: 3px;
+  background: var(--coral);
+  transform: rotate(-3deg);
+}
+.home-text .lead {
+  font-size: 17px;
+  color: var(--text-soft);
+  max-width: 540px;
+  margin-bottom: 26px;
+  line-height: 1.6;
+}
+.home-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 26px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 99px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-bottom: none;
+  box-shadow: var(--sh-md);
+  transition: all var(--t-fast);
+}
+.home-cta:hover { background: var(--coral-deep); color: var(--paper); transform: translateY(-2px); box-shadow: var(--sh-lg); }
+.home-cta svg { width: 18px; height: 18px; }
+
+.home-steps {
+  display: grid; gap: 14px;
+}
+.step-card {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  padding: 18px 22px;
+  background: var(--paper-soft);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--r-md);
+  align-items: start;
+  transition: all var(--t-fast);
+}
+.step-card:hover { border-color: var(--coral-soft); transform: translateX(4px); }
+.step-num {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 36px;
+  line-height: 1;
+  color: var(--coral);
+}
+.step-card h3 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.step-card p {
+  font-size: 14px;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+/* =========================================================
+   CATALOGO
+   ========================================================= */
+.cat-header {
+  display: flex; align-items: end; justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap; gap: 16px;
+}
+.cat-header h1 {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: 44px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.cat-header .lead {
+  color: var(--text-soft);
+  margin-top: 6px;
+  font-size: 15px;
+  max-width: 580px;
+}
+
+.cat-filters {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 28px;
+  padding: 12px;
+  background: var(--paper-soft);
+  border-radius: var(--r-md);
+  border: 1px solid var(--paper-line);
+}
+.filter-group { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.filter-label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+  padding: 0 8px;
+}
+.chip {
+  padding: 7px 14px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--paper);
+  color: var(--text-soft);
+  border: 1px solid var(--paper-line);
+  transition: all var(--t-fast);
+}
+.chip:hover { border-color: var(--ink); color: var(--ink); }
+.chip.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+}
+.song-card {
+  background: var(--paper-soft);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  transition: all var(--t-med);
+  cursor: pointer;
+  display: flex; flex-direction: column;
+  text-align: left;
+  position: relative;
+}
+.song-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--ink);
+  box-shadow: var(--sh-md);
+}
+.song-card.placeholder { opacity: 0.7; }
+.song-card.placeholder:hover { transform: none; opacity: 0.85; }
+
+.song-cover {
+  aspect-ratio: 16/10;
+  background: var(--ink);
+  display: grid; place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.song-cover-art { position: absolute; inset: 0; }
+.song-card .meta-tag {
+  position: absolute; top: 12px; right: 12px;
+  z-index: 5;
+  padding: 4px 10px;
+  background: rgba(26,36,56,0.85);
+  color: var(--paper);
+  border-radius: 99px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.song-card .meta-tag.featured {
+  background: var(--coral);
+  color: var(--paper);
+}
+.song-card .meta-tag.coming {
+  background: var(--paper-soft);
+  color: var(--text-soft);
+  border: 1px solid var(--hairline);
+}
+
+.song-info { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+.song-info .artist {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--coral-deep);
+  margin-bottom: 6px;
+}
+.song-info h3 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.song-info .summary {
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.5;
+  margin-bottom: 14px;
+  flex: 1;
+}
+.song-stats {
+  display: flex; gap: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--hairline);
+  font-size: 12px;
+  color: var(--text-faint);
+}
+.song-stats span { display: inline-flex; align-items: center; gap: 5px; }
+.song-stats svg { width: 14px; height: 14px; }
+.song-stats strong { color: var(--ink); font-weight: 700; }
+
+/* =========================================================
+   SCHEDA CANZONE
+   ========================================================= */
+.scheda-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  background: var(--paper-soft);
+  border: 1px solid var(--paper-line);
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-soft);
+  margin-bottom: 22px;
+  transition: all var(--t-fast);
+}
+.scheda-back:hover { color: var(--ink); border-color: var(--ink); transform: translateX(-3px); }
+.scheda-back svg { width: 14px; height: 14px; }
+
+.scheda-hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+  align-items: center;
+}
+.scheda-hero-text .artist {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--coral-deep);
+  margin-bottom: 14px;
+}
+.scheda-hero-text h1 {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: clamp(42px, 5vw, 68px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.scheda-meta {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  margin-bottom: 20px;
+}
+.scheda-meta span {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+.scheda-meta strong { color: var(--ink); font-weight: 700; }
+.scheda-meta .pill {
+  padding: 4px 12px;
+  background: var(--gold-soft);
+  border-radius: 99px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+}
+.scheda-summary {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--text);
+  border-left: 3px solid var(--coral);
+  padding-left: 18px;
+  margin-bottom: 22px;
+}
+.scheda-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 20px;
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all var(--t-fast);
+  border-bottom: none;
+}
+.btn svg { width: 15px; height: 15px; }
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover { background: var(--coral-deep); color: var(--paper); transform: translateY(-1px); }
+.btn-ghost { background: var(--paper-soft); color: var(--ink); border: 1px solid var(--paper-line); }
+.btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+
+.scheda-yt {
+  position: relative;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--ink);
+  box-shadow: var(--sh-lg);
+  aspect-ratio: 16 / 9;
+}
+.scheda-yt iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* Section divider */
+.section-head {
+  display: flex; align-items: center; gap: 16px;
+  margin: 50px 0 24px;
+}
+.section-head h2 {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.section-head .rule {
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+.section-head .count {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+}
+
+/* IDIOM CARDS */
+.idiom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 22px;
+}
+
+.idiom-card {
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  position: relative;
+  transition: all var(--t-fast);
+}
+.idiom-card:hover { border-color: var(--ink); }
+.idiom-card.collected { border-color: var(--green); background: var(--green-soft); }
+
+.idiom-head {
+  padding: 22px 24px 18px;
+  border-bottom: 1px dashed var(--hairline);
+  background: var(--paper-soft);
+  position: relative;
+}
+.idiom-card.collected .idiom-head { background: var(--green-soft); }
+
+.idiom-position {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 12px;
+}
+.idiom-position-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 99px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.idiom-position-tag svg { width: 11px; height: 11px; }
+.idiom-family {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid;
+}
+.fam-cuore { color: var(--coral-deep); border-color: var(--coral-soft); background: var(--coral-soft); }
+.fam-percezione { color: #4F6B85; border-color: #DCE5EE; background: #EAF1F8; }
+.fam-relazioni { color: #8A5A3A; border-color: #EAD9C7; background: #F5E9DA; }
+.fam-rivelazione { color: #6B5078; border-color: #E2D4EA; background: #EFE5F5; }
+.fam-tempo { color: #8A6E2E; border-color: var(--gold-soft); background: var(--gold-soft); }
+.fam-emozioni { color: #A04A60; border-color: #EFD1DA; background: #F8E2EA; }
+.fam-vita { color: #4F7556; border-color: var(--green-soft); background: var(--green-soft); }
+
+.idiom-expression {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 30px;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  display: inline-flex; align-items: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.tts-btn {
+  display: inline-grid; place-items: center;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  transition: all var(--t-fast);
+  flex-shrink: 0;
+}
+.tts-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tts-btn.playing { background: var(--coral); color: var(--paper); border-color: var(--coral); animation: pulse 1.2s ease-in-out infinite; }
+.tts-btn svg { width: 14px; height: 14px; }
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.idiom-context {
+  margin-top: 12px;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+.idiom-context::before {
+  content: "↳ ";
+  color: var(--coral);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* IDIOM BODY: literal vs real */
+.idiom-body { padding: 22px 24px; }
+
+.idiom-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: var(--paper-soft);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--r-sm);
+  padding: 4px;
+  margin-bottom: 16px;
+}
+.idiom-toggle button {
+  padding: 10px 12px;
+  border-radius: var(--r-xs);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+  transition: all var(--t-fast);
+  font-family: var(--f-mono);
+}
+.idiom-toggle button.active {
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--sh-sm);
+}
+.idiom-toggle button.literal.active { color: var(--coral-deep); }
+.idiom-toggle button.real.active { color: var(--green); }
+
+.idiom-translation {
+  min-height: 90px;
+  padding: 16px 18px;
+  border-radius: var(--r-sm);
+  position: relative;
+  display: none;
+}
+.idiom-translation.active { display: block; animation: fadeIn 240ms ease; }
+.idiom-translation.literal {
+  background: var(--coral-soft);
+  border: 1px solid #E5B9B1;
+}
+.idiom-translation.real {
+  background: var(--green-soft);
+  border: 1px solid #B8D2C2;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.translation-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.translation-label svg { width: 12px; height: 12px; }
+.idiom-translation.literal .translation-label { color: var(--coral-deep); }
+.idiom-translation.real .translation-label { color: var(--green); }
+
+.translation-text {
+  font-family: var(--f-display);
+  font-size: 19px;
+  line-height: 1.4;
+  font-style: italic;
+}
+.idiom-translation.literal .translation-text {
+  color: var(--coral-deep);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(176,70,58,0.4);
+}
+.idiom-translation.real .translation-text { color: var(--ink); }
+
+.idiom-explanation {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: var(--paper-soft);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+.idiom-explanation strong { color: var(--ink); }
+
+.idiom-now {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: var(--ink);
+  color: var(--paper-soft);
+  border-radius: var(--r-sm);
+  font-family: var(--f-mono);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.idiom-now-label {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--coral);
+  font-weight: 500;
+}
+.idiom-now em { color: var(--gold); font-style: italic; font-weight: 500; }
+
+.idiom-foot {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 24px;
+  border-top: 1px dashed var(--hairline);
+  background: var(--paper-soft);
+}
+.idiom-card.collected .idiom-foot { background: var(--green-soft); }
+.idiom-register {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+}
+.collect-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--paper);
+  color: var(--text-soft);
+  border: 1px solid var(--hairline);
+  transition: all var(--t-fast);
+}
+.collect-btn svg { width: 13px; height: 13px; }
+.collect-btn:hover { color: var(--ink); border-color: var(--ink); }
+.collect-btn.collected { background: var(--green); color: var(--paper); border-color: var(--green); }
+
+/* =========================================================
+   QUIZ "Letterale o reale?"
+   ========================================================= */
+.quiz-wrap { max-width: 760px; margin: 0 auto; }
+.quiz-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.quiz-header h1 {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 56px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.quiz-header h1 em { color: var(--coral); font-style: italic; }
+.quiz-header p { color: var(--text-soft); font-size: 15px; max-width: 520px; margin: 0 auto; }
+
+.quiz-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  margin-bottom: 28px;
+}
+.stat-box {
+  padding: 16px;
+  background: var(--paper-soft);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--r-md);
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-num.streak { color: var(--coral); }
+.stat-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.quiz-card {
+  background: var(--paper-soft);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--r-lg);
+  padding: 40px 36px;
+  position: relative;
+  text-align: center;
+  box-shadow: var(--sh-md);
+}
+.quiz-source {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 18px;
+}
+.quiz-source strong { color: var(--coral-deep); }
+.quiz-expression {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.quiz-question {
+  font-size: 15px;
+  color: var(--text-soft);
+  margin-bottom: 30px;
+  font-style: italic;
+}
+.quiz-options { display: grid; gap: 12px; margin-bottom: 24px; }
+.quiz-option {
+  padding: 18px 22px;
+  background: var(--paper);
+  border: 2px solid var(--paper-line);
+  border-radius: var(--r-md);
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.4;
+  transition: all var(--t-fast);
+  font-family: var(--f-display);
+  font-style: italic;
+  color: var(--text);
+  position: relative;
+}
+.quiz-option:hover:not(:disabled) {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+.quiz-option .marker {
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-right: 10px;
+  font-weight: 500;
+}
+.quiz-option.correct {
+  background: var(--green-soft);
+  border-color: var(--green);
+  color: var(--ink);
+}
+.quiz-option.wrong {
+  background: var(--coral-soft);
+  border-color: var(--coral);
+  color: var(--coral-deep);
+}
+.quiz-option:disabled { cursor: default; }
+
+.quiz-feedback {
+  display: none;
+  padding: 16px 20px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--r-md);
+  margin-top: 4px;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.quiz-feedback.show { display: block; animation: fadeIn 280ms ease; }
+.quiz-feedback strong { color: var(--gold); }
+
+.quiz-actions { margin-top: 22px; display: flex; gap: 10px; justify-content: center; }
+
+.quiz-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-soft);
+}
+
+/* =========================================================
+   COLLEZIONE
+   ========================================================= */
+.coll-header {
+  display: flex; align-items: end; justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap; gap: 20px;
+}
+.coll-header h1 {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: 44px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.coll-header p { color: var(--text-soft); font-size: 14px; margin-top: 6px; }
+.coll-actions { display: flex; gap: 10px; }
+
+.coll-empty {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--paper-soft);
+  border: 1px dashed var(--hairline);
+  border-radius: var(--r-lg);
+}
+.coll-empty h2 {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.coll-empty p { color: var(--text-soft); margin-bottom: 20px; }
+
+.coll-section { margin-bottom: 36px; }
+.coll-section-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 16px;
+}
+.coll-section-head h3 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--ink);
+}
+.coll-section-head .meta {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.coll-list {
+  display: grid; gap: 10px;
+}
+.coll-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 24px;
+  padding: 16px 18px;
+  background: var(--paper-soft);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--r-md);
+  align-items: center;
+}
+.coll-item-en {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--ink);
+}
+.coll-item-it {
+  font-size: 14px;
+  color: var(--text);
+}
+.coll-item-remove {
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  color: var(--text-faint);
+  transition: all var(--t-fast);
+}
+.coll-item-remove:hover { background: var(--coral-soft); color: var(--coral-deep); }
+.coll-item-remove svg { width: 14px; height: 14px; }
+
+/* =========================================================
+   INFO
+   ========================================================= */
+.info-wrap { max-width: 780px; margin: 0 auto; }
+.info-wrap h1 {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: 44px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.info-wrap .subtitle {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-soft);
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 24px;
+}
+.info-wrap h2 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--ink);
+  margin: 32px 0 12px;
+}
+.info-wrap p { color: var(--text); margin-bottom: 14px; line-height: 1.65; font-size: 15px; }
+.info-wrap ul { margin: 0 0 14px 22px; }
+.info-wrap li { margin-bottom: 8px; line-height: 1.55; font-size: 15px; }
+.info-credits {
+  margin-top: 40px;
+  padding: 22px 26px;
+  background: var(--paper-soft);
+  border: 1px solid var(--paper-line);
+  border-radius: var(--r-md);
+  font-size: 13px;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+.info-credits strong { color: var(--ink); }
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+@media print {
+  body { background: white; }
+  .topbar, .coll-actions, .scheda-back { display: none !important; }
+  .view { display: block !important; }
+  .view:not(.active) { display: none !important; }
+  .coll-item { break-inside: avoid; border: 1px solid #ccc; background: white; }
+  .coll-section { break-inside: avoid; }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 980px) {
+  .home-content { grid-template-columns: 1fr; gap: 28px; padding: 28px; }
+  .scheda-hero { grid-template-columns: 1fr; gap: 24px; }
+  .idiom-grid { grid-template-columns: 1fr; }
+  .home-noscroll { height: auto; grid-template-rows: auto auto; }
+  .home-banner { height: 220px; }
+  .topnav button span:not(.count-badge) { display: none; }
+  .container { padding: 24px 20px; }
+}
+@media (max-width: 640px) {
+  .topbar { padding: 12px 16px; gap: 8px; }
+  .brand-text small { display: none; }
+  .quiz-card { padding: 28px 22px; }
+  .coll-item { grid-template-columns: 1fr; gap: 6px; }
+}
+
+/* =========================================================
+   UTILITY
+   ========================================================= */
+.hidden { display: none !important; }
+.fade-in { animation: fadeIn 320ms ease both; }
+
+</style>
+</head>
+<body class="is-home">
+
+<!-- ============== SVG ICON SPRITE ============== -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 12l9-9 9 9M5 10v10h14V10"/>
+  </symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+  </symbol>
+  <symbol id="i-quiz" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><path d="M9.5 9c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5c0 1-.5 1.5-1.5 2-1 .5-1.5 1-1.5 2"/><circle cx="12" cy="17" r="0.6" fill="currentColor"/>
+  </symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 3h12v18l-6-4-6 4z"/>
+  </symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>
+  </symbol>
+  <symbol id="i-headphones" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 13a9 9 0 0 1 18 0v6a2 2 0 0 1-2 2h-2v-7h4M3 13v6a2 2 0 0 0 2 2h2v-7H3"/>
+  </symbol>
+  <symbol id="i-speak" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M16 9c1 1 1 5 0 6M19 7c2 2 2 8 0 10"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 12l5 5L20 7"/>
+  </symbol>
+  <symbol id="i-arrow-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 12H5M11 18l-6-6 6-6"/>
+  </symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 12h14M13 6l6 6-6 6"/>
+  </symbol>
+  <symbol id="i-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 4h6v6M20 4l-9 9M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/>
+  </symbol>
+  <symbol id="i-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8" rx="1"/>
+  </symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 6l12 12M18 6L6 18"/>
+  </symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/>
+  </symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2v6M9 8h6l-1 4-2 1v9l-2-1v-8L8 12z"/>
+  </symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M5 6l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14"/>
+  </symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+  </symbol>
+  <symbol id="i-shuffle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 4h4v4M20 4l-7 7M16 20h4v-4M20 20l-5-5M4 8l4-4M4 16l5 5"/>
+  </symbol>
+</svg>
+
+<!-- ============== TOPBAR (hidden on home) ============== -->
+<header class="topbar">
+  <button class="brand" data-go="home">
+    <span class="brand-mark">L<small>iT</small></span>
+    <span class="brand-text">
+      <strong>Lost in Translation</strong>
+      <small>English idioms · in cuffia</small>
+    </span>
+  </button>
+  <nav class="topnav">
+    <button data-go="home"><svg><use href="#i-home"/></svg><span>Home</span></button>
+    <button data-go="catalogo"><svg><use href="#i-grid"/></svg><span>Catalogo</span></button>
+    <button data-go="quiz"><svg><use href="#i-quiz"/></svg><span>Letterale o reale?</span></button>
+    <button data-go="collezione"><svg><use href="#i-bookmark"/></svg><span>Collezione</span> <span class="count-badge" id="collectionCountTop">0</span></button>
+    <button data-go="info"><svg><use href="#i-info"/></svg><span>Info</span></button>
+  </nav>
+</header>
+
+<!-- ============== HOME ============== -->
+<main class="view active" data-view="home">
+  <div class="home-noscroll">
+
+    <!-- BANNER: SVG illustrazione + brand+nav overlay -->
+    <div class="home-banner">
+      <svg class="home-banner-art" viewBox="0 0 1400 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="bgGlow" cx="50%" cy="60%" r="80%">
+            <stop offset="0%" stop-color="#2C3854"/>
+            <stop offset="100%" stop-color="#1A2438"/>
+          </radialGradient>
+          <linearGradient id="coralG" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E87766"/>
+            <stop offset="100%" stop-color="#B0463A"/>
+          </linearGradient>
+          <pattern id="dotgrid" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="1" fill="#FAF6EE" opacity="0.06"/>
+          </pattern>
+        </defs>
+        <rect width="1400" height="420" fill="url(#bgGlow)"/>
+        <rect width="1400" height="420" fill="url(#dotgrid)"/>
+
+        <!-- Soundwaves background -->
+        <g opacity="0.10" stroke="#FAF6EE" fill="none" stroke-width="1.5" stroke-linecap="round">
+          <path d="M0 210 Q 100 180 200 210 T 400 210 T 600 210 T 800 210 T 1000 210 T 1200 210 T 1400 210"/>
+          <path d="M0 240 Q 100 220 200 240 T 400 240 T 600 240 T 800 240 T 1000 240 T 1200 240 T 1400 240"/>
+          <path d="M0 180 Q 100 150 200 180 T 400 180 T 600 180 T 800 180 T 1000 180 T 1200 180 T 1400 180"/>
+        </g>
+
+        <!-- HEADPHONES (centro) -->
+        <g transform="translate(700,210)">
+          <path d="M-130 0 a 130 130 0 0 1 260 0" fill="none" stroke="#FAF6EE" stroke-width="6" stroke-linecap="round"/>
+          <rect x="-150" y="-10" width="40" height="80" rx="10" fill="#FAF6EE"/>
+          <rect x="110" y="-10" width="40" height="80" rx="10" fill="#FAF6EE"/>
+          <circle cx="-130" cy="30" r="8" fill="url(#coralG)"/>
+          <circle cx="130" cy="30" r="8" fill="url(#coralG)"/>
+        </g>
+
+        <!-- BUBBLE LITERAL (sinistra) -->
+        <g transform="translate(280,150)">
+          <rect x="-130" y="-50" width="260" height="100" rx="16" fill="#D85D4F" opacity="0.92"/>
+          <path d="M120 30 L 150 50 L 130 20 Z" fill="#D85D4F" opacity="0.92"/>
+          <text x="0" y="-20" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#FAF6EE" letter-spacing="2.4" opacity="0.85">LETTERALE</text>
+          <text x="0" y="14" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#FAF6EE" font-weight="700">rotolando nel</text>
+          <text x="0" y="40" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#FAF6EE" font-weight="700">profondo</text>
+          <line x1="-90" y1="32" x2="90" y2="32" stroke="#FAF6EE" stroke-width="1.5" opacity="0.7"/>
+        </g>
+
+        <!-- BUBBLE REAL (destra) -->
+        <g transform="translate(1120,260)">
+          <rect x="-145" y="-50" width="290" height="100" rx="16" fill="#FAF6EE"/>
+          <path d="M-130 30 L -160 50 L -135 20 Z" fill="#FAF6EE"/>
+          <text x="0" y="-20" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#5C8A6E" letter-spacing="2.4">SIGNIFICATO REALE</text>
+          <text x="0" y="14" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#1A2438" font-weight="700">darsi anima</text>
+          <text x="0" y="40" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#1A2438" font-weight="700">e corpo</text>
+        </g>
+
+        <!-- Titolo idiom centrale piccolo -->
+        <text x="700" y="350" text-anchor="middle" font-family="DM Mono, monospace" font-size="13" fill="#FAF6EE" opacity="0.7" letter-spacing="3">"rolling in the deep" — Adele, 2010</text>
+      </svg>
+
+      <div class="banner-overlay">
+        <button class="brand" data-go="home" style="padding:0">
+          <span class="brand-mark">L<small>iT</small></span>
+          <span class="brand-text">
+            <strong>Lost in Translation</strong>
+            <small>English idioms · in cuffia</small>
+          </span>
+        </button>
+        <nav class="banner-nav">
+          <button class="banner-nav-btn active" data-go="home"><svg><use href="#i-home"/></svg>Home</button>
+          <button class="banner-nav-btn" data-go="catalogo"><svg><use href="#i-grid"/></svg>Catalogo</button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- CONTENUTO -->
+    <div class="home-content">
+
+      <div class="home-text">
+        <h1>Le canzoni che non si<br><span class="strike">traducono</span> <em>traducono.</em></h1>
+        <p class="lead">Le canzoni inglesi che ascolti sono piene di espressioni che non significano quello che sembrano. <em>Rolling in the deep</em> non vuol dire <em>rotolando nel profondo</em>. <em>Crystal clear</em> non è solo &laquo;cristallino&raquo;. Ascoltali, scoprili, raccoglili.</p>
+        <button class="home-cta" data-go="catalogo">
+          Esplora il catalogo
+          <svg><use href="#i-arrow-right"/></svg>
+        </button>
+      </div>
+
+      <div class="home-steps">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div>
+            <h3>Scegli una canzone</h3>
+            <p>Dieci brani tra contemporanei ed evergreen. Ogni canzone nasconde da 4 a 10 idioms.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div>
+            <h3>Letterale o reale?</h3>
+            <p>Per ogni espressione vedi prima la traduzione letterale (spesso ridicola), poi il significato vero. La sorpresa è il motore della memoria.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div>
+            <h3>Costruisci la tua collezione</h3>
+            <p>Salva gli idioms che ti colpiscono, esercitati col quiz, esporta in PDF e portali in classe.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<!-- ============== CATALOGO ============== -->
+<main class="view" data-view="catalogo">
+  <div class="container">
+    <div class="cat-header">
+      <div>
+        <h1>Catalogo</h1>
+        <p class="lead">Dieci canzoni — un mix bilanciato di contemporanee ed evergreen — per scoprire l'inglese che la grammatica scolastica non racconta.</p>
+      </div>
+    </div>
+
+    <div class="cat-filters">
+      <div class="filter-group">
+        <span class="filter-label">Periodo</span>
+        <button class="chip active" data-filter="all">Tutte</button>
+        <button class="chip" data-filter="contemporary">Contemporanee</button>
+        <button class="chip" data-filter="evergreen">Evergreen</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Stato</span>
+        <button class="chip" data-status="ready">Pronte</button>
+        <button class="chip" data-status="coming">In arrivo</button>
+      </div>
+    </div>
+
+    <div class="cat-grid" id="catGrid"></div>
+  </div>
+</main>
+
+<!-- ============== SCHEDA CANZONE ============== -->
+<main class="view" data-view="scheda">
+  <div class="container">
+    <button class="scheda-back" data-go="catalogo">
+      <svg><use href="#i-arrow-back"/></svg>
+      Torna al catalogo
+    </button>
+    <div id="schedaContent"></div>
+  </div>
+</main>
+
+<!-- ============== QUIZ ============== -->
+<main class="view" data-view="quiz">
+  <div class="container">
+    <div class="quiz-wrap">
+      <div class="quiz-header">
+        <h1>Letterale o <em>reale?</em></h1>
+        <p>Ti mostro un'espressione presa da una canzone. Tu scegli quale delle due traduzioni è quella vera. Se sbagli niente paura: imparare partendo da un errore funziona meglio che leggere una regola.</p>
+      </div>
+
+      <div class="quiz-stats">
+        <div class="stat-box">
+          <div class="stat-num" id="quizScore">0</div>
+          <div class="stat-label">Risposte corrette</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num streak" id="quizStreak">0</div>
+          <div class="stat-label">Serie attuale</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" id="quizTotal">0</div>
+          <div class="stat-label">Domande totali</div>
+        </div>
+      </div>
+
+      <div id="quizArea"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ============== COLLEZIONE ============== -->
+<main class="view" data-view="collezione">
+  <div class="container">
+    <div class="coll-header">
+      <div>
+        <h1>La mia collezione</h1>
+        <p>Gli idioms che hai salvato, raggruppati per canzone. Esporta in PDF e portali in classe.</p>
+      </div>
+      <div class="coll-actions">
+        <button class="btn btn-ghost" id="printBtn"><svg><use href="#i-print"/></svg>Stampa / PDF</button>
+        <button class="btn btn-ghost" id="clearBtn"><svg><use href="#i-trash"/></svg>Svuota</button>
+      </div>
+    </div>
+    <div id="collContent"></div>
+  </div>
+</main>
+
+<!-- ============== INFO ============== -->
+<main class="view" data-view="info">
+  <div class="container">
+    <div class="info-wrap">
+      <h1>Info & rationale</h1>
+      <p class="subtitle">Una web app pensata per scoprire l'inglese che la grammatica scolastica non racconta.</p>
+
+      <h2>L'idea</h2>
+      <p>I libri di scuola insegnano un inglese pulito, regolare, prevedibile. Le canzoni che gli studenti ascoltano davvero — Adele, Taylor Swift, i Beatles — sono piene di espressioni che non si traducono letteralmente: idioms, phrasal verbs, immagini figurate. È lì che vive l'inglese reale, ed è lì che la maggioranza degli studenti si perde.</p>
+      <p><strong>Lost in Translation</strong> sfrutta il meccanismo della sorpresa cognitiva: vedi prima la traduzione letterale (spesso ridicola), poi quella vera. Lo iato tra le due fissa il ricordo molto più di una definizione asettica.</p>
+
+      <h2>Pedagogia</h2>
+      <ul>
+        <li><strong>Active listening</strong>: l'app non riproduce i testi delle canzoni (sono protetti da copyright). Indica dove cercare l'idiom — ritornello, verso 1, bridge — così lo studente ascolta davvero.</li>
+        <li><strong>Show, don't tell</strong>: ogni idiom ha un esempio d'uso fuori dalla canzone (<em>Now use it</em>) per consolidare il transfer.</li>
+        <li><strong>Sorpresa cognitiva</strong>: la modalità <em>Letterale o reale?</em> trasforma l'apprendimento in scommessa. Sbagliare crea attenzione, non frustrazione.</li>
+        <li><strong>Costruzione personale</strong>: ogni studente sceglie quali idioms collezionare. La selezione è già metacognizione.</li>
+        <li><strong>Esportabilità</strong>: la collezione si stampa o si converte in PDF per portarla in classe e usarla nei compiti.</li>
+      </ul>
+
+      <h2>Target</h2>
+      <p>Scuola Secondaria di I grado, classi 2ª e 3ª. Livello linguistico A2-B1. Funziona anche in autonomia (BYOD a casa) o in laboratorio (LIM + cuffie individuali).</p>
+
+      <h2>Valutazione</h2>
+      <p>L'app non valuta direttamente, ma offre due tracce di osservazione per il docente:</p>
+      <ul>
+        <li><strong>Quiz</strong>: punteggio + serie consecutive (streak) come indicatore di consolidamento.</li>
+        <li><strong>Collezione personale</strong>: la <em>quantità</em> e <em>varietà tematica</em> (famiglie idiomatiche) degli idioms salvati racconta l'engagement e la traiettoria di interesse dello studente.</li>
+      </ul>
+
+      <h2>Copyright sui testi</h2>
+      <p>L'app non riproduce versi originali delle canzoni: indica solo posizione (es. "ritornello") e contesto narrativo. Per leggere il testo completo, ogni scheda canzone offre un link diretto a Musixmatch (servizio licenziato).</p>
+
+      <div class="info-credits">
+        <p><strong>Lost in Translation</strong> — © 2026 Andrea Cerioli, Animatore Digitale</p>
+        <p>Scuola Sacra Famiglia — Orzinuovi (BS) — Dirigente Prof.ssa L. Ferraboschi</p>
+        <p>Costruita con HTML/CSS/JS vanilla, single-file, zero dipendenze esterne. Tipografia: Playfair Display + Atkinson Hyperlegible + DM Mono. Tutti i diritti riservati. È vietata la riproduzione, anche parziale, senza autorizzazione scritta dell'autore.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+'use strict';
+
+/* =========================================================
+   DATA — songs & idioms
+   ========================================================= */
+
+const FAMILIES = {
+  cuore:        { label: 'Cuore & relazioni', cls: 'fam-cuore' },
+  percezione:   { label: 'Percezione',         cls: 'fam-percezione' },
+  relazioni:    { label: 'Relazioni',          cls: 'fam-relazioni' },
+  rivelazione:  { label: 'Rivelazione',        cls: 'fam-rivelazione' },
+  tempo:        { label: 'Tempo & intensità',  cls: 'fam-tempo' },
+  emozioni:     { label: 'Emozioni',           cls: 'fam-emozioni' },
+  vita:         { label: 'Vita & realizzazione', cls: 'fam-vita' }
+};
+
+const SONGS = [
+  {
+    id: 'adele-rolling-in-the-deep',
+    artist: 'Adele',
+    title: 'Rolling in the Deep',
+    year: 2010,
+    era: 'contemporary',
+    level: 'B1',
+    youtubeId: 'rYEDA3JcQqw',
+    musixmatch: 'https://www.musixmatch.com/it/testo/Adele-3/Rolling-in-the-Deep/traduzione/italiano',
+    summary: 'Una rottura raccontata come una marea che monta. Il titolo stesso è un idiom: nessuno lo traduce correttamente la prima volta.',
+    coverColors: ['#1A2438', '#D85D4F'],
+    ready: true,
+    idioms: [
+      {
+        id: 'rolling-deep',
+        expression: 'rolling in the deep',
+        position: 'Titolo + ritornello',
+        context: "Adele rimprovera l'ex amante: avrebbero potuto vivere una storia totalizzante, immersi anima e corpo l'uno nell'altra.",
+        literal: 'rotolando nel profondo',
+        real: 'darsi anima e corpo, investirsi totalmente in una relazione',
+        explanation: "Adele riprende l'espressione dallo slang Cockney <strong>roll deep</strong> (avere alle spalle una crew solidale, sempre presente) e la trasforma in immersione emotiva totale. Prima del 2010 non esiste in nessun dizionario standard: l'ha resa popolare lei.",
+        nowUseIt: 'When Marco joined the band, he was <em>rolling in the deep</em> — he gave them everything he had.',
+        family: 'cuore',
+        register: 'figurato / colloquiale'
+      },
+      {
+        id: 'crystal-clear',
+        expression: 'crystal clear',
+        position: 'Verso 2',
+        context: "Adele dice di vedere finalmente l'altra persona per quello che è realmente, senza più illusioni.",
+        literal: 'chiaro come cristallo',
+        real: 'limpidissimo, evidente al di là di ogni dubbio',
+        explanation: "Funziona sia come aggettivo (<em>a crystal clear sky</em>) sia come avverbio enfatico in conclusioni e ordini (<em>Am I crystal clear?</em>). In italiano <strong>cristallino</strong> esiste, ma l'uso enfatico inglese è molto più frequente, soprattutto nel parlato moderno e giornalistico.",
+        nowUseIt: 'Her instructions were <em>crystal clear</em>: be there at 9, no excuses.',
+        family: 'percezione',
+        register: 'standard / enfatico'
+      },
+      {
+        id: 'sell-out',
+        expression: 'sell (someone) out',
+        position: 'Post-ritornello',
+        context: "Lei sfida l'ex: vai pure a tradirmi, ne pagherai il prezzo.",
+        literal: 'vendermi fuori',
+        real: 'tradire qualcuno per interesse, denunciare alle spalle',
+        explanation: "Phrasal verb costantissimo nel rock, nel rap e nei film. Come sostantivo, <strong>sell-out</strong> indica una persona senza integrità che si è venduta a qualcuno (<em>he's a total sell-out</em>).",
+        nowUseIt: 'I trusted him with the secret, but he <em>sold me out</em> the next day.',
+        family: 'relazioni',
+        register: 'colloquiale / forte'
+      },
+      {
+        id: 'lay-bare',
+        expression: 'lay (something) bare',
+        position: 'Post-ritornello',
+        context: 'Lei minaccia: se mi tradisci, esporrò tutta la verità su di te.',
+        literal: 'stendere nudo qualcosa',
+        real: 'smascherare, mettere a nudo, esporre senza filtri',
+        explanation: "Registro letterario e giornalistico. Espressioni tipiche: <em>lay bare the truth</em>, <em>lay bare the corruption</em>. Affine all'italiano <strong>mettere a nudo</strong>, ma molto più frequente nell'inglese editoriale di alto registro.",
+        nowUseIt: "The investigation <em>laid bare</em> the company's hidden practices.",
+        family: 'rivelazione',
+        register: 'letterario / giornalistico'
+      },
+      {
+        id: 'fever-pitch',
+        expression: 'fever pitch',
+        position: 'Verso 1',
+        context: 'Adele descrive il fuoco che le brucia dentro raggiungere il punto più alto, il momento di non ritorno.',
+        literal: 'tono di febbre',
+        real: "apice della tensione, momento culminante (anche di entusiasmo)",
+        explanation: "Qui <strong>pitch</strong> significa &laquo;tono, intensità&raquo;. L'espressione è anche titolo di un romanzo di Nick Hornby (1992) sul tifo calcistico. Si usa per fan in delirio (<em>the crowd reached fever pitch</em>), per dispute politiche, per crisi emotive.",
+        nowUseIt: "By the final episode, fans' excitement had reached <em>fever pitch</em>.",
+        family: 'tempo',
+        register: 'figurato / giornalistico'
+      },
+      {
+        id: 'bring-out',
+        expression: 'bring (someone) out of the dark',
+        position: 'Verso 1',
+        context: 'Il fuoco che brucia dentro la sta tirando fuori dal buio in cui era caduta.',
+        literal: 'portarmi fuori dallo scuro',
+        real: 'tirare fuori qualcuno da uno stato negativo, far emergere',
+        explanation: "Il phrasal verb <strong>bring out</strong> ha doppia valenza: \"tirar fuori\" qualcuno da una situazione (come qui), oppure \"far emergere una qualità\" nascosta (<em>this dress brings out your eyes</em>). Versatile e frequentissimo.",
+        nowUseIt: 'Her best friend <em>brought her out of</em> a really dark period.',
+        family: 'emozioni',
+        register: 'standard'
+      },
+      {
+        id: 'have-it-all',
+        expression: 'have it all',
+        position: 'Ritornello',
+        context: "Il rimpianto centrale del brano: avrebbero potuto possedere tutto — vita, amore, futuro.",
+        literal: 'avere tutto',
+        real: 'avere la vita perfetta — successo, amore e felicità contemporaneamente',
+        explanation: "Espressione molto americana, legata al sogno della realizzazione totale. <em>Can women have it all?</em> è un titolo ricorrente nel giornalismo. Più di un semplice &laquo;avere tutto&raquo;: implica l'equilibrio (spesso impossibile) tra carriera, relazioni e felicità personale.",
+        nowUseIt: 'She thought she <em>had it all</em> — until the company closed.',
+        family: 'vita',
+        register: 'standard / idiomatico'
+      }
+    ]
+  },
+  // PLACEHOLDERS — schede in arrivo
+  { id:'queen-bohemian', artist:'Queen', title:'Bohemian Rhapsody', year:1975, era:'evergreen', level:'B1+', summary:'Un mosaico di registri linguistici. La sezione operistica è piena di immagini idiomatiche.', coverColors:['#3D2645','#C8A36A'], ready:false, idioms:[] },
+  { id:'beatles-letitbe', artist:'The Beatles', title:'Let It Be', year:1970, era:'evergreen', level:'A2', summary:"Il titolo stesso è un idiom: \"lascia perdere\", \"così sia\". Un classico dei classici.", coverColors:['#2C4A52','#E8C547'], ready:false, idioms:[] },
+  { id:'taylor-shake', artist:'Taylor Swift', title:'Shake It Off', year:2014, era:'contemporary', level:'A2-B1', summary:'Un manuale di phrasal verbs travestito da pop hit. Shake off, brush off, fake it.', coverColors:['#D4A5A5','#5C3A3A'], ready:false, idioms:[] },
+  { id:'olivia-drivers', artist:'Olivia Rodrigo', title:"drivers license", year:2021, era:'contemporary', level:'B1', summary:'Slang adolescenziale + immagini emotive forti. Imperfetto inglese da camera da letto.', coverColors:['#5A6E8C','#F2D5CE'], ready:false, idioms:[] },
+  { id:'sheeran-shape', artist:'Ed Sheeran', title:'Shape of You', year:2017, era:'contemporary', level:'B1', summary:'Frasi colloquiali, contractions, espressioni del corteggiamento moderno.', coverColors:['#8C5A3A','#F4D8AC'], ready:false, idioms:[] },
+  { id:'coldplay-fixyou', artist:'Coldplay', title:'Fix You', year:2005, era:'evergreen', level:'B1', summary:'"Fix" è un campione di polisemia. Riparare, sistemare, definire — qui significa quasi guarire.', coverColors:['#1F3A5C','#E5DCC9'], ready:false, idioms:[] },
+  { id:'bruno-justthe', artist:'Bruno Mars', title:'Just the Way You Are', year:2010, era:'contemporary', level:'A2', summary:'Inglese piano e pulito ma con espressioni idiomatiche tipiche del compliment.', coverColors:['#2C5C4A','#EDDFC4'], ready:false, idioms:[] },
+  { id:'dua-newrules', artist:'Dua Lipa', title:'New Rules', year:2017, era:'contemporary', level:'B1', summary:'Lessico delle relazioni tossiche. "Pick up the phone", "let him in", "fall apart".', coverColors:['#A04A60','#F8E2EA'], ready:false, idioms:[] },
+  { id:'katrina-walking', artist:'Katrina & The Waves', title:'Walking on Sunshine', year:1985, era:'evergreen', level:'A2', summary:'Il titolo è un\'immagine idiomatica esplosiva. Felicità come elemento atmosferico.', coverColors:['#E8B547','#2C4A52'], ready:false, idioms:[] }
+];
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+const STORAGE_KEY = 'lit_v1';
+let state = {
+  currentView: 'home',
+  currentSongId: null,
+  filter: { era: 'all', status: null },
+  collection: [], // array of { songId, idiomId }
+  quiz: { score: 0, streak: 0, total: 0, currentItem: null, answered: false }
+};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const saved = JSON.parse(raw);
+      state.collection = saved.collection || [];
+      state.quiz.score = saved.quizScore || 0;
+      state.quiz.total = saved.quizTotal || 0;
+    }
+  } catch (e) { console.warn('State load failed:', e); }
+}
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      collection: state.collection,
+      quizScore: state.quiz.score,
+      quizTotal: state.quiz.total
+    }));
+  } catch (e) { console.warn('State save failed:', e); }
+}
+
+/* =========================================================
+   VIEW MANAGEMENT
+   ========================================================= */
+
+function navigate(view, opts = {}) {
+  state.currentView = view;
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const target = document.querySelector(`.view[data-view="${view}"]`);
+  if (target) target.classList.add('active');
+
+  document.body.classList.toggle('is-home', view === 'home');
+
+  // Update topnav active state
+  document.querySelectorAll('.topnav button, .banner-nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.go === view);
+  });
+
+  // Render dynamic views
+  if (view === 'catalogo') renderCatalog();
+  if (view === 'scheda' && opts.songId) renderScheda(opts.songId);
+  if (view === 'quiz') renderQuiz();
+  if (view === 'collezione') renderCollection();
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-go]');
+  if (btn) {
+    e.preventDefault();
+    navigate(btn.dataset.go);
+  }
+});
+
+/* =========================================================
+   CATALOG
+   ========================================================= */
+
+function renderCatalog() {
+  const grid = document.getElementById('catGrid');
+  const songs = SONGS.filter(s => {
+    if (state.filter.era !== 'all' && s.era !== state.filter.era) return false;
+    if (state.filter.status === 'ready' && !s.ready) return false;
+    if (state.filter.status === 'coming' && s.ready) return false;
+    return true;
+  });
+
+  grid.innerHTML = songs.map(s => songCard(s)).join('');
+
+  grid.querySelectorAll('.song-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.id;
+      const song = SONGS.find(x => x.id === id);
+      if (song && song.ready) navigate('scheda', { songId: id });
+    });
+  });
+}
+
+function songCard(s) {
+  const collected = state.collection.filter(c => c.songId === s.id).length;
+  const idiomCount = s.idioms.length;
+  const tag = s.ready
+    ? (s.id === 'adele-rolling-in-the-deep' ? '<span class="meta-tag featured">Show case</span>' : '<span class="meta-tag">Pronta</span>')
+    : '<span class="meta-tag coming">In arrivo</span>';
+
+  return `
+    <button class="song-card ${s.ready ? '' : 'placeholder'}" data-id="${s.id}">
+      ${tag}
+      <div class="song-cover">
+        <svg class="song-cover-art" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g_${s.id}" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="${s.coverColors[0]}"/>
+              <stop offset="100%" stop-color="${s.coverColors[1]}"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="250" fill="url(#g_${s.id})"/>
+          <g opacity="0.18" stroke="#FAF6EE" fill="none" stroke-width="1.2">
+            <path d="M0 130 Q 50 110 100 130 T 200 130 T 300 130 T 400 130"/>
+            <path d="M0 150 Q 50 130 100 150 T 200 150 T 300 150 T 400 150"/>
+            <path d="M0 110 Q 50 90 100 110 T 200 110 T 300 110 T 400 110"/>
+          </g>
+          <text x="30" y="60" font-family="DM Mono, monospace" font-size="12" fill="#FAF6EE" opacity="0.6" letter-spacing="3">${s.year}</text>
+          <text x="30" y="200" font-family="Playfair Display, serif" font-style="italic" font-size="32" fill="#FAF6EE" font-weight="900">"${s.title.split(' ')[0]}"</text>
+        </svg>
+      </div>
+      <div class="song-info">
+        <div class="artist">${s.artist} · ${s.year}</div>
+        <h3>${s.title}</h3>
+        <p class="summary">${s.summary}</p>
+        <div class="song-stats">
+          ${s.ready ? `
+            <span><svg><use href="#i-target"/></svg><strong>${idiomCount}</strong> idioms</span>
+            ${collected ? `<span><svg><use href="#i-check"/></svg><strong>${collected}</strong> raccolti</span>` : ''}
+            <span><svg><use href="#i-bolt"/></svg>${s.level}</span>
+          ` : `<span style="font-style:italic">Scheda in costruzione · ${s.level}</span>`}
+        </div>
+      </div>
+    </button>
+  `;
+}
+
+document.addEventListener('click', (e) => {
+  const chip = e.target.closest('.cat-filters .chip');
+  if (!chip) return;
+
+  if (chip.dataset.filter) {
+    document.querySelectorAll('[data-filter]').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    state.filter.era = chip.dataset.filter;
+    renderCatalog();
+  } else if (chip.dataset.status) {
+    const wasActive = chip.classList.contains('active');
+    document.querySelectorAll('[data-status]').forEach(c => c.classList.remove('active'));
+    if (!wasActive) {
+      chip.classList.add('active');
+      state.filter.status = chip.dataset.status;
+    } else {
+      state.filter.status = null;
+    }
+    renderCatalog();
+  }
+});
+
+/* =========================================================
+   SCHEDA CANZONE
+   ========================================================= */
+
+function renderScheda(songId) {
+  state.currentSongId = songId;
+  const s = SONGS.find(x => x.id === songId);
+  if (!s) return;
+
+  const container = document.getElementById('schedaContent');
+  container.innerHTML = `
+    <div class="scheda-hero">
+      <div class="scheda-hero-text">
+        <div class="artist">${s.artist}</div>
+        <h1>${s.title}</h1>
+        <div class="scheda-meta">
+          <span><strong>${s.year}</strong></span>
+          <span class="pill">${s.era === 'contemporary' ? 'Contemporanea' : 'Evergreen'}</span>
+          <span class="pill">Livello ${s.level}</span>
+          <span><svg width="14" height="14"><use href="#i-target"/></svg><strong>${s.idioms.length}</strong> idioms</span>
+        </div>
+        <p class="scheda-summary">${s.summary}</p>
+        <div class="scheda-actions">
+          <a class="btn btn-primary" href="${s.musixmatch}" target="_blank" rel="noopener">
+            <svg><use href="#i-external"/></svg>
+            Apri testo originale (Musixmatch)
+          </a>
+          <button class="btn btn-ghost" data-go="quiz">
+            <svg><use href="#i-quiz"/></svg>
+            Vai al quiz
+          </button>
+        </div>
+      </div>
+      <div class="scheda-yt">
+        <iframe src="https://www.youtube.com/embed/${s.youtubeId}?rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&enablejsapi=1"
+                title="${s.title} — ${s.artist}"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <h2>Gli idioms</h2>
+      <div class="rule"></div>
+      <span class="count">${s.idioms.length} espressioni</span>
+    </div>
+
+    <div class="idiom-grid">
+      ${s.idioms.map(i => idiomCard(s, i)).join('')}
+    </div>
+  `;
+
+  // Attach handlers for idiom cards
+  container.querySelectorAll('.idiom-card').forEach(card => {
+    const idiomId = card.dataset.idiom;
+    const idiom = s.idioms.find(x => x.id === idiomId);
+
+    // Toggle literal/real
+    card.querySelectorAll('.idiom-toggle button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const which = btn.dataset.which;
+        card.querySelectorAll('.idiom-toggle button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        card.querySelectorAll('.idiom-translation').forEach(t => t.classList.remove('active'));
+        card.querySelector(`.idiom-translation.${which}`).classList.add('active');
+      });
+    });
+
+    // TTS
+    card.querySelector('.tts-btn').addEventListener('click', () => speak(idiom.expression, card.querySelector('.tts-btn')));
+
+    // Collect
+    card.querySelector('.collect-btn').addEventListener('click', () => {
+      toggleCollection(s.id, idiom.id);
+      renderScheda(s.id); // re-render to update visuals
+    });
+  });
+}
+
+function idiomCard(song, i) {
+  const isCollected = state.collection.some(c => c.songId === song.id && c.idiomId === i.id);
+  const fam = FAMILIES[i.family];
+  return `
+    <article class="idiom-card ${isCollected ? 'collected' : ''}" data-idiom="${i.id}">
+      <div class="idiom-head">
+        <div class="idiom-position">
+          <span class="idiom-position-tag"><svg><use href="#i-pin"/></svg>${i.position}</span>
+          <span class="idiom-family ${fam.cls}">${fam.label}</span>
+        </div>
+        <div class="idiom-expression">
+          <em>${i.expression}</em>
+          <button class="tts-btn" title="Pronuncia"><svg><use href="#i-speak"/></svg></button>
+        </div>
+        <p class="idiom-context">${i.context}</p>
+      </div>
+
+      <div class="idiom-body">
+        <div class="idiom-toggle">
+          <button class="literal active" data-which="literal">Letterale</button>
+          <button class="real" data-which="real">Reale</button>
+        </div>
+        <div class="idiom-translation literal active">
+          <div class="translation-label"><svg><use href="#i-x"/></svg>Letterale (errata)</div>
+          <div class="translation-text">${i.literal}</div>
+        </div>
+        <div class="idiom-translation real">
+          <div class="translation-label"><svg><use href="#i-check"/></svg>Significato reale</div>
+          <div class="translation-text">${i.real}</div>
+        </div>
+
+        <div class="idiom-explanation">${i.explanation}</div>
+
+        <div class="idiom-now">
+          <span class="idiom-now-label">Now use it</span>
+          ${i.nowUseIt}
+        </div>
+      </div>
+
+      <div class="idiom-foot">
+        <span class="idiom-register">${i.register}</span>
+        <button class="collect-btn ${isCollected ? 'collected' : ''}">
+          <svg><use href="#${isCollected ? 'i-check' : 'i-bookmark'}"/></svg>
+          ${isCollected ? 'Raccolto' : 'Raccogli'}
+        </button>
+      </div>
+    </article>
+  `;
+}
+
+/* =========================================================
+   COLLECTION
+   ========================================================= */
+
+function toggleCollection(songId, idiomId) {
+  const idx = state.collection.findIndex(c => c.songId === songId && c.idiomId === idiomId);
+  if (idx >= 0) state.collection.splice(idx, 1);
+  else state.collection.push({ songId, idiomId, addedAt: Date.now() });
+  saveState();
+  updateCollectionCount();
+}
+
+function updateCollectionCount() {
+  document.getElementById('collectionCountTop').textContent = state.collection.length;
+}
+
+function renderCollection() {
+  const container = document.getElementById('collContent');
+
+  if (state.collection.length === 0) {
+    container.innerHTML = `
+      <div class="coll-empty">
+        <h2>La tua collezione è vuota.</h2>
+        <p>Apri una canzone, esplora gli idioms e clicca su <strong>Raccogli</strong> su quelli che vuoi salvare.</p>
+        <button class="btn btn-primary" data-go="catalogo">
+          <svg><use href="#i-grid"/></svg>
+          Vai al catalogo
+        </button>
+      </div>
+    `;
+    return;
+  }
+
+  // Group by song
+  const bySong = {};
+  state.collection.forEach(c => {
+    if (!bySong[c.songId]) bySong[c.songId] = [];
+    const song = SONGS.find(s => s.id === c.songId);
+    if (!song) return;
+    const idiom = song.idioms.find(i => i.id === c.idiomId);
+    if (!idiom) return;
+    bySong[c.songId].push({ song, idiom, addedAt: c.addedAt });
+  });
+
+  container.innerHTML = Object.values(bySong).map(group => {
+    const song = group[0].song;
+    return `
+      <section class="coll-section">
+        <div class="coll-section-head">
+          <h3>${song.artist} — <em>${song.title}</em></h3>
+          <span class="meta">${group.length} idioms</span>
+        </div>
+        <div class="coll-list">
+          ${group.map(({ song, idiom }) => `
+            <div class="coll-item">
+              <div class="coll-item-en"><em>${idiom.expression}</em></div>
+              <div class="coll-item-it">${idiom.real}</div>
+              <button class="coll-item-remove" data-song="${song.id}" data-idiom="${idiom.id}" title="Rimuovi">
+                <svg><use href="#i-x"/></svg>
+              </button>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.coll-item-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      toggleCollection(btn.dataset.song, btn.dataset.idiom);
+      renderCollection();
+    });
+  });
+}
+
+document.getElementById('printBtn').addEventListener('click', () => window.print());
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if (state.collection.length === 0) return;
+  if (confirm('Vuoi davvero svuotare la collezione? Operazione non reversibile.')) {
+    state.collection = [];
+    saveState();
+    updateCollectionCount();
+    renderCollection();
+  }
+});
+
+/* =========================================================
+   QUIZ "Letterale o reale?"
+   ========================================================= */
+
+function getReadyIdioms() {
+  const out = [];
+  SONGS.filter(s => s.ready).forEach(s => {
+    s.idioms.forEach(i => out.push({ song: s, idiom: i }));
+  });
+  return out;
+}
+
+function pickQuizItem() {
+  const all = getReadyIdioms();
+  if (all.length === 0) return null;
+  // Avoid repeating last item if possible
+  let item;
+  do {
+    item = all[Math.floor(Math.random() * all.length)];
+  } while (state.quiz.currentItem && all.length > 1 && item.idiom.id === state.quiz.currentItem.idiom.id);
+  return item;
+}
+
+function renderQuiz() {
+  document.getElementById('quizScore').textContent = state.quiz.score;
+  document.getElementById('quizStreak').textContent = state.quiz.streak;
+  document.getElementById('quizTotal').textContent = state.quiz.total;
+
+  const all = getReadyIdioms();
+  const area = document.getElementById('quizArea');
+
+  if (all.length === 0) {
+    area.innerHTML = `<div class="quiz-empty"><p>Nessun idiom disponibile per il quiz al momento.</p></div>`;
+    return;
+  }
+
+  if (!state.quiz.currentItem) {
+    state.quiz.currentItem = pickQuizItem();
+    state.quiz.answered = false;
+  }
+
+  const { song, idiom } = state.quiz.currentItem;
+  const correctFirst = Math.random() > 0.5;
+  const options = correctFirst
+    ? [{ text: idiom.real, correct: true }, { text: idiom.literal, correct: false }]
+    : [{ text: idiom.literal, correct: false }, { text: idiom.real, correct: true }];
+
+  area.innerHTML = `
+    <div class="quiz-card">
+      <div class="quiz-source">da <strong>${song.artist} — ${song.title}</strong> · ${song.year}</div>
+      <div class="quiz-expression"><em>${idiom.expression}</em></div>
+      <div class="quiz-question">Quale di queste è la traduzione vera?</div>
+      <div class="quiz-options">
+        ${options.map((o, idx) => `
+          <button class="quiz-option" data-correct="${o.correct}">
+            <span class="marker">${idx === 0 ? 'A' : 'B'}</span>
+            ${o.text}
+          </button>
+        `).join('')}
+      </div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-actions hidden" id="quizActions">
+        <button class="btn btn-primary" id="nextQuizBtn">
+          <svg><use href="#i-shuffle"/></svg>
+          Prossimo idiom
+        </button>
+      </div>
+    </div>
+  `;
+
+  area.querySelectorAll('.quiz-option').forEach(btn => {
+    btn.addEventListener('click', () => answerQuiz(btn));
+  });
+  document.getElementById('nextQuizBtn').addEventListener('click', () => {
+    state.quiz.currentItem = pickQuizItem();
+    state.quiz.answered = false;
+    renderQuiz();
+  });
+}
+
+function answerQuiz(btn) {
+  if (state.quiz.answered) return;
+  state.quiz.answered = true;
+
+  const correct = btn.dataset.correct === 'true';
+  const { song, idiom } = state.quiz.currentItem;
+
+  // Mark all options
+  document.querySelectorAll('.quiz-option').forEach(o => {
+    o.disabled = true;
+    if (o.dataset.correct === 'true') o.classList.add('correct');
+    else if (o === btn) o.classList.add('wrong');
+  });
+
+  // Update stats
+  state.quiz.total += 1;
+  if (correct) {
+    state.quiz.score += 1;
+    state.quiz.streak += 1;
+  } else {
+    state.quiz.streak = 0;
+  }
+  saveState();
+
+  document.getElementById('quizScore').textContent = state.quiz.score;
+  document.getElementById('quizStreak').textContent = state.quiz.streak;
+  document.getElementById('quizTotal').textContent = state.quiz.total;
+
+  // Feedback
+  const fb = document.getElementById('quizFeedback');
+  fb.innerHTML = correct
+    ? `<strong>Esatto.</strong> ${idiom.expression} significa proprio &laquo;${idiom.real}&raquo;. ${stripTags(idiom.explanation)}`
+    : `<strong>Quasi.</strong> La traduzione letterale &laquo;${idiom.literal}&raquo; è una trappola: il vero significato è &laquo;${idiom.real}&raquo;. ${stripTags(idiom.explanation)}`;
+  fb.classList.add('show');
+  document.getElementById('quizActions').classList.remove('hidden');
+}
+
+function stripTags(html) {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || '';
+}
+
+/* =========================================================
+   TTS — Text-to-Speech for idiom pronunciation
+   ========================================================= */
+
+let ttsVoice = null;
+function initTTS() {
+  if (!('speechSynthesis' in window)) return;
+  function pickVoice() {
+    const voices = speechSynthesis.getVoices();
+    // Prefer en-GB, then en-US, then any English
+    ttsVoice = voices.find(v => v.lang === 'en-GB')
+            || voices.find(v => v.lang.startsWith('en-US'))
+            || voices.find(v => v.lang.startsWith('en'))
+            || null;
+  }
+  pickVoice();
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = pickVoice;
+  }
+}
+
+function speak(text, btnEl) {
+  if (!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  // Clean text from "(someone)" placeholders for cleaner pronunciation
+  const cleanText = text.replace(/\(someone\)/g, 'someone').replace(/\(something\)/g, 'something');
+  const u = new SpeechSynthesisUtterance(cleanText);
+  if (ttsVoice) u.voice = ttsVoice;
+  u.lang = 'en-GB';
+  u.rate = 0.92;
+  u.pitch = 1;
+  if (btnEl) {
+    btnEl.classList.add('playing');
+    u.onend = () => btnEl.classList.remove('playing');
+    u.onerror = () => btnEl.classList.remove('playing');
+  }
+  speechSynthesis.speak(u);
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+
+loadState();
+updateCollectionCount();
+initTTS();
+navigate('home');
+
+</script>
+</body>
+</html>
