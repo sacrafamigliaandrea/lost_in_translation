@@ -2318,22 +2318,51 @@ async function loadSRT(songId) {
 
 function parseSRT(text) {
   if (!text || !text.trim()) return [];
-  // Strip placeholder comments if Andrea hasn't pasted yet
-  const cleaned = text.replace(/\/\*[\s\S]*?\*\//g, '').trim();
-  if (!cleaned) return [];
 
-  const blocks = cleaned.split(/\r?\n\s*\r?\n/);
+  // Strip BOM if still present (loadSRT already does this but defensive)
+  if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+
+  // Normalize all line endings to \n (handles Windows \r\n, classic Mac \r, mixed)
+  let normalized = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+  // Strip eventual block comments
+  normalized = normalized.replace(/\/\*[\s\S]*?\*\//g, '').trim();
+  if (!normalized) return [];
+
+  // Split on blank line(s) — tolerates lines with only whitespace between blocks
+  const blocks = normalized.split(/\n[ \t]*\n+/);
+
   const lines = [];
+  let parsedCount = 0;
+  let skippedCount = 0;
+  const skippedSamples = [];
+
   for (const block of blocks) {
-    const m = block.match(/^\s*(\d+)\s*\r?\n([\d:,]+)\s*-->\s*([\d:,]+)\s*\r?\n([\s\S]+)$/);
-    if (!m) continue;
+    const trimmed = block.trim();
+    if (!trimmed) { skippedCount++; continue; }
+
+    // Tolerant regex: optional leading index, accepts , or . in timestamps
+    const m = trimmed.match(/^\s*(?:(\d+)\s*\n)?\s*([\d]{1,2}:[\d]{1,2}:[\d]{1,2}[,.][\d]{1,3})\s*-->\s*([\d]{1,2}:[\d]{1,2}:[\d]{1,2}[,.][\d]{1,3})\s*\n([\s\S]+)$/);
+    if (!m) {
+      skippedCount++;
+      if (skippedSamples.length < 2) skippedSamples.push(JSON.stringify(trimmed.slice(0, 80)));
+      continue;
+    }
+
     const start = srtTimeToSec(m[2]);
     const end = srtTimeToSec(m[3]);
-    const text = m[4].replace(/\r?\n/g, ' ').replace(/\s+/g, ' ').trim();
-    if (!text) continue;
-    // Skip credit/footer lines (common in SRT files)
-    if (/^(www\.|http|©)/i.test(text)) continue;
-    lines.push({ index: parseInt(m[1], 10), start, end, text });
+    const txt = m[4].replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!txt) { skippedCount++; continue; }
+    if (/^(www\.|http|©|by\s+)/i.test(txt)) { skippedCount++; continue; }
+
+    lines.push({ index: m[1] ? parseInt(m[1], 10) : parsedCount, start, end, text: txt });
+    parsedCount++;
+  }
+
+  console.log(`[LiT] parseSRT: ${parsedCount} parsed / ${skippedCount} skipped / ${blocks.length} total blocks`);
+  if (parsedCount === 0 && skippedSamples.length) {
+    console.warn(`[LiT] First failed blocks (sample):`, skippedSamples);
+    console.warn(`[LiT] First 200 chars of input:`, JSON.stringify(normalized.slice(0, 200)));
   }
   return lines;
 }
