@@ -17,16 +17,16 @@
    ========================================================= */
 
 :root {
-  --ink: #1A2438;
-  --ink-soft: #2C3854;
+  --ink: #0F2455;
+  --ink-soft: #1E3470;
   --ink-faint: #4A5575;
   --paper: #FAF6EE;
   --paper-soft: #F2EDE2;
   --paper-line: #E5DCC9;
   --paper-dark: #ECE3CE;
-  --coral: #D85D4F;
-  --coral-deep: #B0463A;
-  --coral-soft: #F4D8D2;
+  --coral: #C8102E;
+  --coral-deep: #9B0A20;
+  --coral-soft: #F5D5DA;
   --gold: #C8A36A;
   --gold-soft: #EDDFC4;
   --green: #5C8A6E;
@@ -35,6 +35,8 @@
   --text-soft: #5A554C;
   --text-faint: #8A8473;
   --hairline: #D9CFB8;
+  --uk-blue: #012169;
+  --uk-red: #C8102E;
 
   --f-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
   --f-body: 'Atkinson Hyperlegible', system-ui, -apple-system, sans-serif;
@@ -91,6 +93,8 @@ img { max-width: 100%; height: auto; display: block; }
   border-bottom: 1px solid var(--paper-line);
 }
 body.is-home .topbar { display: none; }
+body.is-home .school-stripe { display: none; }
+body.is-home .app-footer { display: none; }
 
 .brand {
   display: flex; align-items: center; gap: 14px;
@@ -488,11 +492,9 @@ body.is-home .topbar { display: none; }
 .scheda-back svg { width: 14px; height: 14px; }
 
 .scheda-hero {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 40px;
-  margin-bottom: 40px;
-  align-items: center;
+  display: block;
+  margin-bottom: 28px;
+  max-width: 880px;
 }
 .scheda-hero-text .artist {
   font-family: var(--f-mono);
@@ -1366,6 +1368,485 @@ body.is-home .topbar { display: none; }
 .idiom-jump svg { width: 11px; height: 11px; }
 
 /* =========================================================
+   SCUOLA SACRA FAMIGLIA — branding & framing
+   ========================================================= */
+.school-stripe {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 6px 32px;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.school-stripe::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: linear-gradient(to bottom, var(--paper) 0%, var(--paper) 33%, var(--coral) 33%, var(--coral) 66%, var(--paper) 66%);
+}
+.school-stripe::after {
+  content: "";
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: linear-gradient(to bottom, var(--paper) 0%, var(--paper) 33%, var(--coral) 33%, var(--coral) 66%, var(--paper) 66%);
+}
+.school-stripe span:first-child::before { content: "▸ "; color: var(--coral); }
+
+/* School logo in topbar */
+.school-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-xs);
+  object-fit: cover;
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  flex-shrink: 0;
+}
+.brand-co {
+  display: flex; align-items: center; gap: 14px;
+  padding: 4px 6px;
+  border-radius: var(--r-sm);
+  transition: background var(--t-fast);
+}
+.brand-co:hover { background: var(--paper-dark); }
+.brand-co .brand-text { display: flex; flex-direction: column; line-height: 1.1; text-align: left; }
+.brand-co .brand-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--coral);
+  font-weight: 700;
+}
+.brand-co .brand-title {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.brand-co .brand-sub {
+  font-size: 10px;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+/* App footer with school credentials */
+.app-footer {
+  margin-top: 80px;
+  padding: 28px 32px;
+  background: var(--ink);
+  color: var(--paper);
+  position: relative;
+  overflow: hidden;
+}
+.app-footer::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg,
+    var(--paper) 0%, var(--paper) 25%,
+    var(--coral) 25%, var(--coral) 50%,
+    var(--paper) 50%, var(--paper) 75%,
+    var(--coral) 75%, var(--coral) 100%);
+}
+.app-footer-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+  align-items: center;
+}
+.app-footer img { width: 56px; height: 56px; border-radius: var(--r-xs); }
+.app-footer .ft-text { font-size: 13px; line-height: 1.5; }
+.app-footer .ft-text strong { color: var(--paper); display: block; margin-bottom: 2px; font-family: var(--f-display); font-size: 16px; }
+.app-footer .ft-text small { color: rgba(250,246,238,0.7); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.05em; }
+.app-footer .ft-url {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--paper);
+  border-bottom-color: var(--coral);
+  padding-bottom: 2px;
+}
+
+/* =========================================================
+   KARAOKE — testo che scorre + idiom che pulsano
+   ========================================================= */
+.stage {
+  background: linear-gradient(135deg, #0F2455 0%, #1E3470 60%, #0F2455 100%);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--sh-lg);
+  position: relative;
+  margin-bottom: 28px;
+}
+.stage::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 60%;
+  height: 160%;
+  background: radial-gradient(circle, rgba(200,16,46,0.18), transparent 60%);
+  pointer-events: none;
+}
+.stage::after {
+  /* subtle Union Jack diagonal pattern overlay */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(45deg, transparent 48%, rgba(250,246,238,0.02) 48%, rgba(250,246,238,0.02) 52%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, rgba(200,16,46,0.025) 48%, rgba(200,16,46,0.025) 52%, transparent 52%);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.stage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px 14px;
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid rgba(250,246,238,0.08);
+}
+.stage-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+}
+.stage-eyebrow img { width: 32px; height: 32px; border-radius: 4px; }
+.stage-eyebrow .label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--coral);
+  font-weight: 700;
+}
+.stage-eyebrow .label small {
+  display: block;
+  color: rgba(250,246,238,0.7);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  margin-top: 2px;
+  font-size: 9px;
+}
+.stage-status {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(250,246,238,0.5);
+  display: flex; align-items: center; gap: 6px;
+}
+.stage-status .dot {
+  width: 6px; height: 6px;
+  background: var(--coral);
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+.stage-body {
+  position: relative;
+  z-index: 2;
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 28px;
+  align-items: center;
+}
+.stage-marquee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
+.stage-play-btn {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--coral);
+  color: var(--paper);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: all var(--t-fast);
+  box-shadow: 0 12px 32px rgba(200,16,46,0.5);
+  position: relative;
+}
+.stage-play-btn:hover {
+  transform: scale(1.06);
+  background: #E2304F;
+  box-shadow: 0 14px 40px rgba(200,16,46,0.6);
+}
+.stage-play-btn:active { transform: scale(0.98); }
+.stage-play-btn svg { width: 32px; height: 32px; }
+.stage-play-btn[data-playing="false"] svg { transform: translateX(2px); }
+.stage-play-btn[data-loading="true"] {
+  background: var(--ink-faint);
+  cursor: wait;
+}
+.stage-play-btn[data-loading="true"] svg { display: none; }
+.stage-play-btn[data-loading="true"]::after {
+  content: "";
+  width: 28px; height: 28px;
+  border: 3px solid rgba(250,246,238,0.3);
+  border-top-color: var(--paper);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.stage-meta {
+  color: var(--paper);
+  white-space: nowrap;
+}
+.stage-meta .now {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 4px;
+}
+.stage-meta .now::before {
+  content: "● ";
+  animation: blink 1.5s infinite;
+}
+.stage-meta .song-title {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-style: italic;
+  font-size: 24px;
+  line-height: 1.1;
+  color: var(--paper);
+  margin-bottom: 2px;
+}
+.stage-meta .song-artist {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: rgba(250,246,238,0.6);
+  letter-spacing: 0.05em;
+}
+
+/* Karaoke scrolling text */
+.karaoke {
+  height: 240px;
+  overflow-y: auto;
+  padding: 30px 28px;
+  scroll-behavior: smooth;
+  font-family: var(--f-display);
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(250,246,238,0.2) transparent;
+  text-align: center;
+  background: rgba(0,0,0,0.25);
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(250,246,238,0.08);
+  width: 100%;
+  min-width: 0;
+}
+.karaoke::-webkit-scrollbar { width: 4px; }
+.karaoke::-webkit-scrollbar-thumb { background: rgba(250,246,238,0.2); border-radius: 2px; }
+
+/* Fade gradients top/bottom for the scrolling effect */
+.karaoke-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+.karaoke-wrap::before, .karaoke-wrap::after {
+  content: '';
+  position: absolute;
+  left: 1px; right: 1px;
+  height: 60px;
+  pointer-events: none;
+  z-index: 5;
+  border-radius: var(--r-sm);
+}
+.karaoke-wrap::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(15,36,85,0.9) 0%, transparent 100%);
+}
+.karaoke-wrap::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(15,36,85,0.9) 0%, transparent 100%);
+}
+
+.kar-line {
+  font-size: 19px;
+  line-height: 1.45;
+  padding: 12px 0;
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(250,246,238,0.3);
+  transition: all 380ms cubic-bezier(.4,0,.2,1);
+  position: relative;
+  letter-spacing: -0.005em;
+}
+.kar-line.past {
+  opacity: 0.2;
+  transform: translateY(-3px) scale(0.96);
+}
+.kar-line.next {
+  opacity: 0.45;
+}
+.kar-line.active {
+  color: var(--paper);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: -0.012em;
+  text-shadow: 0 2px 16px rgba(200,16,46,0.3);
+}
+
+.kar-empty {
+  display: flex; align-items: center; justify-content: center;
+  height: 100%;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: rgba(250,246,238,0.5);
+  text-align: center;
+  padding: 40px 20px;
+  font-style: normal;
+}
+.kar-empty strong { display: block; color: var(--coral); margin-bottom: 8px; font-size: 11px; letter-spacing: 0.2em; }
+
+/* Idiom highlight inside lyric lines */
+.lyric-idiom {
+  background: rgba(200,16,46,0.18);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #FFB3BD;
+  font-style: italic;
+  font-weight: 700;
+  transition: all 240ms ease;
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid rgba(200,16,46,0.3);
+}
+.kar-line.active .lyric-idiom {
+  background: rgba(200,16,46,0.3);
+  color: #FFD7DD;
+  border-color: rgba(200,16,46,0.6);
+}
+.lyric-idiom.pulsing {
+  background: var(--coral) !important;
+  color: var(--paper) !important;
+  border-color: var(--coral) !important;
+  animation: pulseIdiom 0.7s ease-in-out infinite;
+}
+@keyframes pulseIdiom {
+  0%,100% {
+    box-shadow: 0 0 0 0 rgba(200,16,46,0.6);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(200,16,46,0);
+    transform: scale(1.05);
+  }
+}
+.lyric-idiom:hover {
+  background: rgba(200,16,46,0.4);
+  color: var(--paper);
+}
+
+/* Stage controls (progress bar + skip) */
+.stage-controls {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 28px 22px;
+  border-top: 1px solid rgba(250,246,238,0.08);
+}
+.stage-skip-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 99px;
+  background: rgba(250,246,238,0.1);
+  color: rgba(250,246,238,0.85);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: all var(--t-fast);
+  border: 1px solid rgba(250,246,238,0.08);
+  flex-shrink: 0;
+}
+.stage-skip-btn:hover {
+  background: rgba(250,246,238,0.2);
+  color: var(--paper);
+}
+.stage-skip-btn[data-skip^="-"] svg { transform: scaleX(-1); }
+.stage-skip-btn svg { width: 11px; height: 11px; }
+
+.stage-progress {
+  flex: 1;
+  height: 6px;
+  background: rgba(250,246,238,0.18);
+  border-radius: 99px;
+  cursor: pointer;
+  position: relative;
+}
+.stage-progress-fill {
+  height: 100%;
+  background: var(--coral);
+  border-radius: 99px;
+  width: 0%;
+  position: relative;
+  transition: width 200ms linear;
+  pointer-events: none;
+}
+.stage-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px; height: 14px;
+  background: var(--paper);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--coral), 0 2px 6px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+.stage-progress:hover .stage-progress-fill::after { opacity: 1; }
+
+.stage-time {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: rgba(250,246,238,0.75);
+  white-space: nowrap;
+  min-width: 88px;
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+
+/* Responsive: stage stacks vertically on mobile */
+@media (max-width: 880px) {
+  .stage-body { grid-template-columns: 1fr; gap: 18px; padding: 20px; }
+  .stage-marquee { flex-direction: column; gap: 14px; }
+  .stage-meta { text-align: center; white-space: normal; }
+  .karaoke { height: 200px; }
+}
+
+/* =========================================================
    PRINT
    ========================================================= */
 @media print {
@@ -1474,13 +1955,20 @@ body.is-home .topbar { display: none; }
   </symbol>
 </svg>
 
+<!-- ============== SCHOOL STRIPE (always visible) ============== -->
+<div class="school-stripe">
+  <span>Lezioni di Inglese · Scuola Sacra Famiglia · Orzinuovi</span>
+  <span>sacrafamiglia.edu.it</span>
+</div>
+
 <!-- ============== TOPBAR (hidden on home) ============== -->
 <header class="topbar">
-  <button class="brand" data-go="home">
-    <span class="brand-mark">L<small>iT</small></span>
+  <button class="brand-co" data-go="home">
+    <img src="logo_english.jpg" alt="Lezioni di Inglese — Sacra Famiglia" class="school-logo">
     <span class="brand-text">
-      <strong>Lost in Translation</strong>
-      <small>English idioms · in cuffia</small>
+      <span class="brand-eyebrow">Lezioni di Inglese</span>
+      <span class="brand-title">Lost in Translation</span>
+      <span class="brand-sub">English idioms · in cuffia</span>
     </span>
   </button>
   <nav class="topnav">
@@ -1555,11 +2043,12 @@ body.is-home .topbar { display: none; }
       </svg>
 
       <div class="banner-overlay">
-        <button class="brand" data-go="home" style="padding:0">
-          <span class="brand-mark">L<small>iT</small></span>
+        <button class="brand-co" data-go="home" style="padding:0;background:rgba(250,246,238,0.08);backdrop-filter:blur(8px);border:1px solid rgba(250,246,238,0.15);border-radius:12px;padding:6px 14px 6px 6px">
+          <img src="logo_english.jpg" alt="Lezioni di Inglese — Sacra Famiglia" class="school-logo" style="background:var(--paper);width:48px;height:48px">
           <span class="brand-text">
-            <strong>Lost in Translation</strong>
-            <small>English idioms · in cuffia</small>
+            <span class="brand-eyebrow" style="color:#FFB3BD">Lezioni di Inglese · Sacra Famiglia</span>
+            <span class="brand-title" style="color:var(--paper)">Lost in Translation</span>
+            <span class="brand-sub" style="color:rgba(250,246,238,0.7)">English idioms · in cuffia</span>
           </span>
         </button>
         <nav class="banner-nav">
@@ -1736,8 +2225,235 @@ body.is-home .topbar { display: none; }
   </div>
 </main>
 
+<!-- ============== FOOTER (visibile in tutte le viste tranne home) ============== -->
+<footer class="app-footer" id="appFooter">
+  <div class="app-footer-grid">
+    <img src="logo_english.jpg" alt="Lezioni di Inglese — Sacra Famiglia">
+    <div class="ft-text">
+      <strong>Lezioni di Inglese</strong>
+      <small>Scuola Sacra Famiglia · Orzinuovi (BS)</small>
+      <small style="margin-top:4px;display:block">Lost in Translation · © 2026 Andrea Cerioli, Animatore Digitale · Tutti i diritti riservati</small>
+    </div>
+    <a class="ft-url" href="https://sacrafamiglia.edu.it" target="_blank" rel="noopener">sacrafamiglia.edu.it</a>
+  </div>
+</footer>
+
 <script>
 'use strict';
+
+/* =========================================================================
+   ░░░  SRT LYRICS — INCOLLA QUI I TESTI ░░░
+   =========================================================================
+   ANDREA: per attivare il karaoke di una canzone, incolla il contenuto del
+   suo file .srt tra i backticks ` ` corrispondenti all'id della canzone.
+   Il formato è quello standard: indice, timestamps con --> , testo.
+
+   Per copyright io non posso popolare questi campi al posto tuo. Una volta
+   incollato, il karaoke parte automaticamente alla apertura della scheda.
+   ========================================================================= */
+
+const SRT_DATA = {
+
+  'adele-rolling-in-the-deep': `
+/* INCOLLA QUI il contenuto completo del file Adele_-_Rolling_in_the_Deep_en.srt
+   Esempio della struttura attesa:
+   0
+   00:00:04,500 --> 00:00:08,800
+   There's a fire starting in my heart,
+
+   1
+   00:00:09,000 --> 00:00:13,300
+   Reaching a fever pitch and it's bringing me out the dark.
+
+   ...e così via fino alla fine del file.
+   Mantieni i backticks esterni che racchiudono questa stringa.        */
+  `,
+
+  // Le altre canzoni saranno aggiunte qui mano a mano:
+  // 'queen-bohemian': ` ... `,
+  // 'beatles-letitbe': ` ... `,
+  // ...
+};
+
+/* =========================================================================
+   SRT PARSER + KARAOKE ENGINE
+   ========================================================================= */
+
+function parseSRT(text) {
+  if (!text || !text.trim()) return [];
+  // Strip placeholder comments if Andrea hasn't pasted yet
+  const cleaned = text.replace(/\/\*[\s\S]*?\*\//g, '').trim();
+  if (!cleaned) return [];
+
+  const blocks = cleaned.split(/\r?\n\s*\r?\n/);
+  const lines = [];
+  for (const block of blocks) {
+    const m = block.match(/^\s*(\d+)\s*\r?\n([\d:,]+)\s*-->\s*([\d:,]+)\s*\r?\n([\s\S]+)$/);
+    if (!m) continue;
+    const start = srtTimeToSec(m[2]);
+    const end = srtTimeToSec(m[3]);
+    const text = m[4].replace(/\r?\n/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!text) continue;
+    // Skip credit/footer lines (common in SRT files)
+    if (/^(www\.|http|©)/i.test(text)) continue;
+    lines.push({ index: parseInt(m[1], 10), start, end, text });
+  }
+  return lines;
+}
+
+function srtTimeToSec(t) {
+  const m = t.match(/(\d+):(\d+):(\d+)[,.](\d+)/);
+  if (!m) return 0;
+  return parseInt(m[1], 10) * 3600
+       + parseInt(m[2], 10) * 60
+       + parseInt(m[3], 10)
+       + parseInt(m[4], 10) / 1000;
+}
+
+function escapeHTML(s) {
+  return s.replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+// Build flexible regex for an idiom expression to find it in lyrics text.
+// Handles: "(someone)" / "(something)" placeholders, plural/possessive variants,
+// past-tense forms (had it all, sold me out, sown).
+function buildIdiomMatcher(expression) {
+  let pat = expression
+    .replace(/\(someone\)/gi, '(?:me|you|him|her|us|them|\\w+)')
+    .replace(/\(something\)/gi, '(?:it|this|that|them|\\w+(?:\\s+\\w+){0,2})');
+  pat = pat
+    .replace(/\bhave\b/gi, '(?:have|has|had)')
+    .replace(/\bsell\b/gi, '(?:sell|sold|sells|selling)')
+    .replace(/\blay\b/gi, '(?:lay|laid|lays|laying)')
+    .replace(/\bbring\b/gi, '(?:bring|brought|brings|bringing)')
+    .replace(/\breap\b/gi, '(?:reap|reaped|reaps|reaping)')
+    .replace(/\bcount\b/gi, '(?:count|counted|counts|counting)')
+    .replace(/\bpay\b/gi, '(?:pay|paid|pays|paying)')
+    .replace(/\byour\b/gi, '(?:your|my|his|her|our|their|its)')
+    .replace(/\byou'\w*ve\b/gi, "(?:you've|i've|we've|they've)")
+    .replace(/\s+/g, '\\s+');
+  return new RegExp(`\\b(${pat})\\b`, 'gi');
+}
+
+function highlightIdiomsInText(text, idioms) {
+  let html = escapeHTML(text);
+  // Sort by expression length descending so longer ones match first
+  const sorted = [...idioms].sort((a, b) => b.expression.length - a.expression.length);
+  for (const idiom of sorted) {
+    const re = buildIdiomMatcher(idiom.expression);
+    // Avoid double-wrapping if already inside a span
+    html = html.replace(re, (match, _grp, offset, full) => {
+      // Don't replace if we're already inside a span
+      const before = full.slice(0, offset);
+      const openCount = (before.match(/<span/g) || []).length;
+      const closeCount = (before.match(/<\/span>/g) || []).length;
+      if (openCount > closeCount) return match;
+      return `<span class="lyric-idiom" data-idiom="${idiom.id}" data-at="${idiom.at || ''}">${match}</span>`;
+    });
+  }
+  return html;
+}
+
+let karaokeLines = [];
+let karaokeActiveIdx = -1;
+
+function renderKaraoke(songId, idioms) {
+  const raw = SRT_DATA[songId] || '';
+  karaokeLines = parseSRT(raw);
+  karaokeActiveIdx = -1;
+
+  if (karaokeLines.length === 0) {
+    return `
+      <div class="karaoke">
+        <div class="kar-empty">
+          <strong>Karaoke non ancora attivo</strong>
+          <span>Per attivarlo, apri il file HTML, cerca la sezione<br><code style="font-family:DM Mono,monospace;background:rgba(250,246,238,0.1);padding:2px 6px;border-radius:3px;color:#FFB3BD">SRT_DATA</code> all'inizio del &lt;script&gt;,<br>e incolla il contenuto del file .srt tra i backticks.</span>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="karaoke" id="karaokeBox">
+      ${karaokeLines.map((l, idx) => `
+        <div class="kar-line next" data-idx="${idx}" data-start="${l.start}" data-end="${l.end}">
+          ${highlightIdiomsInText(l.text, idioms)}
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function syncKaraoke(currentTime) {
+  const box = document.getElementById('karaokeBox');
+  if (!box || !karaokeLines.length) return;
+
+  const lineEls = box.querySelectorAll('.kar-line');
+  let activeIdx = -1;
+
+  // Find the line whose interval contains currentTime
+  for (let i = 0; i < karaokeLines.length; i++) {
+    const l = karaokeLines[i];
+    if (currentTime >= l.start && currentTime <= l.end) {
+      activeIdx = i;
+      break;
+    }
+    // If between two lines, mark the closest upcoming as "next-up"
+    if (currentTime < l.start) break;
+  }
+
+  // If no exact match, find the most recent past line
+  if (activeIdx === -1) {
+    for (let i = karaokeLines.length - 1; i >= 0; i--) {
+      if (currentTime > karaokeLines[i].end) {
+        activeIdx = i; // last one passed → keep it active until next starts
+        // Actually: don't keep past as active. Reset.
+        activeIdx = -1;
+        break;
+      }
+    }
+  }
+
+  // Update line classes only if active line changed (avoid layout thrashing)
+  if (activeIdx !== karaokeActiveIdx) {
+    karaokeActiveIdx = activeIdx;
+    lineEls.forEach((el, i) => {
+      el.classList.remove('past', 'active', 'next');
+      if (activeIdx === -1) {
+        if (i < karaokeLines.findIndex(l => l.start > currentTime)) el.classList.add('past');
+        else el.classList.add('next');
+      } else {
+        if (i < activeIdx) el.classList.add('past');
+        else if (i === activeIdx) el.classList.add('active');
+        else el.classList.add('next');
+      }
+    });
+
+    // Auto-scroll active line into center
+    if (activeIdx >= 0) {
+      const activeEl = lineEls[activeIdx];
+      if (activeEl) {
+        const boxRect = box.getBoundingClientRect();
+        const elRect = activeEl.getBoundingClientRect();
+        const offset = (elRect.top - boxRect.top) - (boxRect.height / 2 - elRect.height / 2);
+        box.scrollBy({ top: offset, behavior: 'smooth' });
+      }
+    }
+  }
+
+  // Pulse idioms whose `at` is within ±1.8s of currentTime
+  const allIdiomEls = box.querySelectorAll('.lyric-idiom');
+  allIdiomEls.forEach(el => {
+    const at = parseFloat(el.dataset.at);
+    if (!isNaN(at) && Math.abs(currentTime - at) < 1.8) {
+      el.classList.add('pulsing');
+    } else {
+      el.classList.remove('pulsing');
+    }
+  });
+}
 
 /* =========================================================
    DATA — songs & idioms
@@ -1857,6 +2573,45 @@ const SONGS = [
         nowUseIt: 'She thought she <em>had it all</em> — until the company closed.',
         family: 'vita',
         register: 'standard / idiomatico'
+      },
+      {
+        id: 'count-blessings',
+        at: 154,
+        expression: 'count your blessings',
+        position: 'Bridge',
+        context: "Adele si rivolge all'ex e gli intima: invece di cercare ancora, riconosci quello che avevi.",
+        literal: 'conta le tue benedizioni',
+        real: 'essere grati per ciò che si ha, riconoscere le proprie fortune',
+        explanation: "Origine religiosa: nasce dall'inno cristiano <em>Count Your Blessings</em> (Johnson Oatman Jr., 1897). Oggi è completamente secolarizzato e si usa per riportare qualcuno alla riconoscenza, soprattutto quando si lamenta. Frase tipica: <em>Stop complaining and count your blessings.</em> In italiano non esiste un equivalente di una sola espressione — questa è la differenza che la rende interessante.",
+        nowUseIt: 'When things get rough at school, I just <em>count my blessings</em> — I have my health and my friends.',
+        family: 'vita',
+        register: 'standard / proverbiale'
+      },
+      {
+        id: 'pay-back-in-kind',
+        at: 163,
+        expression: 'pay (someone) back in kind',
+        position: 'Bridge',
+        context: "Lei avverte: ti restituirò esattamente quello che mi hai dato — il dolore, l'inganno, tutto.",
+        literal: 'ripagarti indietro in genere',
+        real: 'restituire qualcosa con la stessa moneta — di solito vendetta o giustizia per la stessa entità',
+        explanation: "<strong>In kind</strong> qui significa &laquo;dello stesso tipo, della stessa natura&raquo;. L'espressione esprime il principio del contrappasso: tanto male hai fatto, tanto male riceverai. Si usa anche in senso positivo (<em>they thanked us in kind</em>), ma la valenza più frequente è negativa o di reciprocità simmetrica.",
+        nowUseIt: "He embarrassed her in front of everyone, and she <em>paid him back in kind</em> at the next meeting.",
+        family: 'relazioni',
+        register: 'letterario / formale'
+      },
+      {
+        id: 'reap-sown',
+        at: 165,
+        expression: "reap what you've sown",
+        position: 'Bridge',
+        context: 'Subito dopo: ti rimangerai tutto quello che hai seminato.',
+        literal: 'mietere ciò che hai seminato',
+        real: 'subire le conseguenze delle proprie azioni — buone o cattive',
+        explanation: "Origine biblica (Galati 6:7: &laquo;for whatever a man sows, that he will also reap&raquo;). L'italiano ha un equivalente diretto (<em>raccogliere ciò che si è seminato</em>), ma in inglese moderno questa espressione è frequentissima nel parlato, nei film e nei titoli di giornale. Verbo <strong>to reap</strong> = mietere, raccogliere; <strong>to sow</strong> = seminare. Forma irregolare: sow / sowed / sown.",
+        nowUseIt: "He bullied his coworkers for years — now he's <em>reaping what he sowed</em>.",
+        family: 'vita',
+        register: 'letterario / proverbiale'
       }
     ]
   },
@@ -2007,8 +2762,10 @@ function startProgressLoop() {
       const time = document.getElementById('audioTime');
       if (fill) fill.style.width = dur ? `${(cur/dur)*100}%` : '0%';
       if (time) time.textContent = `${formatTime(cur)} / ${formatTime(dur)}`;
+      // Karaoke sync
+      syncKaraoke(cur);
     } catch(e) { /* iframe might have been removed */ }
-  }, 250);
+  }, 200);
 }
 
 function formatTime(s) {
@@ -2060,7 +2817,8 @@ function bindAudioControls() {
   if (playBtn) playBtn.addEventListener('click', audioToggle);
   if (progress) progress.addEventListener('click', (e) => audioSeekToPosition(e.clientX, progress));
 
-  document.querySelectorAll('.audio-skip-btn').forEach(b => {
+  // Skip buttons (both stage-skip-btn and legacy audio-skip-btn)
+  document.querySelectorAll('.stage-skip-btn, .audio-skip-btn').forEach(b => {
     b.addEventListener('click', () => audioSeek(parseInt(b.dataset.skip, 10)));
   });
 
@@ -2069,6 +2827,18 @@ function bindAudioControls() {
       const t = parseFloat(b.dataset.at);
       if (!isNaN(t)) {
         audioSeek(t, true);
+        if (ytPlayer && typeof ytPlayer.playVideo === 'function') ytPlayer.playVideo();
+      }
+    });
+  });
+
+  // Click on a lyric idiom in the karaoke text → jump to that timestamp
+  document.querySelectorAll('.lyric-idiom').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const at = parseFloat(el.dataset.at);
+      if (!isNaN(at)) {
+        audioSeek(at, true);
         if (ytPlayer && typeof ytPlayer.playVideo === 'function') ytPlayer.playVideo();
       }
     });
@@ -2233,33 +3003,51 @@ function renderScheda(songId) {
           </button>
         </div>
       </div>
-      <div class="audio-player" id="audioPlayer" data-video="${s.youtubeId}">
-        <div class="audio-player-top">
-          <button class="audio-play-btn" id="playBtn" data-playing="false" data-loading="true" title="Play / Pause">
-            <svg id="playIcon"><use href="#i-play"/></svg>
-          </button>
-          <div class="audio-meta">
-            <div class="label">Audio · in cuffia</div>
-            <div class="title">${s.title}</div>
-            <div class="artist-line">${s.artist} · ${s.year}</div>
+    </div>
+
+    <!-- ============== STAGE: audio player + karaoke + idiom highlight ============== -->
+    <div class="stage" id="audioPlayer" data-video="${s.youtubeId}">
+      <div class="stage-header">
+        <div class="stage-eyebrow">
+          <img src="logo_english.jpg" alt="Sacra Famiglia">
+          <div class="label">
+            Lezioni di Inglese · Sacra Famiglia
+            <small>Active listening · Karaoke + audio</small>
           </div>
         </div>
-        <div class="audio-eq">
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <div class="audio-controls">
-          <button class="audio-skip-btn" data-skip="-10" title="Indietro 10s"><svg><use href="#i-jump"/></svg>10s</button>
-          <div class="audio-progress" id="audioProgress">
-            <div class="audio-progress-fill" id="audioProgressFill"></div>
-          </div>
-          <button class="audio-skip-btn" data-skip="10" title="Avanti 10s">10s<svg><use href="#i-jump"/></svg></button>
-          <span class="audio-time" id="audioTime">0:00 / --:--</span>
+        <div class="stage-status">
+          <span class="dot"></span>
+          <span>Audio in cuffia</span>
         </div>
       </div>
-      <div class="yt-hidden">
-        <div id="ytplayer"></div>
+
+      <div class="stage-body">
+        <div class="stage-marquee">
+          <button class="stage-play-btn" id="playBtn" data-playing="false" data-loading="true" title="Play / Pause">
+            <svg id="playIcon"><use href="#i-play"/></svg>
+          </button>
+          <div class="stage-meta">
+            <div class="now">Now playing</div>
+            <div class="song-title">${s.title}</div>
+            <div class="song-artist">${s.artist} · ${s.year}</div>
+          </div>
+        </div>
+        <div class="karaoke-wrap">
+          ${renderKaraoke(s.id, s.idioms)}
+        </div>
+      </div>
+
+      <div class="stage-controls">
+        <button class="stage-skip-btn" data-skip="-10" title="Indietro 10s"><svg><use href="#i-jump"/></svg>10s</button>
+        <div class="stage-progress" id="audioProgress">
+          <div class="stage-progress-fill" id="audioProgressFill"></div>
+        </div>
+        <button class="stage-skip-btn" data-skip="10" title="Avanti 10s">10s<svg><use href="#i-jump"/></svg></button>
+        <span class="stage-time" id="audioTime">0:00 / --:--</span>
+      </div>
+    </div>
+    <div class="yt-hidden">
+      <div id="ytplayer"></div>
       </div>
     </div>
 
