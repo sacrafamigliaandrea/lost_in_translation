@@ -2242,539 +2242,50 @@ body.is-home .app-footer { display: none; }
 'use strict';
 
 /* =========================================================================
-   ░░░  SRT LYRICS — INCOLLA QUI I TESTI ░░░
+   ░░░  SRT LYRICS — caricamento via fetch da file esterni  ░░░
    =========================================================================
-   ANDREA: per attivare il karaoke di una canzone, incolla il contenuto del
-   suo file .srt tra i backticks ` ` corrispondenti all'id della canzone.
-   Il formato è quello standard: indice, timestamps con --> , testo.
+   I testi delle canzoni vivono in file separati nella cartella `lyrics/`
+   accanto al file HTML. Per ogni canzone serve:
+       lyrics/<id-canzone>.srt
+   Esempi:
+       lyrics/adele-rolling-in-the-deep.srt
+       lyrics/queen-bohemian.srt
+       lyrics/coldplay-fixyou.srt
 
-   Per copyright io non posso popolare questi campi al posto tuo. Una volta
-   incollato, il karaoke parte automaticamente alla apertura della scheda.
+   Per aggiungere un nuovo brano: scarichi il .srt, lo rinomini con l'id
+   della canzone, lo metti in lyrics/. Zero modifiche al codice JavaScript.
    ========================================================================= */
 
-const SRT_DATA = {
-
-  'adele-rolling-in-the-deep': `
-0
-00:00:04,500 --> 00:00:08,800
-There's a fire starting in my
-heart,
-
-1
-00:00:09,000 --> 00:00:13,300
-Reaching a fever pitch and it's
-bringing me out the dark.
-
-2
-00:00:13,500 --> 00:00:17,900
-Finally, I can see you crystal
-clear,
-
-3
-00:00:18,100 --> 00:00:22,500
-Go ahead and sell me out and
-I'll lay your ship bare,
-
-4
-00:00:22,700 --> 00:00:27,000
-See how I'll leave with every
-piece of you,
-
-5
-00:00:27,200 --> 00:00:31,600
-Don't underestimate the things
-that I will do.
-
-6
-00:00:31,800 --> 00:00:36,400
-There's a fire starting in my
-heart,
-
-7
-00:00:36,600 --> 00:00:41,900
-Reaching a fever pitch and it's
-bring me out the dark.
-
-8
-00:00:42,100 --> 00:00:46,500
-The scars of your love remind me
-of us,
-
-9
-00:00:46,700 --> 00:00:50,900
-They keep me thinking that we
-almost had it all.
-
-10
-00:00:51,100 --> 00:00:55,600
-The scars of your love, they
-leave me breathless,
-
-11
-00:00:55,800 --> 00:00:57,900
-I can't help feeling,
-
-12
-00:00:58,100 --> 00:01:02,800
-We could have had it all, (Your
-gonna wish you, never had met
-me)
-
-13
-00:01:03,000 --> 00:01:07,100
-Rolling in the deep, (Tears are
-gonna fall, rolling in the deep)
-
-14
-00:01:07,300 --> 00:01:12,000
-You had my heart inside your
-hand, (You're gonna wish you
-never had met me)
-
-15
-00:01:12,200 --> 00:01:17,600
-And you played it to the beat.
-(Tears are gonna fall, rolling
-in the deep)
-
-16
-00:01:17,800 --> 00:01:21,700
-Baby, I have no story to be
-told,
-
-17
-00:01:21,900 --> 00:01:26,400
-But I've heard one on you and
-I'm gonna make your head burn,
-
-18
-00:01:26,600 --> 00:01:30,900
-Think of me in the depths of
-your despair,
-
-19
-00:01:31,100 --> 00:01:36,800
-Making a home down there as mine
-sure won't be shared,
-
-20
-00:01:37,000 --> 00:01:41,400
-The scars of your love remind me
-of us, (You're gonna wish you
-never had met me)
-
-21
-00:01:41,600 --> 00:01:45,900
-They keep me thinking that we
-almost had it all. (Tears are
-gonna fall, rolling in the deep)
-
-22
-00:01:46,100 --> 00:01:50,300
-The scars of your love, they
-leave me breathless, (You're
-gonna wish you never had met me)
-
-23
-00:01:50,500 --> 00:01:52,800
-I can't help feeling, (Tears are
-gonna fall, rolling in the deep)
-
-24
-00:01:53,000 --> 00:01:57,500
-We could have had it all,
-(You're gonna wish you never had
-met me)
-
-25
-00:01:57,700 --> 00:02:01,900
-Rolling in the deep. (Tears are
-gonna fall, rolling in the deep)
-
-26
-00:02:02,100 --> 00:02:06,800
-You had my heart inside your
-hand, (You're gonna wish you
-never had met me)
-
-27
-00:02:07,000 --> 00:02:11,300
-And you played it to the beat.
-(Tears are gonna fall, rolling
-in the deep)
-
-28
-00:02:11,500 --> 00:02:15,600
-Could have had it all,
-
-29
-00:02:15,800 --> 00:02:20,100
-Rolling in the deep,
-
-30
-00:02:20,300 --> 00:02:25,300
-You had my heart inside of your
-hands,
-
-31
-00:02:25,500 --> 00:02:30,500
-But you played it with a
-beating.
-
-32
-00:02:30,700 --> 00:02:35,000
-Throw your soul through every
-open door,
-
-33
-00:02:35,200 --> 00:02:39,600
-Count your blessings to find
-what you look for.
-
-34
-00:02:39,800 --> 00:02:44,100
-Turn my sorrow into treasured
-gold,
-
-35
-00:02:44,300 --> 00:02:48,800
-You'll pay me back in kind and
-reap just what you've sown.
-
-36
-00:02:49,000 --> 00:02:53,900
-(You're gonna wish you never had
-met me) We could have had it
-all,
-
-37
-00:02:54,100 --> 00:02:58,600
-(Tears are gonna fall, rolling
-in the deep) We could have had
-it all.
-
-38
-00:02:58,800 --> 00:03:05,200
-(You're gonna wish you never had
-met me), It all, it all, it all.
-
-39
-00:03:05,400 --> 00:03:06,400
-(Tears are gonna fall, rolling
-in the deep)
-
-40
-00:03:06,500 --> 00:03:11,000
-We could have had it all,
-(You're gonna wish you never had
-met me)
-
-41
-00:03:11,200 --> 00:03:15,000
-Rolling in the deep. (Tears are
-gonna fall, rolling in the deep
-
-42
-00:03:15,200 --> 00:03:19,900
-You had my heart inside of your
-hand, (You're gonna wish you
-never had met me)
-
-43
-00:03:20,100 --> 00:03:24,700
-And you played it to the beat.
-(Tears are gonna fall, rolling
-in the deep)
-
-44
-00:03:24,900 --> 00:03:29,100
-Could have had it all, (You're
-gonna wish you never had met me)
-
-45
-00:03:29,300 --> 00:03:33,400
-Rolling in the deep. (Tears are
-gonna fall, rolling in the deep)
-
-46
-00:03:33,600 --> 00:03:38,500
-You had my heart inside of your
-hands, (You're gonna wish you
-never had met me
-
-47
-00:03:38,700 --> 00:03:39,900
-But you played it,
-
-48
-00:03:40,100 --> 00:03:41,100
-You played it,
-
-49
-00:03:40,900 --> 00:03:41,900
-You played it,
-
-50
-00:03:41,900 --> 00:03:46,900
-You played it to the beat.
-
-51
-00:03:47,900 --> 00:03:56,900
-  `,
-
-  'queen-bohemian': `
-0
-00:00:05,500 --> 00:00:08,900
-Is this the real life?
-
-1
-00:00:09,100 --> 00:00:12,100
-Is this just fantasy?
-
-2
-00:00:12,300 --> 00:00:15,700
-Caught in a landslide
-
-3
-00:00:15,900 --> 00:00:19,900
-No escape from reality
-
-4
-00:00:20,100 --> 00:00:22,900
-Open your eyes
-
-5
-00:00:23,100 --> 00:00:30,400
-Look up to the skies and see
-
-6
-00:00:30,600 --> 00:00:36,500
-I'm just a poor boy, I need no sympathy
-
-7
-00:00:36,700 --> 00:00:40,000
-Because I'm easy come, easy go
-
-8
-00:00:40,200 --> 00:00:43,300
-A little high, little low
-
-9
-00:00:43,500 --> 00:00:51,500
-Anyway the wind blows, doesn't
-really matter to me, to me
-
-10
-00:01:01,200 --> 00:01:06,900
-Mama, just killed a man
-
-11
-00:01:07,100 --> 00:01:10,400
-Put a gun against his head
-
-12
-00:01:10,600 --> 00:01:13,700
-Pulled my trigger, now he's dead
-
-13
-00:01:13,900 --> 00:01:20,200
-Mama, life had just begun
-
-14
-00:01:20,400 --> 00:01:27,700
-But now I've gone and thrown it all away
-
-15
-00:01:27,900 --> 00:01:34,100
-Mama, ooo
-
-16
-00:01:34,300 --> 00:01:37,500
-Didn't mean to make you cry
-
-17
-00:01:37,700 --> 00:01:42,400
-If I'm not back again this time tomorrow
-
-18
-00:01:42,600 --> 00:01:50,600
-Carry on, carry on, as if
-nothing really matters
-
-19
-00:02:00,100 --> 00:02:06,200
-Too late, my time has come
-
-20
-00:02:06,400 --> 00:02:09,400
-Sends shivers down my spine
-
-21
-00:02:09,600 --> 00:02:13,100
-Body's aching all the time
-
-22
-00:02:13,300 --> 00:02:19,600
-Goodbye everybody I've got to go
-
-23
-00:02:19,800 --> 00:02:26,700
-Gotta leave you all behind and
-face the truth
-
-24
-00:02:26,900 --> 00:02:33,700
-Mama, ooo (anyway the wind blows)
-
-25
-00:02:33,900 --> 00:02:37,000
-I don't want to die
-
-26
-00:02:37,200 --> 00:02:45,200
-I sometimes wish I'd never
-been born at all
-
-27
-00:03:11,300 --> 00:03:14,100
-I see a little silhouetto of a man
-
-28
-00:03:14,300 --> 00:03:17,300
-Scaramouch, scaramouch will
-you do the fandango
-
-29
-00:03:17,500 --> 00:03:21,100
-Thunderbolt and lightning very
-very frightening me
-
-30
-00:03:21,300 --> 00:03:22,800
-Gallileo, Gallileo,
-
-31
-00:03:23,000 --> 00:03:24,200
-Gallileo, Gallileo,
-
-32
-00:03:24,400 --> 00:03:27,100
-Gallileo Figaro - magnifico
-
-33
-00:03:27,300 --> 00:03:31,000
-But I'm just a poor boy and
-nobody loves me
-
-34
-00:03:31,200 --> 00:03:33,900
-He's just a poor boy from a poor family
-
-35
-00:03:34,100 --> 00:03:39,200
-Spare him his life from this monstrosity
-
-36
-00:03:39,400 --> 00:03:42,000
-Easy come easy go will you let me go
-
-37
-00:03:42,200 --> 00:03:45,000
-Bismillah! No we will not let
-you go - let him go
-
-38
-00:03:45,200 --> 00:03:48,600
-Bismillah! We will not let you
-go - let him go
-
-39
-00:03:48,800 --> 00:03:51,800
-Bismillah! We will not let you
-go let me go
-
-40
-00:03:52,000 --> 00:03:53,000
-Will not let you go let me go (never)
-
-41
-00:03:52,700 --> 00:03:53,700
-Never let you go let me go
-
-42
-00:03:53,300 --> 00:03:56,300
-Never let me go ooo
-
-43
-00:03:56,500 --> 00:03:59,200
-No, no, no, no, no, no, no
-
-44
-00:03:59,400 --> 00:04:02,100
-Oh mama mia, mama mia, mama
-mia let me go
-
-45
-00:04:02,300 --> 00:04:07,200
-Beelzebub has a devil put aside for me
-
-46
-00:04:07,400 --> 00:04:08,600
-For me
-
-47
-00:04:08,800 --> 00:04:16,800
-For me
-
-48
-00:04:20,100 --> 00:04:26,100
-So you think you can stop me
-and spit in my eye
-
-49
-00:04:26,300 --> 00:04:31,200
-So you think you can love me
-and leave me to die
-
-50
-00:04:31,400 --> 00:04:38,000
-Oh baby can't do this to me baby
-
-51
-00:04:38,200 --> 00:04:46,200
-Just gotta get out just gotta
-get right outta here
-
-52
-00:05:04,000 --> 00:05:12,000
-Ooh yeah, ooh yeah
-
-53
-00:05:17,600 --> 00:05:20,200
-Nothing really matters
-
-54
-00:05:20,400 --> 00:05:23,600
-Anyone can see
-
-55
-00:05:23,800 --> 00:05:31,800
-Nothing really matters nothing
-really matters to me
-
-56
-00:05:39,800 --> 00:05:44,800
-Anyway the wind blows
-
-57
-00:05:45,800 --> 00:05:54,800
-  `,
-
-  // Le altre canzoni saranno aggiunte qui mano a mano:
-  // 'queen-bohemian': ` ... `,
-  // 'beatles-letitbe': ` ... `,
-  // ...
-};
+const SRT_CACHE = {};
+let SRT_LAST_STATUS = '';  // 'ok' | 'missing' | 'error' | ''
+
+async function loadSRT(songId) {
+  if (SRT_CACHE[songId] !== undefined) {
+    SRT_LAST_STATUS = SRT_CACHE[songId] ? 'ok' : 'missing';
+    return SRT_CACHE[songId];
+  }
+  const song = SONGS.find(s => s.id === songId);
+  const fileName = (song && song.srtFile) || `${songId}.srt`;
+  const url = 'lyrics/' + encodeURIComponent(fileName);
+  try {
+    const res = await fetch(url, { cache: 'force-cache' });
+    if (!res.ok) {
+      SRT_CACHE[songId] = '';
+      SRT_LAST_STATUS = res.status === 404 ? 'missing' : 'error';
+      console.warn(`SRT not found: ${url} (status ${res.status})`);
+      return '';
+    }
+    const text = await res.text();
+    SRT_CACHE[songId] = text;
+    SRT_LAST_STATUS = 'ok';
+    return text;
+  } catch (e) {
+    console.warn(`SRT load failed for ${songId} at ${url}:`, e);
+    SRT_CACHE[songId] = '';
+    SRT_LAST_STATUS = 'error';
+    return '';
+  }
+}
 
 /* =========================================================================
    SRT PARSER + KARAOKE ENGINE
@@ -2861,30 +2372,68 @@ let karaokeLines = [];
 let karaokeActiveIdx = -1;
 
 function renderKaraoke(songId, idioms) {
-  const raw = SRT_DATA[songId] || '';
+  // Sync placeholder rendering — il contenuto reale arriva via populateKaraoke()
+  karaokeLines = [];
+  karaokeActiveIdx = -1;
+  const song = SONGS.find(s => s.id === songId);
+  const fileName = (song && song.srtFile) || `${songId}.srt`;
+  return `
+    <div class="karaoke" id="karaokeBox">
+      <div class="kar-empty">
+        <strong>Caricamento testo</strong>
+        <span>Sto leggendo <code style="font-family:DM Mono,monospace;background:rgba(250,246,238,0.1);padding:2px 6px;border-radius:3px;color:#FFB3BD">lyrics/${fileName}</code></span>
+      </div>
+    </div>
+  `;
+}
+
+async function populateKaraoke(songId, idioms) {
+  const raw = await loadSRT(songId);
+  // If user navigated away while loading, abort
+  if (state.currentSongId !== songId) return;
+
   karaokeLines = parseSRT(raw);
   karaokeActiveIdx = -1;
 
+  const box = document.getElementById('karaokeBox');
+  if (!box) return;
+
   if (karaokeLines.length === 0) {
-    return `
-      <div class="karaoke">
+    if (SRT_LAST_STATUS === 'missing') {
+      const song = SONGS.find(s => s.id === songId);
+      const fileName = (song && song.srtFile) || `${songId}.srt`;
+      box.innerHTML = `
         <div class="kar-empty">
-          <strong>Karaoke non ancora attivo</strong>
-          <span>Per attivarlo, apri il file HTML, cerca la sezione<br><code style="font-family:DM Mono,monospace;background:rgba(250,246,238,0.1);padding:2px 6px;border-radius:3px;color:#FFB3BD">SRT_DATA</code> all'inizio del &lt;script&gt;,<br>e incolla il contenuto del file .srt tra i backticks.</span>
-        </div>
-      </div>
-    `;
+          <strong>Testo non trovato</strong>
+          <span>Manca il file <code style="font-family:DM Mono,monospace;background:rgba(250,246,238,0.1);padding:2px 6px;border-radius:3px;color:#FFB3BD">lyrics/${fileName}</code><br>nella cartella <em>lyrics/</em> accanto al file HTML.</span>
+        </div>`;
+    } else {
+      box.innerHTML = `
+        <div class="kar-empty">
+          <strong>Errore di caricamento</strong>
+          <span>Impossibile leggere il file SRT.<br>Apri la console del browser per dettagli.</span>
+        </div>`;
+    }
+    return;
   }
 
-  return `
-    <div class="karaoke" id="karaokeBox">
-      ${karaokeLines.map((l, idx) => `
-        <div class="kar-line next" data-idx="${idx}" data-start="${l.start}" data-end="${l.end}">
-          ${highlightIdiomsInText(l.text, idioms)}
-        </div>
-      `).join('')}
+  box.innerHTML = karaokeLines.map((l, idx) => `
+    <div class="kar-line next" data-idx="${idx}" data-start="${l.start}" data-end="${l.end}">
+      ${highlightIdiomsInText(l.text, idioms)}
     </div>
-  `;
+  `).join('');
+
+  // Re-bind click handlers on lyric idioms (innerHTML overwrite reset DOM)
+  box.querySelectorAll('.lyric-idiom').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const at = parseFloat(el.dataset.at);
+      if (!isNaN(at)) {
+        audioSeek(at, true);
+        if (ytPlayer && typeof ytPlayer.playVideo === 'function') ytPlayer.playVideo();
+      }
+    });
+  });
 }
 
 function syncKaraoke(currentTime) {
@@ -2979,6 +2528,7 @@ const SONGS = [
     era: 'contemporary',
     level: 'B1',
     youtubeId: 'bDtjO-R0QSo',
+    srtFile: 'Adele - Rolling in the Deep.en.srt',
     musixmatch: 'https://www.musixmatch.com/it/testo/Adele-3/Rolling-in-the-Deep/traduzione/italiano',
     summary: 'Una rottura raccontata come una marea che monta. Il titolo stesso è un idiom: nessuno lo traduce correttamente la prima volta.',
     coverColors: ['#1A2438', '#D85D4F'],
@@ -3125,6 +2675,7 @@ const SONGS = [
     era: 'evergreen',
     level: 'B1+',
     youtubeId: '5zLnaNY58j8',
+    srtFile: 'Queen - Bohemian Rhapsody.en.srt',
     summary: "Un'opera in sei minuti. Sei sezioni musicali diverse, registri linguistici che vanno dal confessionale all'operetta, dal rock duro al lamento. Fra le mille immagini, otto idiom forti — i più cantati, i meno tradotti.",
     coverColors: ['#3D2645','#C8A36A'],
     ready: true,
@@ -3239,7 +2790,86 @@ const SONGS = [
   { id:'taylor-shake', artist:'Taylor Swift', title:'Shake It Off', year:2014, era:'contemporary', level:'A2-B1', summary:'Un manuale di phrasal verbs travestito da pop hit. Shake off, brush off, fake it.', coverColors:['#D4A5A5','#5C3A3A'], ready:false, idioms:[] },
   { id:'olivia-drivers', artist:'Olivia Rodrigo', title:"drivers license", year:2021, era:'contemporary', level:'B1', summary:'Slang adolescenziale + immagini emotive forti. Imperfetto inglese da camera da letto.', coverColors:['#5A6E8C','#F2D5CE'], ready:false, idioms:[] },
   { id:'sheeran-shape', artist:'Ed Sheeran', title:'Shape of You', year:2017, era:'contemporary', level:'B1', summary:'Frasi colloquiali, contractions, espressioni del corteggiamento moderno.', coverColors:['#8C5A3A','#F4D8AC'], ready:false, idioms:[] },
-  { id:'coldplay-fixyou', artist:'Coldplay', title:'Fix You', year:2005, era:'evergreen', level:'B1', summary:'"Fix" è un campione di polisemia. Riparare, sistemare, definire — qui significa quasi guarire.', coverColors:['#1F3A5C','#E5DCC9'], ready:false, idioms:[] },
+  {
+    id: 'coldplay-fixyou',
+    artist: 'Coldplay',
+    title: 'Fix You',
+    year: 2005,
+    era: 'evergreen',
+    level: 'B1',
+    youtubeId: 'bzRMneypG04',
+    srtFile: 'Coldplay - Fix You.en.srt',
+    summary: "L'inglese è una lingua di verbi-camaleonte. <em>Fix</em> ne è il campione assoluto: aggiustare un oggetto, fissare una data, preparare un panino, e — qui — guarire emotivamente qualcuno. Cinque idiom che lavorano sul gap tra letterale e figurato.",
+    coverColors: ['#0E2E54', '#F5B842'],
+    ready: true,
+    idioms: [
+      {
+        id: 'stuck-reverse',
+        at: 34,
+        expression: 'stuck in reverse',
+        position: 'Verso 1',
+        context: "Coldplay descrive una persona paralizzata, incapace di andare avanti — bloccata mentalmente come un'auto rimasta in retromarcia.",
+        literal: 'bloccato in retromarcia',
+        real: 'paralizzato dalla regressione, incapace di andare avanti, bloccato a tornare indietro',
+        explanation: "<strong>Reverse</strong> in inglese è la retromarcia dell'auto, ma anche metaforicamente <em>il contrario</em>, <em>l'inverso</em>. L'espressione descrive uno stato emotivo di regressione: invece di progredire, si torna a errori, traumi, schemi del passato. Idiom moderno, frequente in canzoni e psicologia popolare. Coldplay non lo inventa ma lo rende iconico associandolo all'insonnia.",
+        nowUseIt: "After the breakup, he felt completely <em>stuck in reverse</em> — every memory pulling him back.",
+        family: 'tempo',
+        register: 'figurato / colloquiale moderno'
+      },
+      {
+        id: 'go-to-waste',
+        at: 60,
+        expression: 'go to waste',
+        position: 'Verso 1 (chiusura)',
+        context: 'Coldplay parla di un amore non corrisposto: investi tutto in qualcuno e quel sentimento si dissipa, finisce sprecato.',
+        literal: 'andare a sprechi',
+        real: 'essere sprecato, andare in fumo, non dare frutto',
+        explanation: "<strong>Waste</strong> come sostantivo significa <em>rifiuto, scarto</em>; come verbo <em>sprecare</em>. <em>Go to waste</em> è la costruzione fissa per &laquo;andare sprecato&raquo;. Si usa per cibo che marcisce (<em>don't let it go to waste</em>), talenti non sviluppati, sentimenti non corrisposti. Forma parallela &laquo;in vain&raquo; (in vano) ma più letteraria.",
+        nowUseIt: "Don't let your talent <em>go to waste</em> — practice every day.",
+        family: 'vita',
+        register: 'standard / fisso'
+      },
+      {
+        id: 'fix-you',
+        at: 86,
+        expression: 'fix (someone)',
+        position: 'Ritornello (titolo)',
+        context: "Il narratore promette di &laquo;aggiustare&raquo; la persona amata che sta soffrendo — non meccanicamente, ma emotivamente.",
+        literal: 'aggiustarti, sistemarti',
+        real: 'guarirti emotivamente, rimetterti insieme i pezzi, aiutarti a stare meglio',
+        explanation: "<strong>To fix</strong> è uno dei verbi più polisemici dell'inglese: aggiustare un oggetto rotto, fissare qualcosa al muro, decidere (<em>fix a date</em>), preparare (<em>I'll fix you a sandwich</em>). Quando l'oggetto è una <em>persona</em>, il senso diventa figurato e quasi medico-emotivo: rimettere a posto qualcuno che è &laquo;rotto&raquo; dentro. Coldplay ha trasformato il titolo in un classico del registro consolatorio.",
+        nowUseIt: "I can't <em>fix you</em>, but I can be here while you fix yourself.",
+        family: 'cuore',
+        register: 'colloquiale / emotivo'
+      },
+      {
+        id: 'let-it-go',
+        at: 112,
+        expression: 'let it go',
+        position: 'Ritornello secondario',
+        context: 'Coldplay osserva: quando ami troppo, non riesci a lasciar andare — anche se sai che dovresti.',
+        literal: 'lascialo andare',
+        real: 'lasciar perdere, smettere di trattenere qualcosa o di soffrire per qualcosa, rinunciare con accettazione',
+        explanation: "Idiom centralissimo nell'inglese moderno. Reso ancora più iconico dalla canzone Disney <em>Let It Go</em> del film Frozen (2013). Si usa per persone, idee, traumi, opportunità sfumate. Forma parallela: <em>let go of (something)</em> — costruzione leggermente diversa ma stesso significato. Frase tipica: <em>you need to let it go and move on</em>.",
+        nowUseIt: "I know you're still angry, but you have to <em>let it go</em>.",
+        family: 'emozioni',
+        register: 'standard / iconico'
+      },
+      {
+        id: 'learn-mistakes',
+        at: 247,
+        expression: "learn from (someone's) mistakes",
+        position: 'Bridge finale',
+        context: 'Il narratore promette di crescere — di non ripetere gli errori del passato.',
+        literal: 'imparare dagli errori di qualcuno',
+        real: 'stessa idea — espressione fissa proverbiale, da usare attivamente in inglese moderno',
+        explanation: "Costruzione fissa idiomatica (<em>collocation</em>) che in italiano funziona quasi identica (&laquo;imparare dai propri errori&raquo;). La differenza pedagogica importante: l'inglese ha una variante meno ovvia, <em>learn from <strong>their</strong> mistakes</em> (imparare dagli errori altrui), molto più frequente che in italiano. Il rovescio dell'idiom è il proverbio <em>history repeats itself</em>, riservato a chi non impara mai.",
+        nowUseIt: "I'll <em>learn from this mistake</em> and won't make it again.",
+        family: 'vita',
+        register: 'standard / proverbiale'
+      }
+    ]
+  },
   { id:'bruno-justthe', artist:'Bruno Mars', title:'Just the Way You Are', year:2010, era:'contemporary', level:'A2', summary:'Inglese piano e pulito ma con espressioni idiomatiche tipiche del compliment.', coverColors:['#2C5C4A','#EDDFC4'], ready:false, idioms:[] },
   { id:'dua-newrules', artist:'Dua Lipa', title:'New Rules', year:2017, era:'contemporary', level:'B1', summary:'Lessico delle relazioni tossiche. "Pick up the phone", "let him in", "fall apart".', coverColors:['#A04A60','#F8E2EA'], ready:false, idioms:[] },
   { id:'katrina-walking', artist:'Katrina & The Waves', title:'Walking on Sunshine', year:1985, era:'evergreen', level:'A2', summary:'Il titolo è un\'immagine idiomatica esplosiva. Felicità come elemento atmosferico.', coverColors:['#E8B547','#2C4A52'], ready:false, idioms:[] }
@@ -3713,6 +3343,8 @@ function renderScheda(songId) {
   // Initialize audio player and bind controls
   bindAudioControls();
   initAudioPlayer(s.youtubeId);
+  // Async-load karaoke text from external .srt file
+  populateKaraoke(s.id, s.idioms);
 }
 
 function idiomCard(song, i) {
