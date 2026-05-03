@@ -94,25 +94,14 @@ img { max-width: 100%; height: auto; display: block; }
   position: relative;
 }
 
-/* Topbar in home: navy istituzionale piena con fascia tricolore */
+/* Topbar in home: navy istituzionale piena, bordo coral pulito */
 body.is-home .topbar {
   display: flex;
   position: relative;
   background: var(--ink);
-  border-bottom: none;
+  border-bottom: 2px solid var(--coral);
   padding: 12px 32px;
   z-index: 50;
-}
-body.is-home .topbar::after {
-  content: "";
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg,
-    var(--paper) 0%, var(--paper) 25%,
-    var(--coral) 25%, var(--coral) 50%,
-    var(--paper) 50%, var(--paper) 75%,
-    var(--coral) 75%, var(--coral) 100%);
 }
 body.is-home .brand-co { background: transparent; }
 body.is-home .brand-co:hover { background: rgba(250,246,238,0.06); }
@@ -239,32 +228,30 @@ body.is-home .app-footer { display: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px 64px 12px 64px;
+  padding: 28px 64px 8px 64px;
 }
 .home-banner-img {
   display: block;
   width: 100%;
   max-width: 1100px;
-  aspect-ratio: 2918 / 1124;  /* mantiene proporzioni originali music.jpg */
+  height: auto;
   max-height: 38vh;
-  object-fit: cover;
-  object-position: center center;
-  border-radius: 18px;
+  object-fit: contain;
+  border-radius: 16px;
   box-shadow:
-    0 1px 2px rgba(15,36,85,0.04),
-    0 8px 24px rgba(15,36,85,0.10),
-    0 24px 60px rgba(15,36,85,0.08);
+    0 1px 2px rgba(15,36,85,0.05),
+    0 12px 32px rgba(15,36,85,0.12);
 }
 
 /* Fascia azione sotto banner — orizzontale */
 .home-action {
   display: grid;
   grid-template-rows: auto 1fr;
-  padding: 14px 64px 24px 64px;
-  max-width: 1400px;
+  padding: 18px 64px 28px 64px;
+  max-width: 1280px;
   margin: 0 auto;
   width: 100%;
-  gap: 18px;
+  gap: 20px;
   align-items: start;
 }
 .home-headline {
@@ -338,7 +325,12 @@ body.is-home .app-footer { display: none; }
   align-items: start;
   transition: all var(--t-fast);
 }
-.step-card:hover { border-color: var(--coral); transform: translateY(-2px); box-shadow: var(--sh-sm); }
+.step-card:hover {
+  background: var(--paper);
+  border-color: var(--paper-line);
+  transform: translateY(-2px);
+  box-shadow: var(--sh-sm);
+}
 .step-num {
   font-family: var(--f-display);
   font-weight: 900;
