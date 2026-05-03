@@ -2470,7 +2470,7 @@ async function populateKaraoke(songId, idioms) {
       e.stopPropagation();
       const at = parseFloat(el.dataset.at);
       if (!isNaN(at)) {
-        audioSeek(at, true);
+        audioSeek(at, true, true);
         if (ytPlayer && typeof ytPlayer.playVideo === 'function') ytPlayer.playVideo();
       }
     });
@@ -2895,86 +2895,6 @@ const SONGS = [
     ]
   },
   {
-    id: 'olivia-drivers',
-    artist: 'Olivia Rodrigo',
-    title: 'drivers license',
-    year: 2021,
-    era: 'contemporary',
-    level: 'B1',
-    youtubeId: 'ZmDBbnmKpqQ',
-    srtFile: 'Olivia.srt',
-    summary: "L'inglese del cuore spezzato adolescenziale. Cinque modi di dire che fanno la differenza tra parlare correttamente e parlare con sentimento — la zona dove i ragazzi vogliono davvero arrivare.",
-    coverColors: ['#5A6E8C','#F2D5CE'],
-    ready: true,
-    idioms: [
-      {
-        id: 'so-okay',
-        at: 65,
-        expression: '(be) so okay (with something)',
-        position: 'Ritornello',
-        context: "Olivia non riesce a immaginare come l'altro possa stare benissimo dopo la rottura — come se nulla fosse.",
-        literal: 'essere così okay',
-        real: "essere completamente a proprio agio con una situazione difficile, accettarla senza problemi visibili",
-        explanation: "<strong>Okay</strong> sembra una parola elementare, ma <em>so okay with</em> è un'espressione idiomatica precisa: indica un'accettazione tranquilla, quasi fastidiosa per chi guarda. Si usa spesso al negativo (<em>I'm not okay with that</em>) per esprimere disaccordo educato ma fermo. La sfumatura emotiva qui è chiave: per Olivia, il fatto che lui sia &laquo;so okay&raquo; è un'offesa al suo dolore.",
-        nowUseIt: "How are you <em>so okay with</em> moving to a new city? I would be terrified.",
-        family: 'emozioni',
-        register: 'colloquiale / contemporaneo'
-      },
-      {
-        id: 'mean-what',
-        at: 74,
-        expression: "(didn't) mean what (you) wrote/said",
-        position: 'Ritornello',
-        context: "Olivia accusa l'ex: non pensava davvero quello che le aveva scritto in quella canzone — erano parole vuote.",
-        literal: 'non intendere quello che hai scritto',
-        real: "non essere sincero in ciò che si è detto o scritto, essere stato falso",
-        explanation: "Costruzione idiomatica fondamentale per esprimere la differenza tra parole pronunciate e intenzioni reali. <strong>To mean</strong> ha qui il senso preciso di &laquo;intendere sul serio&raquo;, &laquo;essere sincero&raquo;. Forme parallele utili: <em>I meant what I said</em> (l'ho detto sul serio), <em>do you mean it?</em> (dici davvero?). In italiano usiamo &laquo;sul serio&raquo; o &laquo;davvero&raquo; — l'inglese centralizza tutto sul verbo <em>mean</em>.",
-        nowUseIt: "He apologized, but I don't think he <em>meant what he said</em> — he just wanted to end the argument.",
-        family: 'rivelazione',
-        register: 'standard / quotidiano'
-      },
-      {
-        id: 'tired-of',
-        at: 90,
-        expression: '(be) tired of (doing something)',
-        position: 'Verso 3',
-        context: "Tutti gli amici di Olivia sono stanchi di sentirla parlare di quanto le manchi lui.",
-        literal: 'essere stanco di',
-        real: "essere stufo di fare qualcosa che continua a ripetersi, aver perso pazienza con una situazione",
-        explanation: "Costruzione fondamentale: <strong>tired of</strong> + sostantivo o + verbo in <em>-ing</em>. Differenza importante con <em>tired</em> da solo (stanco fisicamente): <em>tired of</em> è la stanchezza emotiva, l'esasperazione. Forma parallela: <em>fed up with</em> (più colloquiale, più forte). Costruzione che gli studenti italiani sbagliano spesso (mettono <em>to</em> + infinito invece di <em>of</em> + gerundio): qui la canzone aiuta a fissare la struttura corretta.",
-        nowUseIt: "I'm <em>tired of waiting</em> for him to apologize. Let's just move on.",
-        family: 'emozioni',
-        register: 'standard / costruzione fondamentale'
-      },
-      {
-        id: 'feel-sorry',
-        at: 96,
-        expression: 'feel sorry for (someone)',
-        position: 'Verso 3',
-        context: "Olivia sente compassione per gli amici: non sapranno mai cosa significa conoscere lui come lo conosceva lei.",
-        literal: 'sentirsi dispiaciuto per qualcuno',
-        real: "provare pena, compassione o dispiacere per la situazione di un'altra persona",
-        explanation: "Idiom emotivo costantissimo. Differenza importante: <em>I'm sorry</em> = mi scuso (per qualcosa che ho fatto io); <em>I'm sorry for you</em> = mi dispiace per te (provare pena per la tua situazione); <em>I feel sorry for you</em> = compassione più profonda, a volte con sfumatura di superiorità (&laquo;poveretto&raquo;). La differenza è sottile e gli studenti la sbagliano spesso. Olivia qui usa il terzo senso: si compiange degli amici che &laquo;non sanno&raquo;.",
-        nowUseIt: "I <em>feel sorry for</em> the new student — nobody is talking to him at lunch.",
-        family: 'emozioni',
-        register: 'standard / costruzione fissa'
-      },
-      {
-        id: 'so-blue',
-        at: 189,
-        expression: "(be) so blue",
-        position: 'Bridge',
-        context: 'Olivia confessa la sua tristezza profonda — sa che la storia è finita, ma il sentimento resta.',
-        literal: 'essere così blu',
-        real: 'essere molto triste, depresso, malinconico',
-        explanation: "Idiom emotivo dei colori. <strong>Blue</strong> = triste in inglese (dall'antica medicina umorale: la melanconia era associata al colore blu). Origine in canzoni blues nere americane di inizio Novecento. In italiano associamo il <em>nero</em> alla tristezza (&laquo;vedere tutto nero&raquo;), gli inglesi il blu — ottimo gancio interlinguistico. Forma parallela: <em>feeling blue</em> (più frequente nel parlato).",
-        nowUseIt: "Don't be <em>so blue</em> about the rejection — there will be other opportunities.",
-        family: 'emozioni',
-        register: 'colloquiale / cromatico'
-      }
-    ]
-  },
-  {
     id: 'sheeran-shape',
     artist: 'Ed Sheeran',
     title: 'Shape of You',
@@ -2983,6 +2903,7 @@ const SONGS = [
     level: 'B1',
     youtubeId: 'erd3fTm-2t8',
     srtFile: 'Ed.srt',
+    srtOffset: 10,
     summary: "Il romanticismo moderno raccontato come un balletto fisico. Sei modi di dire del corteggiamento contemporaneo — senza romanticismi astratti, tutto carne, ritmo, gesto.",
     coverColors: ['#8C5A3A','#F4D8AC'],
     ready: true,
@@ -3470,8 +3391,11 @@ function startProgressLoop() {
       const time = document.getElementById('audioTime');
       if (fill) fill.style.width = dur ? `${(cur/dur)*100}%` : '0%';
       if (time) time.textContent = `${formatTime(cur)} / ${formatTime(dur)}`;
-      // Karaoke sync
-      syncKaraoke(cur);
+      // Karaoke sync with optional per-song offset (positive = SRT delayed → anticipa testo;
+      // negative = SRT in anticipo → ritarda testo)
+      const song = SONGS.find(s => s.id === state.currentSongId);
+      const offset = (song && typeof song.srtOffset === 'number') ? song.srtOffset : 0;
+      syncKaraoke(cur + offset);
     } catch(e) { /* iframe might have been removed */ }
   }, 200);
 }
@@ -3492,13 +3416,20 @@ function audioToggle() {
   } catch(e) {}
 }
 
-function audioSeek(seconds, absolute = false) {
+function audioSeek(seconds, absolute = false, applyOffset = false) {
   if (!ytPlayer || typeof ytPlayer.seekTo !== 'function') return;
   try {
     const dur = ytPlayer.getDuration() || 0;
     let target;
     if (absolute) {
       target = seconds;
+      // When jumping to an idiom timestamp (which is based on SRT time),
+      // subtract the SRT offset to land on the correct AUDIO time
+      if (applyOffset) {
+        const song = SONGS.find(s => s.id === state.currentSongId);
+        const offset = (song && typeof song.srtOffset === 'number') ? song.srtOffset : 0;
+        target = target - offset;
+      }
     } else {
       const cur = ytPlayer.getCurrentTime() || 0;
       target = cur + seconds;
@@ -3534,7 +3465,7 @@ function bindAudioControls() {
     b.addEventListener('click', () => {
       const t = parseFloat(b.dataset.at);
       if (!isNaN(t)) {
-        audioSeek(t, true);
+        audioSeek(t, true, true);
         if (ytPlayer && typeof ytPlayer.playVideo === 'function') ytPlayer.playVideo();
       }
     });
@@ -3546,7 +3477,7 @@ function bindAudioControls() {
       e.stopPropagation();
       const at = parseFloat(el.dataset.at);
       if (!isNaN(at)) {
-        audioSeek(at, true);
+        audioSeek(at, true, true);
         if (ytPlayer && typeof ytPlayer.playVideo === 'function') ytPlayer.playVideo();
       }
     });
