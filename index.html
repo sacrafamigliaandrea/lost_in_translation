@@ -2391,10 +2391,15 @@ function highlightIdiomsInText(text, idioms) {
   const sorted = [...idioms].sort((a, b) => b.expression.length - a.expression.length);
   for (const idiom of sorted) {
     const re = buildIdiomMatcher(idiom.expression);
-    // Avoid double-wrapping if already inside a span
-    html = html.replace(re, (match, _grp, offset, full) => {
-      // Don't replace if we're already inside a span
-      const before = full.slice(0, offset);
+    // Capture current html in closure so we can check what's already been wrapped
+    const currentHtml = html;
+    html = currentHtml.replace(re, (match, ...args) => {
+      // Last arg is the full source string, but we use closure for safety
+      const offset = typeof args[args.length - 2] === 'number'
+        ? args[args.length - 2]
+        : args[0];  // fallback
+      // Don't double-wrap if already inside a span
+      const before = currentHtml.slice(0, offset);
       const openCount = (before.match(/<span/g) || []).length;
       const closeCount = (before.match(/<\/span>/g) || []).length;
       if (openCount > closeCount) return match;
@@ -3798,8 +3803,14 @@ function renderScheda(songId) {
   // Initialize audio player and bind controls
   bindAudioControls();
   initAudioPlayer(s.youtubeId);
-  // Async-load karaoke text from external .srt file
-  populateKaraoke(s.id, s.idioms);
+  // Async-load karaoke text from external .srt file. Don't let karaoke errors break audio.
+  populateKaraoke(s.id, s.idioms).catch(err => {
+    console.error('[LiT] Karaoke render failed:', err);
+    const box = document.getElementById('karaokeBox');
+    if (box) {
+      box.innerHTML = `<div class="kar-empty"><strong>Karaoke non disponibile</strong><span>L'audio funziona regolarmente.</span></div>`;
+    }
+  });
 }
 
 function idiomCard(song, i) {
