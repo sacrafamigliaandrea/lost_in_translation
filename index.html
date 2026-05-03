@@ -192,7 +192,7 @@ body.is-home .app-footer { display: none; }
 .home-noscroll {
   height: 100vh;
   display: grid;
-  grid-template-rows: 38vh 1fr;
+  grid-template-rows: 52vh 48vh;
   overflow: hidden;
 }
 
@@ -201,9 +201,12 @@ body.is-home .app-footer { display: none; }
   background: var(--ink);
   overflow: hidden;
 }
-.home-banner-art {
+.home-banner-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
 }
 .banner-overlay {
   position: absolute; top: 0; left: 0; right: 0;
@@ -216,8 +219,9 @@ body.is-home .app-footer { display: none; }
 .banner-overlay .brand-text small { color: var(--paper-soft); opacity: 0.8; }
 .banner-nav {
   display: flex; gap: 6px;
-  background: rgba(250,246,238,0.12);
-  backdrop-filter: blur(8px);
+  background: rgba(15,36,85,0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(250,246,238,0.2);
   border-radius: 99px;
   padding: 5px;
@@ -227,109 +231,128 @@ body.is-home .app-footer { display: none; }
   padding: 8px 16px;
   border-radius: 99px;
   color: var(--paper);
-  opacity: 0.78;
+  opacity: 0.85;
   font-size: 13px;
   font-weight: 700;
   transition: all var(--t-fast);
 }
 .banner-nav-btn svg { width: 15px; height: 15px; }
-.banner-nav-btn:hover { opacity: 1; background: rgba(250,246,238,0.1); }
+.banner-nav-btn:hover { opacity: 1; background: rgba(250,246,238,0.12); }
 .banner-nav-btn.active { background: var(--paper); color: var(--ink); opacity: 1; }
 
-.home-content {
+/* Fascia azione sotto banner — orizzontale */
+.home-action {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 48px;
-  padding: 36px 64px 36px 64px;
-  align-items: center;
+  grid-template-rows: auto 1fr;
+  padding: 30px 64px 24px 64px;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
+  gap: 22px;
+  align-items: start;
+}
+.home-headline {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 36px;
+  align-items: end;
 }
 .home-text h1 {
   font-family: var(--f-display);
   font-weight: 900;
-  font-size: clamp(34px, 4.4vw, 58px);
-  line-height: 1.02;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.05;
   color: var(--ink);
-  letter-spacing: -0.025em;
-  margin-bottom: 18px;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
 }
 .home-text h1 em {
   font-style: italic;
   color: var(--coral);
   font-weight: 700;
 }
-.home-text h1 .strike {
-  position: relative;
+.home-text .lead {
+  font-family: var(--f-display);
   font-style: italic;
-  color: var(--text-faint);
+  font-size: clamp(18px, 1.5vw, 22px);
+  color: var(--ink);
+  max-width: 760px;
+  line-height: 1.4;
   font-weight: 400;
 }
-.home-text h1 .strike::after {
-  content: ""; position: absolute;
-  left: -2%; right: -2%;
-  top: 52%; height: 3px;
-  background: var(--coral);
-  transform: rotate(-3deg);
-}
-.home-text .lead {
-  font-size: 17px;
-  color: var(--text-soft);
-  max-width: 540px;
-  margin-bottom: 26px;
-  line-height: 1.6;
+.home-text .lead em {
+  font-style: italic;
+  color: var(--coral);
+  font-weight: 700;
+  font-style: normal;
 }
 .home-cta {
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 15px 26px;
+  padding: 14px 24px;
   background: var(--ink);
   color: var(--paper);
   border-radius: 99px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.01em;
   border-bottom: none;
   box-shadow: var(--sh-md);
   transition: all var(--t-fast);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .home-cta:hover { background: var(--coral-deep); color: var(--paper); transform: translateY(-2px); box-shadow: var(--sh-lg); }
-.home-cta svg { width: 18px; height: 18px; }
+.home-cta svg { width: 17px; height: 17px; }
 
+/* 3 step orizzontali */
 .home-steps {
-  display: grid; gap: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: stretch;
 }
 .step-card {
   display: grid;
-  grid-template-columns: 48px 1fr;
-  gap: 16px;
-  padding: 18px 22px;
+  grid-template-columns: 42px 1fr;
+  gap: 14px;
+  padding: 16px 18px;
   background: var(--paper-soft);
   border: 1px solid var(--paper-line);
   border-radius: var(--r-md);
   align-items: start;
   transition: all var(--t-fast);
 }
-.step-card:hover { border-color: var(--coral-soft); transform: translateX(4px); }
+.step-card:hover { border-color: var(--coral); transform: translateY(-2px); box-shadow: var(--sh-sm); }
 .step-num {
   font-family: var(--f-display);
   font-weight: 900;
   font-style: italic;
-  font-size: 36px;
+  font-size: 32px;
   line-height: 1;
   color: var(--coral);
 }
 .step-card h3 {
   font-family: var(--f-display);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   color: var(--ink);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  line-height: 1.15;
 }
 .step-card p {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-soft);
-  line-height: 1.5;
+  line-height: 1.45;
+}
+
+/* Schermi non altissimi: stringo padding e dimensioni */
+@media (max-height: 800px) {
+  .home-action { padding: 22px 48px 18px 48px; gap: 16px; }
+  .home-text .lead { font-size: 17px; }
+  .step-card { padding: 12px 14px; }
+  .step-card h3 { font-size: 15px; }
+  .step-card p { font-size: 12px; line-height: 1.4; }
+  .step-num { font-size: 28px; }
 }
 
 /* =========================================================
@@ -1862,11 +1885,14 @@ body.is-home .app-footer { display: none; }
    RESPONSIVE
    ========================================================= */
 @media (max-width: 980px) {
-  .home-content { grid-template-columns: 1fr; gap: 28px; padding: 28px; }
+  .home-action { padding: 24px 24px; gap: 18px; }
+  .home-headline { grid-template-columns: 1fr; gap: 16px; }
+  .home-cta { width: 100%; justify-content: center; }
+  .home-steps { grid-template-columns: 1fr; gap: 10px; }
   .scheda-hero { grid-template-columns: 1fr; gap: 24px; }
   .idiom-grid { grid-template-columns: 1fr; }
-  .home-noscroll { height: auto; grid-template-rows: auto auto; }
-  .home-banner { height: 220px; }
+  .home-noscroll { height: auto; grid-template-rows: 280px auto; }
+  .home-banner { height: 280px; }
   .topnav button span:not(.count-badge) { display: none; }
   .container { padding: 24px 20px; }
 }
@@ -1984,84 +2010,17 @@ body.is-home .app-footer { display: none; }
 <main class="view active" data-view="home">
   <div class="home-noscroll">
 
-    <!-- BANNER: SVG illustrazione + brand+nav overlay -->
+    <!-- BANNER: immagine raster + brand+nav overlay -->
     <div class="home-banner">
-      <svg class="home-banner-art" viewBox="0 0 1400 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="bgGlow" cx="50%" cy="60%" r="80%">
-            <stop offset="0%" stop-color="#1E3470"/>
-            <stop offset="100%" stop-color="#0F2455"/>
-          </radialGradient>
-          <linearGradient id="ukRed" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#E2304F"/>
-            <stop offset="100%" stop-color="#9B0A20"/>
-          </linearGradient>
-          <linearGradient id="redToCream" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#C8102E"/>
-            <stop offset="50%" stop-color="#C8A36A"/>
-            <stop offset="100%" stop-color="#FAF6EE"/>
-          </linearGradient>
-          <pattern id="dotgrid" width="22" height="22" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="1" fill="#FAF6EE" opacity="0.06"/>
-          </pattern>
-        </defs>
-        <rect width="1400" height="420" fill="url(#bgGlow)"/>
-        <rect width="1400" height="420" fill="url(#dotgrid)"/>
-
-        <!-- Soundwaves background, sottili -->
-        <g opacity="0.08" stroke="#FAF6EE" fill="none" stroke-width="1.2" stroke-linecap="round">
-          <path d="M0 215 Q 100 195 200 215 T 400 215 T 600 215 T 800 215 T 1000 215 T 1200 215 T 1400 215"/>
-          <path d="M0 250 Q 100 230 200 250 T 400 250 T 600 250 T 800 250 T 1000 250 T 1200 250 T 1400 250"/>
-        </g>
-
-        <!-- BUBBLE LETTERALE (sinistra, centro-verticale, sotto il brand-co) -->
-        <g transform="translate(310, 235)">
-          <rect x="-150" y="-65" width="300" height="130" rx="16" fill="url(#ukRed)" opacity="0.94"/>
-          <path d="M140 35 L 175 55 L 152 22 Z" fill="#9B0A20"/>
-          <text x="0" y="-32" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#FAF6EE" letter-spacing="3" opacity="0.9" font-weight="500">LETTERALE</text>
-          <text x="0" y="6" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="26" fill="#FAF6EE" font-weight="700">rotolando nel</text>
-          <text x="0" y="36" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="26" fill="#FAF6EE" font-weight="700">profondo</text>
-          <line x1="-110" y1="20" x2="110" y2="20" stroke="#FAF6EE" stroke-width="1.5" opacity="0.65"/>
-        </g>
-
-        <!-- FRECCIA gradient da rosso a cream al centro -->
-        <g>
-          <path d="M 480 245 Q 700 235, 920 255"
-                stroke="url(#redToCream)" stroke-width="3" fill="none"
-                stroke-dasharray="3 9" stroke-linecap="round" opacity="0.85"/>
-          <path d="M 905 249 L 928 255 L 905 261"
-                stroke="#FAF6EE" stroke-width="3" fill="none"
-                stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
-        </g>
-
-        <!-- BUBBLE SIGNIFICATO REALE (destra, leggermente più in basso) -->
-        <g transform="translate(1090, 255)">
-          <rect x="-160" y="-65" width="320" height="130" rx="16" fill="#FAF6EE"/>
-          <path d="M-150 -35 L -185 -55 L -160 -20 Z" fill="#FAF6EE"/>
-          <text x="0" y="-32" text-anchor="middle" font-family="DM Mono, monospace" font-size="11" fill="#5C8A6E" letter-spacing="3" font-weight="500">SIGNIFICATO REALE</text>
-          <text x="0" y="6" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="26" fill="#0F2455" font-weight="700">darsi anima</text>
-          <text x="0" y="36" text-anchor="middle" font-family="Playfair Display, serif" font-style="italic" font-size="26" fill="#0F2455" font-weight="700">e corpo</text>
-        </g>
-
-        <!-- Headphones decorative + caption in basso -->
-        <g transform="translate(700, 378)" opacity="0.85">
-          <path d="M-28 0 a 28 28 0 0 1 56 0" fill="none" stroke="#FAF6EE" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
-          <rect x="-34" y="-3" width="11" height="20" rx="3" fill="#FAF6EE" opacity="0.75"/>
-          <rect x="23" y="-3" width="11" height="20" rx="3" fill="#FAF6EE" opacity="0.75"/>
-          <circle cx="-28" cy="8" r="2.6" fill="#C8102E"/>
-          <circle cx="28" cy="8" r="2.6" fill="#C8102E"/>
-        </g>
-
-        <text x="700" y="410" text-anchor="middle" font-family="DM Mono, monospace" font-size="12" fill="#FAF6EE" opacity="0.55" letter-spacing="2.5">"rolling in the deep" · Adele · 2010</text>
-      </svg>
+      <img src="music.jpg" alt="Le canzoni inglesi che ascolti sono piene di espressioni che non significano quello che sembrano" class="home-banner-img">
 
       <div class="banner-overlay">
-        <button class="brand-co" data-go="home" style="padding:0;background:rgba(250,246,238,0.08);backdrop-filter:blur(8px);border:1px solid rgba(250,246,238,0.15);border-radius:12px;padding:6px 14px 6px 6px">
+        <button class="brand-co" data-go="home" style="padding:0;background:rgba(15,36,85,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(250,246,238,0.18);border-radius:12px;padding:6px 14px 6px 6px">
           <img src="logo_english.jpg" alt="Lezioni di Inglese — Sacra Famiglia" class="school-logo" style="background:var(--paper);width:48px;height:48px">
           <span class="brand-text">
             <span class="brand-eyebrow" style="color:#FFB3BD">Lezioni di Inglese · Sacra Famiglia</span>
             <span class="brand-title" style="color:var(--paper)">Lost in Translation</span>
-            <span class="brand-sub" style="color:rgba(250,246,238,0.7)">English idioms · in cuffia</span>
+            <span class="brand-sub" style="color:rgba(250,246,238,0.85)">English idioms · in cuffia</span>
           </span>
         </button>
         <nav class="banner-nav">
@@ -2071,12 +2030,13 @@ body.is-home .app-footer { display: none; }
       </div>
     </div>
 
-    <!-- CONTENUTO -->
-    <div class="home-content">
+    <!-- FASCIA AZIONE: headline + CTA + 3 step orizzontali -->
+    <div class="home-action">
 
-      <div class="home-text">
-        <h1>Le canzoni che non si<br><span class="strike">traducono</span> <em>traducono.</em></h1>
-        <p class="lead">Le canzoni inglesi che ascolti sono piene di espressioni che non significano quello che sembrano. <em>Rolling in the deep</em> non vuol dire <em>rotolando nel profondo</em>. <em>Crystal clear</em> non è solo &laquo;cristallino&raquo;. Ascoltali, scoprili, raccoglili.</p>
+      <div class="home-headline">
+        <div class="home-text">
+          <p class="lead">Otto canzoni, cinquanta modi di dire. Ogni espressione ha due traduzioni: una <em>letterale</em> e una <em>reale</em>. La sorpresa è il motore della memoria.</p>
+        </div>
         <button class="home-cta" data-go="catalogo">
           Esplora il catalogo
           <svg><use href="#i-arrow-right"/></svg>
@@ -2088,21 +2048,21 @@ body.is-home .app-footer { display: none; }
           <div class="step-num">01</div>
           <div>
             <h3>Scegli una canzone</h3>
-            <p>Dieci brani tra contemporanei ed evergreen. Ogni canzone nasconde da 4 a 10 idioms.</p>
+            <p>Otto brani tra contemporanei ed evergreen, dal pop adolescenziale al rock classico.</p>
           </div>
         </div>
         <div class="step-card">
           <div class="step-num">02</div>
           <div>
-            <h3>Letterale o reale?</h3>
-            <p>Per ogni espressione vedi prima la traduzione letterale (spesso ridicola), poi il significato vero. La sorpresa è il motore della memoria.</p>
+            <h3>Ascolta e scopri</h3>
+            <p>Karaoke con audio in cuffia. Quando arriva un idiom, lo vedi pulsare nel testo.</p>
           </div>
         </div>
         <div class="step-card">
           <div class="step-num">03</div>
           <div>
-            <h3>Costruisci la tua collezione</h3>
-            <p>Salva gli idioms che ti colpiscono, esercitati col quiz, esporta in PDF e portali in classe.</p>
+            <h3>Raccogli e ripassa</h3>
+            <p>Salva gli idioms preferiti, mettiti alla prova col quiz, esporta in PDF.</p>
           </div>
         </div>
       </div>
@@ -2231,7 +2191,7 @@ body.is-home .app-footer { display: none; }
 
       <div class="info-credits">
         <p><strong>Lost in Translation</strong> — © 2026 Andrea Cerioli, Animatore Digitale</p>
-        <p>Scuola Sacra Famiglia — Orzinuovi (BS) — Dirigente Prof.ssa L. Ferraboschi</p>
+        <p>Scuola Sacra Famiglia — Orzinuovi (BS)</p>
         <p>Costruita con HTML/CSS/JS vanilla, single-file, zero dipendenze esterne. Tipografia: Playfair Display + Atkinson Hyperlegible + DM Mono. Tutti i diritti riservati. È vietata la riproduzione, anche parziale, senza autorizzazione scritta dell'autore.</p>
       </div>
     </div>
@@ -2262,7 +2222,6 @@ body.is-home .app-footer { display: none; }
        lyrics/<id-canzone>.srt
    Esempi:
        lyrics/adele-rolling-in-the-deep.srt
-       lyrics/queen-bohemian.srt
        lyrics/coldplay-fixyou.srt
 
    Per aggiungere un nuovo brano: scarichi il .srt, lo rinomini con l'id
@@ -2722,128 +2681,364 @@ const SONGS = [
   },
   // PLACEHOLDERS — schede in arrivo
   {
-    id: 'queen-bohemian',
-    artist: 'Queen',
-    title: 'Bohemian Rhapsody',
-    year: 1975,
+    id: 'beatles-letitbe',
+    artist: 'The Beatles',
+    title: 'Let It Be',
+    year: 1970,
     era: 'evergreen',
-    level: 'B1+',
-    youtubeId: '5zLnaNY58j8',
-    srtFile: 'Queen - Bohemian Rhapsody.en.srt',
-    summary: "Un'opera in sei minuti. Sei sezioni musicali diverse, registri linguistici che vanno dal confessionale all'operetta, dal rock duro al lamento. Fra le mille immagini, otto idiom forti — i più cantati, i meno tradotti.",
-    coverColors: ['#3D2645','#C8A36A'],
+    level: 'A2',
+    youtubeId: 'dSSqHhAqxrk',
+    srtFile: 'The_Beatles_-_Let_It_Be_en.srt',
+    summary: "Il titolo è uno dei più piccoli e potenti idiom dell'inglese: tre parole che insegnano l'arte di lasciare andare. Cinque modi di dire che si nascondono dentro un brano apparentemente semplice.",
+    coverColors: ['#2C4A52','#E8C547'],
     ready: true,
     idioms: [
       {
-        id: 'caught-landslide',
-        at: 12,
-        expression: 'caught in a landslide',
-        position: 'Verso 1 (intro a cappella)',
-        context: "Il narratore confessa di essersi trovato in una situazione totalmente fuori controllo: un evento lo ha travolto come una valanga.",
-        literal: 'preso dentro una frana',
-        real: 'travolto da eventi incontrollabili, sopraffatto da una situazione che non puoi gestire',
-        explanation: "<strong>Landslide</strong> significa <em>frana</em>, ma in inglese politico significa anche <em>vittoria schiacciante</em> (a landslide victory). L'espressione <em>caught in a landslide</em> si usa quando qualcosa di troppo grande ti coglie senza scampo. Frequentissima nel giornalismo finanziario, sportivo, politico.",
-        nowUseIt: "After the merger, the small startup was <em>caught in a landslide</em> of corporate decisions.",
-        family: 'tempo',
-        register: 'figurato / giornalistico'
-      },
-      {
-        id: 'easy-come-easy-go',
-        at: 36,
-        expression: 'easy come, easy go',
+        id: 'words-of-wisdom',
+        at: 21,
+        expression: 'words of wisdom',
         position: 'Verso 1',
-        context: "Il narratore si descrive come una persona accomodante, senza attaccamenti: prende quello che viene, lascia andare quello che parte.",
-        literal: 'facile venire, facile andare',
-        real: "prendere le cose come vengono, senza affezionarsi — atteggiamento filosofico verso guadagni e perdite",
-        explanation: "Proverbio dell'inglese antico (XVI secolo). Si usa soprattutto per soldi, opportunità, relazioni — tutto ciò che si guadagna senza fatica si perde anche facilmente. In italiano esiste &laquo;come è venuto se n'è andato&raquo;, ma non ha la stessa fissità proverbiale dell'inglese: gli inglesi lo dicono come noi diciamo &laquo;chi si accontenta gode&raquo;.",
-        nowUseIt: "I won fifty pounds at the lottery and lost it the next day. <em>Easy come, easy go.</em>",
-        family: 'vita',
-        register: 'standard / proverbiale'
-      },
-      {
-        id: 'wind-blows',
-        at: 43,
-        expression: 'anyway the wind blows',
-        position: 'Verso 1 (chiusura)',
-        context: "Il narratore conferma la sua filosofia di non-attaccamento: niente lo tocca davvero, qualunque cosa succeda.",
-        literal: 'comunque soffi il vento',
-        real: 'qualunque cosa accada, in qualunque direzione vadano le cose',
-        explanation: "Variante più poetica della forma standard <em>however the wind blows</em>. Allude all'immagine della banderuola: chi si lascia portare dal vento accetta qualunque direzione. A seconda del contesto può esprimere flessibilità sana o accettazione fatalista. Queen sceglie la seconda.",
-        nowUseIt: "I'll be fine <em>anyway the wind blows</em> — I have a backup plan for everything.",
-        family: 'vita',
-        register: 'figurato / poetico'
-      },
-      {
-        id: 'thrown-away',
-        at: 82,
-        expression: 'thrown it all away',
-        position: 'Verso 2 (confessione)',
-        context: 'Il narratore si rende conto di aver buttato via la propria vita con un gesto irreversibile.',
-        literal: "buttato tutto via",
-        real: 'rovinare tutto, sprecare ogni opportunità in un colpo solo',
-        explanation: "Il phrasal verb base <strong>throw away</strong> significa &laquo;gettare via&raquo; (oggetti, spazzatura). Con <em>it all</em> in mezzo diventa figurato: distruggere il proprio futuro, le proprie possibilità. Frequentissimo nei discorsi di motivazione (&laquo;don't throw it all away&raquo;) e nelle scuse a posteriori.",
-        nowUseIt: "He had a great career and <em>threw it all away</em> over one bad decision.",
-        family: 'vita',
-        register: 'standard / figurato'
-      },
-      {
-        id: 'carry-on',
-        at: 102,
-        expression: 'carry on',
-        position: 'Bridge (mamma)',
-        context: "Il narratore chiede alla madre di continuare la propria vita normalmente, come se nulla fosse, anche se lui non tornerà.",
-        literal: 'porta avanti',
-        real: 'andare avanti, continuare nonostante le difficoltà',
-        explanation: "Phrasal verb iconico dell'inglese britannico — celebrato dal poster <em>Keep Calm and Carry On</em> (governo UK, 1939). Significa &laquo;continuare&raquo; ma con sfumatura di stoicismo, di non lasciarsi abbattere. Diverso da <em>go on</em> (più neutro): <em>carry on</em> implica perseveranza in mezzo alla difficoltà.",
-        nowUseIt: "Even after losing the match, the team <em>carried on</em> training every day.",
-        family: 'tempo',
-        register: 'standard / iconico britannico'
-      },
-      {
-        id: 'shivers-spine',
-        at: 125,
-        expression: "send shivers down (someone's) spine",
-        position: 'Verso 3',
-        context: 'Il narratore descrive la paura fisica che lo coglie — la consapevolezza di ciò che sta per accadere gli scuote il corpo.',
-        literal: 'mandare brividi giù per la spina dorsale',
-        real: 'provocare un\'emozione fortissima — quasi sempre paura, a volte ammirazione o eccitazione',
-        explanation: "Idiom anatomico costantissimo nel parlato e nei thriller. La spina dorsale è il sito metaforico delle reazioni viscerali. Forme parallele: <em>shivers ran down my spine</em> (passivo), <em>chills down my spine</em> (più freddo). L'italiano &laquo;mi sono venuti i brividi&raquo; è meno specifico — l'inglese localizza l'effetto sulla colonna vertebrale.",
-        nowUseIt: 'Just thinking about that horror movie <em>sends shivers down my spine</em>.',
-        family: 'emozioni',
-        register: 'standard / vivido'
-      },
-      {
-        id: 'face-truth',
-        at: 143,
-        expression: 'face the truth',
-        position: 'Verso 3 (saluti)',
-        context: 'Il narratore si congeda dai suoi cari — deve smettere di nascondersi e accettare la realtà di ciò che ha fatto.',
-        literal: 'affrontare la verità',
-        real: 'ammettere la realtà, smettere di negare o di fuggire',
-        explanation: "<strong>To face</strong> significa &laquo;affrontare faccia a faccia&raquo;: implica coraggio. Famiglia di idiom affini: <em>face the music</em> (subire le conseguenze, più colloquiale), <em>face up to (something)</em> (assumersi la responsabilità). L'italiano ha &laquo;guardare in faccia la verità&raquo; ma è più letterario — gli inglesi lo usano nel parlato quotidiano.",
-        nowUseIt: "He had to <em>face the truth</em>: the relationship was over, no matter how much he wanted to fix it.",
+        context: "Madre Maria viene a parlargli e a offrirgli il suo consiglio nei momenti difficili.",
+        literal: 'parole di saggezza',
+        real: 'consigli profondi e veri di chi ha esperienza, parole che guidano nelle decisioni',
+        explanation: "Collocation fissa nell'inglese di tutti i registri. Si usa per consigli ricevuti da figure più sagge — genitori, anziani, mentori, leader spirituali. Forma parallela: <em>pearls of wisdom</em> (più formale e a volte ironica). In italiano &laquo;parole di saggezza&raquo; esiste ma è più aulico — l'inglese lo usa anche nel parlato quotidiano.",
+        nowUseIt: "My grandfather always had some <em>words of wisdom</em> when I was confused about life.",
         family: 'rivelazione',
-        register: 'standard / morale'
+        register: 'standard / poetico'
       },
       {
-        id: 'spit-eye',
-        at: 263,
-        expression: "spit in (someone's) eye",
-        position: 'Sezione hard rock (finale)',
-        context: "Il narratore sfida l'avversario: pensi davvero di poter umiliarmi a tal punto?",
-        literal: 'sputare in un occhio a qualcuno',
-        real: 'trattare qualcuno con totale disprezzo, umiliarlo apertamente',
-        explanation: "Espressione di registro alto, con radici bibliche e shakespeariane. Più forte e rara di <em>spit on someone</em>. Si usa quando si vuole sottolineare un'umiliazione plateale, un tradimento clamoroso, soprattutto in retorica drammatica. In italiano l'equivalente meno violento è &laquo;mettere i piedi in testa&raquo;, ma manca lo shock fisico dell'inglese.",
-        nowUseIt: "After all I did for him, he just <em>spat in my eye</em> and walked away with our biggest client.",
-        family: 'relazioni',
-        register: 'letterario / forte'
+        id: 'let-it-be',
+        at: 23,
+        expression: 'let it be',
+        position: 'Ritornello (titolo)',
+        context: "Il consiglio centrale del brano: davanti alle difficoltà, smettere di lottare contro la realtà e accettarla.",
+        literal: 'lascialo essere',
+        real: 'lasciare che le cose seguano il loro corso, non opporsi, accettare ciò che non si può cambiare',
+        explanation: "Idiom centralissimo dell'inglese. Esprime una filosofia di accettazione attiva — non rassegnazione, ma scelta consapevole di non interferire. Differente da <em>give up</em> (arrendersi): <em>let it be</em> è saggezza, <em>give up</em> è sconfitta. Forma parallela: <em>let go</em> (lasciar andare), che ha sfumatura di liberazione personale. Reso iconico dai Beatles e poi rivisitato da molte canzoni successive — la frase è entrata nella cultura inglese ben oltre la musica.",
+        nowUseIt: "Stop trying to control everything. Sometimes you just have to <em>let it be</em>.",
+        family: 'vita',
+        register: 'standard / iconico'
+      },
+      {
+        id: 'hour-of-darkness',
+        at: 27,
+        expression: '(in your) hour of darkness',
+        position: 'Verso 2',
+        context: "Nel momento più buio della propria vita, lei è lì, presente.",
+        literal: 'nella tua ora di oscurità',
+        real: 'nel momento più difficile, durante una crisi profonda',
+        explanation: "Espressione di registro alto, di derivazione biblica e letteraria. <strong>Hour</strong> qui non è 60 minuti ma il <em>momento decisivo</em> della vita — significato simile a &laquo;l'ora del giudizio&raquo; in italiano. Forma parallela: <em>(in your) darkest hour</em> (più frequente nel parlato). Si usa in discorsi commemorativi, biografie, romanzi — raramente nel chiacchiericcio quotidiano.",
+        nowUseIt: "She was there for me in my <em>hour of darkness</em>, and I'll never forget it.",
+        family: 'tempo',
+        register: 'letterario / formale'
+      },
+      {
+        id: 'broken-hearted',
+        at: 53,
+        expression: 'broken-hearted',
+        position: 'Verso 3',
+        context: "Le persone con il cuore spezzato che vivono nel mondo, se accettano, troveranno una risposta.",
+        literal: 'cuore-spezzato (aggettivo composto)',
+        real: 'profondamente addolorato per una delusione amorosa o un lutto',
+        explanation: "Composto idiomatico costituito da participio passato + sostantivo (forma tipica dell'inglese). Si scrive spesso col trattino quando è aggettivo (<em>a broken-hearted woman</em>), senza trattino quando è sostantivo (<em>the brokenhearted</em>). L'italiano &laquo;col cuore spezzato&raquo; richiede una preposizione — l'inglese fa tutto con un solo aggettivo. Famiglia parallela: <em>heartbroken</em> (variante più moderna, stessa cosa), <em>heartsick</em> (più formale e raro).",
+        nowUseIt: "After her dog died, she was completely <em>broken-hearted</em> for weeks.",
+        family: 'emozioni',
+        register: 'standard / poetico'
+      },
+      {
+        id: 'light-shines',
+        at: 165,
+        expression: 'a light that shines on (someone)',
+        position: 'Verso 4',
+        context: "Anche quando la notte è nuvolosa, c'è ancora una luce che brilla per lui.",
+        literal: 'una luce che splende su qualcuno',
+        real: 'speranza, presenza protettiva, qualcosa o qualcuno che illumina i momenti bui',
+        explanation: "Metafora cristallizzata nella lingua — la luce come simbolo di guida, speranza, presenza divina o amica. Costantissima in canzoni, sermoni, discorsi motivazionali. Forma parallela secolare: <em>a guiding light</em> (un faro nella vita). Funziona benissimo come gancio per spiegare ai ragazzi la differenza tra metafora e idiom: qui il significato è quasi letterale (qualcuno che &laquo;illumina&raquo; emotivamente), ma la frase ha cristallizzato un senso preciso che non si traduce parola per parola.",
+        nowUseIt: "Even after losing his job, his family was <em>a light that shone on him</em> through the dark months.",
+        family: 'vita',
+        register: 'letterario / poetico'
       }
     ]
   },
-  { id:'beatles-letitbe', artist:'The Beatles', title:'Let It Be', year:1970, era:'evergreen', level:'A2', summary:"Il titolo stesso è un idiom: \"lascia perdere\", \"così sia\". Un classico dei classici.", coverColors:['#2C4A52','#E8C547'], ready:false, idioms:[] },
-  { id:'taylor-shake', artist:'Taylor Swift', title:'Shake It Off', year:2014, era:'contemporary', level:'A2-B1', summary:'Un manuale di phrasal verbs travestito da pop hit. Shake off, brush off, fake it.', coverColors:['#D4A5A5','#5C3A3A'], ready:false, idioms:[] },
-  { id:'olivia-drivers', artist:'Olivia Rodrigo', title:"drivers license", year:2021, era:'contemporary', level:'B1', summary:'Slang adolescenziale + immagini emotive forti. Imperfetto inglese da camera da letto.', coverColors:['#5A6E8C','#F2D5CE'], ready:false, idioms:[] },
-  { id:'sheeran-shape', artist:'Ed Sheeran', title:'Shape of You', year:2017, era:'contemporary', level:'B1', summary:'Frasi colloquiali, contractions, espressioni del corteggiamento moderno.', coverColors:['#8C5A3A','#F4D8AC'], ready:false, idioms:[] },
+  {
+    id: 'taylor-shake',
+    artist: 'Taylor Swift',
+    title: 'Shake It Off',
+    year: 2014,
+    era: 'contemporary',
+    level: 'A2-B1',
+    youtubeId: 'nfWlot6h_JM',
+    srtFile: 'Taylor_Swift_-_Shake_It_Off_en.srt',
+    summary: "Un manuale di phrasal verbs travestito da pop hit. Sette espressioni che gli studenti sentono ovunque ma raramente sanno spiegare. Anti-bullismo applicato alla grammatica.",
+    coverColors: ['#D4A5A5','#5C3A3A'],
+    ready: true,
+    idioms: [
+      {
+        id: 'stay-out',
+        at: 5,
+        expression: 'stay out (too late)',
+        position: 'Verso 1',
+        context: "Taylor riconosce le critiche che le piovono addosso: dicono che esce fino a tardi, che non ha niente in testa.",
+        literal: 'restare fuori',
+        real: 'rimanere fuori casa fino a tardi, soprattutto la notte (per divertimento, lavoro, o altro)',
+        explanation: "Phrasal verb fondamentale dell'inglese di base. <strong>Stay in</strong> è il suo opposto (rimanere a casa, non uscire). Spesso accompagnato da specificazioni temporali: <em>stay out late</em>, <em>stay out all night</em>. In italiano si traduce con interi giri di parole — l'inglese lo gestisce in due parole. Imparato qui, è utilizzabile in mille contesti scolastici: <em>my parents don't let me stay out past 10</em>.",
+        nowUseIt: "I'm sorry I'm tired — I <em>stayed out</em> way too late at the party last night.",
+        family: 'tempo',
+        register: 'colloquiale / standard'
+      },
+      {
+        id: 'players-gonna-play',
+        at: 40,
+        expression: "(the) players gonna play",
+        position: 'Pre-ritornello',
+        context: "Taylor accetta la fatalità delle critiche: chi gioca giocherà sempre, chi odia odierà sempre — è la loro natura.",
+        literal: 'i giocatori giocheranno',
+        real: 'le persone false continueranno a fare giochi e manipolazioni — è inevitabile, accettalo',
+        explanation: "<strong>Player</strong> qui non è un atleta ma una persona che &laquo;gioca&raquo; con i sentimenti, manipola, finge interesse romantico. <em>Gonna</em> è la contrazione orale di <em>going to</em>. La frase nasce dall'AAVE (slang afroamericano) ed è diventata mainstream nei 2010. Funziona come mantra di auto-protezione: invece di prendersela, accetti che certe persone sono fatte così. Stessa struttura di <em>haters gonna hate</em>: idiom paralleli che si rinforzano a vicenda.",
+        nowUseIt: "Don't worry about what they say about you. <em>Players gonna play</em> — just keep being yourself.",
+        family: 'relazioni',
+        register: 'colloquiale / slang'
+      },
+      {
+        id: 'haters-gonna-hate',
+        at: 44,
+        expression: '(the) haters gonna hate',
+        position: 'Pre-ritornello',
+        context: "Subito dopo i player: chi odia, odierà sempre. È nel loro DNA.",
+        literal: 'gli odiatori odieranno',
+        real: 'le persone invidiose o ostili continueranno a essere invidiose, qualunque cosa tu faccia',
+        explanation: "Forse l'idiom più virale dei 2010s. <strong>Hater</strong> in inglese moderno non è solo &laquo;chi odia&raquo; ma una figura sociale precisa: persona che critica per invidia, soprattutto sui social. Diventato cultural shortcut per dire &laquo;non perdere tempo a difenderti dagli invidiosi, vai avanti&raquo;. In italiano abbiamo importato la parola <em>hater</em> ma non la formula completa — questa rimane idiomatica all'inglese.",
+        nowUseIt: "She got bad comments on her photo, but she just laughed: <em>haters gonna hate</em>.",
+        family: 'relazioni',
+        register: 'colloquiale / slang moderno'
+      },
+      {
+        id: 'shake-it-off',
+        at: 50,
+        expression: 'shake (it/something) off',
+        position: 'Ritornello (titolo)',
+        context: "L'azione centrale del brano: scrollarsi di dosso le critiche, le delusioni, lo stress — letteralmente come un cane che si scrolla l'acqua.",
+        literal: 'scuoterlo via',
+        real: "lasciarsi scivolare addosso, ignorare critiche o delusioni e andare avanti senza farsi influenzare",
+        explanation: "Phrasal verb idiomatico fondamentale. Originariamente fisico (scrollarsi di dosso polvere, neve, acqua), poi metaforico per emozioni, critiche, malesseri (<em>I can't shake off this cold</em>). Forma parallela: <em>brush off</em> (con sfumatura di disprezzo: ignorare con noncuranza). Differenza importante con l'italiano: noi diciamo &laquo;lasciar perdere&raquo; (mentale), gli inglesi conservano l'immagine fisica del corpo che si libera di qualcosa.",
+        nowUseIt: "I failed the test, but I'm just gonna <em>shake it off</em> and study harder next time.",
+        family: 'emozioni',
+        register: 'standard / phrasal iconico'
+      },
+      {
+        id: 'miss-a-beat',
+        at: 64,
+        expression: '(never) miss a beat',
+        position: 'Verso 2',
+        context: "Taylor racconta la sua sicurezza: sul ritmo, sulle reazioni, sulla vita — non perde mai un colpo.",
+        literal: 'non perdere mai un battito',
+        real: 'essere sempre prontissimo a reagire, non perdere nemmeno un istante, mantenere il ritmo perfetto',
+        explanation: "<strong>Beat</strong> è il battito musicale ma metaforicamente anche il <em>ritmo della vita</em>. Idiom di origine musicale entrato nel parlato per descrivere persone reattive, attente, che non si fanno cogliere impreparate. Si usa anche per il cuore: <em>my heart didn't miss a beat</em> (non ho avuto un attimo di esitazione). L'italiano ha &laquo;non perdere un colpo&raquo; — equivalente diretto, raro caso di traduzione 1:1.",
+        nowUseIt: "Even when the audience laughed at his mistake, the comedian <em>didn't miss a beat</em>.",
+        family: 'tempo',
+        register: 'standard / musicale'
+      },
+      {
+        id: 'lightning-on-feet',
+        at: 67,
+        expression: "(be) lightning on (one's) feet",
+        position: 'Verso 2',
+        context: "Taylor descrive la sua agilità: si muove come un lampo, leggera, veloce.",
+        literal: 'essere fulmine sui piedi',
+        real: 'essere velocissimo nei movimenti, agile, scattante',
+        explanation: "Variante dello standard <em>quick on (one's) feet</em>, dove <strong>lightning</strong> intensifica al massimo grado: non &laquo;veloce&raquo; ma &laquo;rapido come un fulmine&raquo;. Si usa per descrivere agilità fisica (sportivi, ballerini) o agilità mentale (chi reagisce subito a situazioni inattese). Espressione che evoca immagini fortissime — utile per l'analisi della metafora a scuola.",
+        nowUseIt: "She's <em>lightning on her feet</em> on the dance floor — nobody can keep up with her.",
+        family: 'percezione',
+        register: 'figurato / vivido'
+      },
+      {
+        id: 'down-and-out',
+        at: 139,
+        expression: '(getting) down and out',
+        position: 'Bridge',
+        context: "Taylor osserva la persona che si abbatte sulle critiche degli altri: invece di lamentarti, balla.",
+        literal: 'giù e fuori',
+        real: 'depresso, abbattuto, in una situazione di sconforto profondo',
+        explanation: "Espressione composta che combina due elementi negativi: <strong>down</strong> (giù di morale) + <strong>out</strong> (fuori dai giochi, escluso). Originariamente nella boxe indicava un pugile messo KO; nel parlato moderno indica chi sta vivendo un momento di forte sconforto. Si usa anche come sostantivo (<em>down-and-outs</em> = persone in difficoltà economica). Sfumatura più drammatica del semplice <em>sad</em> o <em>upset</em>.",
+        nowUseIt: "He's been <em>down and out</em> since he lost the championship, but his friends are helping him recover.",
+        family: 'emozioni',
+        register: 'colloquiale / vivido'
+      }
+    ]
+  },
+  {
+    id: 'olivia-drivers',
+    artist: 'Olivia Rodrigo',
+    title: 'drivers license',
+    year: 2021,
+    era: 'contemporary',
+    level: 'B1',
+    youtubeId: 'ZmDBbnmKpqQ',
+    srtFile: 'Olivia_Rodrigo_-_drivers_license_en.srt',
+    summary: "L'inglese del cuore spezzato adolescenziale. Cinque modi di dire che fanno la differenza tra parlare correttamente e parlare con sentimento — la zona dove i ragazzi vogliono davvero arrivare.",
+    coverColors: ['#5A6E8C','#F2D5CE'],
+    ready: true,
+    idioms: [
+      {
+        id: 'so-okay',
+        at: 65,
+        expression: '(be) so okay (with something)',
+        position: 'Ritornello',
+        context: "Olivia non riesce a immaginare come l'altro possa stare benissimo dopo la rottura — come se nulla fosse.",
+        literal: 'essere così okay',
+        real: "essere completamente a proprio agio con una situazione difficile, accettarla senza problemi visibili",
+        explanation: "<strong>Okay</strong> sembra una parola elementare, ma <em>so okay with</em> è un'espressione idiomatica precisa: indica un'accettazione tranquilla, quasi fastidiosa per chi guarda. Si usa spesso al negativo (<em>I'm not okay with that</em>) per esprimere disaccordo educato ma fermo. La sfumatura emotiva qui è chiave: per Olivia, il fatto che lui sia &laquo;so okay&raquo; è un'offesa al suo dolore.",
+        nowUseIt: "How are you <em>so okay with</em> moving to a new city? I would be terrified.",
+        family: 'emozioni',
+        register: 'colloquiale / contemporaneo'
+      },
+      {
+        id: 'mean-what',
+        at: 74,
+        expression: "(didn't) mean what (you) wrote/said",
+        position: 'Ritornello',
+        context: "Olivia accusa l'ex: non pensava davvero quello che le aveva scritto in quella canzone — erano parole vuote.",
+        literal: 'non intendere quello che hai scritto',
+        real: "non essere sincero in ciò che si è detto o scritto, essere stato falso",
+        explanation: "Costruzione idiomatica fondamentale per esprimere la differenza tra parole pronunciate e intenzioni reali. <strong>To mean</strong> ha qui il senso preciso di &laquo;intendere sul serio&raquo;, &laquo;essere sincero&raquo;. Forme parallele utili: <em>I meant what I said</em> (l'ho detto sul serio), <em>do you mean it?</em> (dici davvero?). In italiano usiamo &laquo;sul serio&raquo; o &laquo;davvero&raquo; — l'inglese centralizza tutto sul verbo <em>mean</em>.",
+        nowUseIt: "He apologized, but I don't think he <em>meant what he said</em> — he just wanted to end the argument.",
+        family: 'rivelazione',
+        register: 'standard / quotidiano'
+      },
+      {
+        id: 'tired-of',
+        at: 90,
+        expression: '(be) tired of (doing something)',
+        position: 'Verso 3',
+        context: "Tutti gli amici di Olivia sono stanchi di sentirla parlare di quanto le manchi lui.",
+        literal: 'essere stanco di',
+        real: "essere stufo di fare qualcosa che continua a ripetersi, aver perso pazienza con una situazione",
+        explanation: "Costruzione fondamentale: <strong>tired of</strong> + sostantivo o + verbo in <em>-ing</em>. Differenza importante con <em>tired</em> da solo (stanco fisicamente): <em>tired of</em> è la stanchezza emotiva, l'esasperazione. Forma parallela: <em>fed up with</em> (più colloquiale, più forte). Costruzione che gli studenti italiani sbagliano spesso (mettono <em>to</em> + infinito invece di <em>of</em> + gerundio): qui la canzone aiuta a fissare la struttura corretta.",
+        nowUseIt: "I'm <em>tired of waiting</em> for him to apologize. Let's just move on.",
+        family: 'emozioni',
+        register: 'standard / costruzione fondamentale'
+      },
+      {
+        id: 'feel-sorry',
+        at: 96,
+        expression: 'feel sorry for (someone)',
+        position: 'Verso 3',
+        context: "Olivia sente compassione per gli amici: non sapranno mai cosa significa conoscere lui come lo conosceva lei.",
+        literal: 'sentirsi dispiaciuto per qualcuno',
+        real: "provare pena, compassione o dispiacere per la situazione di un'altra persona",
+        explanation: "Idiom emotivo costantissimo. Differenza importante: <em>I'm sorry</em> = mi scuso (per qualcosa che ho fatto io); <em>I'm sorry for you</em> = mi dispiace per te (provare pena per la tua situazione); <em>I feel sorry for you</em> = compassione più profonda, a volte con sfumatura di superiorità (&laquo;poveretto&raquo;). La differenza è sottile e gli studenti la sbagliano spesso. Olivia qui usa il terzo senso: si compiange degli amici che &laquo;non sanno&raquo;.",
+        nowUseIt: "I <em>feel sorry for</em> the new student — nobody is talking to him at lunch.",
+        family: 'emozioni',
+        register: 'standard / costruzione fissa'
+      },
+      {
+        id: 'so-blue',
+        at: 189,
+        expression: "(be) so blue",
+        position: 'Bridge',
+        context: 'Olivia confessa la sua tristezza profonda — sa che la storia è finita, ma il sentimento resta.',
+        literal: 'essere così blu',
+        real: 'essere molto triste, depresso, malinconico',
+        explanation: "Idiom emotivo dei colori. <strong>Blue</strong> = triste in inglese (dall'antica medicina umorale: la melanconia era associata al colore blu). Origine in canzoni blues nere americane di inizio Novecento. In italiano associamo il <em>nero</em> alla tristezza (&laquo;vedere tutto nero&raquo;), gli inglesi il blu — ottimo gancio interlinguistico. Forma parallela: <em>feeling blue</em> (più frequente nel parlato).",
+        nowUseIt: "Don't be <em>so blue</em> about the rejection — there will be other opportunities.",
+        family: 'emozioni',
+        register: 'colloquiale / cromatico'
+      }
+    ]
+  },
+  {
+    id: 'sheeran-shape',
+    artist: 'Ed Sheeran',
+    title: 'Shape of You',
+    year: 2017,
+    era: 'contemporary',
+    level: 'B1',
+    youtubeId: 'erd3fTm-2t8',
+    srtFile: 'Ed_Sheeran_-_Shape_of_You_en.srt',
+    summary: "Il romanticismo moderno raccontato come un balletto fisico. Sei modi di dire del corteggiamento contemporaneo — senza romanticismi astratti, tutto carne, ritmo, gesto.",
+    coverColors: ['#8C5A3A','#F4D8AC'],
+    ready: true,
+    idioms: [
+      {
+        id: 'follow-lead',
+        at: 77,
+        expression: "follow (one's) lead",
+        position: 'Pre-ritornello',
+        context: "Ed invita la ragazza a seguire la sua iniziativa — sulla pista, nel corteggiamento, nella vita.",
+        literal: "seguire la guida di qualcuno",
+        real: "fare quello che fa qualcun altro, lasciarsi guidare, fidarsi della direzione che un'altra persona sta dando",
+        explanation: "Idiom di origine danza/militare: <strong>lead</strong> nel ballo è chi guida (tradizionalmente l'uomo, ma sempre meno oggi); nel mondo del lavoro indica chi prende l'iniziativa. <em>Follow my lead</em> è invito esplicito a fidarsi e seguire. Affine in struttura a <em>follow my example</em> (segui il mio esempio) ma con sfumatura più immediata, di gesto. In italiano si traduce con &laquo;fidati di me&raquo; o &laquo;segui me&raquo; — perde la metafora della danza.",
+        nowUseIt: "If you don't know what to do at the party, just <em>follow my lead</em> and you'll be fine.",
+        family: 'relazioni',
+        register: 'colloquiale / fisso'
+      },
+      {
+        id: 'dont-mind-me',
+        at: 79,
+        expression: "don't mind me",
+        position: 'Pre-ritornello',
+        context: "Ed scherza sulla sua eccentricità: anche se sembra strano, lei non se ne preoccupi.",
+        literal: 'non preoccuparti di me',
+        real: 'non farci caso, ignora questa stranezza, fai pure quello che stavi facendo',
+        explanation: "Espressione fissa di ammorbidimento sociale. Si usa quando si interrompe qualcuno o si fa qualcosa di leggermente strano in pubblico, per dire &laquo;continuate pure, non sono qui&raquo;. <strong>To mind</strong> qui non significa &laquo;mente&raquo; ma &laquo;dare importanza&raquo;, &laquo;preoccuparsi di&raquo; (stesso uso di <em>I don't mind</em> = non mi importa). Costantissima nel parlato britannico. In italiano abbiamo &laquo;non fateci caso&raquo; — equivalente perfetto.",
+        nowUseIt: "Sorry, I'll just grab a book from the shelf — <em>don't mind me</em>, keep talking.",
+        family: 'relazioni',
+        register: 'colloquiale / britannico'
+      },
+      {
+        id: 'push-and-pull',
+        at: 94,
+        expression: 'push and pull',
+        position: 'Ritornello',
+        context: "Ed descrive la dinamica della loro attrazione: una spinta-tirata costante, come due magneti.",
+        literal: 'spingere e tirare',
+        real: "alternanza tra avvicinamento e allontanamento, dinamica conflittuale ma magnetica in una relazione",
+        explanation: "Idiom relazionale e psicologico molto forte. Originariamente meccanico (forze fisiche opposte), poi metaforico per dinamiche umane: rapporti dove uno avanza e l'altro si ritrae, oppure relazioni di tira-e-molla. Usato in psicologia delle relazioni (<em>push-pull dynamic</em>). In italiano si traduce con &laquo;tira e molla&raquo;, ma l'inglese aggiunge la dimensione del <em>push</em> attivo — non solo &laquo;mollare&raquo;, ma &laquo;respingere&raquo;.",
+        nowUseIt: "Their relationship is all <em>push and pull</em> — they break up every month and get back together.",
+        family: 'relazioni',
+        register: 'standard / psicologico'
+      },
+      {
+        id: 'magnet-do',
+        at: 94,
+        expression: '(push and pull) like a magnet do',
+        position: 'Ritornello',
+        context: "L'attrazione tra di loro è inevitabile, fisica come quella tra due magneti.",
+        literal: 'come fa un magnete',
+        real: 'attrarsi e respingersi in modo automatico, irresistibile, fuori dal controllo della volontà',
+        explanation: "Simile (<em>simile</em> in inglese) iconico. La forma grammaticalmente corretta sarebbe <em>like a magnet does</em>, ma Ed Sheeran usa <em>do</em> per ragioni di rima — licenza poetica frequente nel pop. I magneti sono diventati il riferimento universale per attrazione fisica/emotiva inevitabile. Forme parallele: <em>like flies to honey</em> (di chi è attratto da qualcosa di dolce/pericoloso), <em>like moths to a flame</em> (di chi è attratto pericolosamente).",
+        nowUseIt: "We were drawn to each other <em>like magnets</em> from the first day we met.",
+        family: 'relazioni',
+        register: 'figurato / poetico'
+      },
+      {
+        id: 'one-week-in',
+        at: 129,
+        expression: '(one week / a year / X) in',
+        position: 'Verso 2',
+        context: "A una settimana dall'inizio della loro storia, lasciano che il racconto cominci.",
+        literal: 'una settimana dentro',
+        real: "dopo un periodo di tempo dall'inizio di qualcosa, già a quel punto del processo",
+        explanation: "Costruzione compatta dell'inglese moderno per indicare il tempo trascorso dentro un processo o un'esperienza. <em>Three months in</em> (a tre mesi dall'inizio), <em>five years in</em> (dopo cinque anni), <em>one week into the relationship</em> (versione più formale). L'italiano richiede giri di parole (&laquo;dopo una settimana&raquo;, &laquo;a una settimana di distanza&raquo;) — l'inglese fa tutto in due parole. Costruzione molto utile da imparare e riutilizzare.",
+        nowUseIt: "<em>Two months in</em> at my new job, I already know I love it.",
+        family: 'tempo',
+        register: 'colloquiale / contemporaneo'
+      },
+      {
+        id: 'sweet-and-sour',
+        at: 138,
+        expression: 'the sweet and the sour',
+        position: 'Verso 2',
+        context: "Parlano per ore di tutto: i momenti dolci e quelli amari della loro vita.",
+        literal: 'il dolce e l\'aspro',
+        real: 'il bello e il brutto della vita, le esperienze positive e quelle negative',
+        explanation: "Idiom contrastivo dei sapori. La cucina cinese ha portato la combinazione <em>sweet and sour</em> nei dizionari occidentali (pollo agrodolce); poi è diventata metafora per le esperienze contrastanti della vita. Forma parallela: <em>ups and downs</em> (alti e bassi, più frequente). In italiano abbiamo &laquo;il dolce e l'amaro&raquo; — equivalente diretto, raro caso di traduzione fedele.",
+        nowUseIt: "When you've been together for years, you share <em>the sweet and the sour</em> of life.",
+        family: 'vita',
+        register: 'figurato / proverbiale'
+      }
+    ]
+  },
   {
     id: 'coldplay-fixyou',
     artist: 'Coldplay',
@@ -2924,9 +3119,192 @@ const SONGS = [
       }
     ]
   },
-  { id:'bruno-justthe', artist:'Bruno Mars', title:'Just the Way You Are', year:2010, era:'contemporary', level:'A2', summary:'Inglese piano e pulito ma con espressioni idiomatiche tipiche del compliment.', coverColors:['#2C5C4A','#EDDFC4'], ready:false, idioms:[] },
-  { id:'dua-newrules', artist:'Dua Lipa', title:'New Rules', year:2017, era:'contemporary', level:'B1', summary:'Lessico delle relazioni tossiche. "Pick up the phone", "let him in", "fall apart".', coverColors:['#A04A60','#F8E2EA'], ready:false, idioms:[] },
-  { id:'katrina-walking', artist:'Katrina & The Waves', title:'Walking on Sunshine', year:1985, era:'evergreen', level:'A2', summary:'Il titolo è un\'immagine idiomatica esplosiva. Felicità come elemento atmosferico.', coverColors:['#E8B547','#2C4A52'], ready:false, idioms:[] }
+  {
+    id: 'bruno-justthe',
+    artist: 'Bruno Mars',
+    title: 'Just the Way You Are',
+    year: 2010,
+    era: 'contemporary',
+    level: 'A2',
+    youtubeId: 'u7XjPmN-tHw',
+    srtFile: 'Bruno_Mars_-_Just_the_Way_You_Are_en.srt',
+    summary: "L'inglese del complimento sincero. Cinque modi di dire del riconoscimento amoroso, perfettamente accessibili a livello A2 ma idiomaticamente densi — il punto dove la grammatica scolastica e il parlato reale si incontrano.",
+    coverColors: ['#2C5C4A','#EDDFC4'],
+    ready: true,
+    idioms: [
+      {
+        id: 'make-stars',
+        at: 17,
+        expression: 'make (the stars) look like (they are not shining)',
+        position: 'Verso 1',
+        context: 'Bruno descrive lo sguardo della ragazza: i suoi occhi fanno sembrare le stelle spente al confronto.',
+        literal: "fare in modo che le stelle sembrino non brillare",
+        real: 'eclissare qualcosa, mettere in ombra qualcosa di splendente al confronto',
+        explanation: "Costruzione causativa idiomatica: <strong>make</strong> + oggetto + <strong>look like</strong> + frase. Significa &laquo;rendere qualcosa di X tale che sembri Y&raquo;. Una delle costruzioni causative più potenti dell'inglese, perfetta per i complimenti iperbolici (&laquo;la tua bellezza fa sembrare il sole pallido&raquo;). In italiano usiamo &laquo;far sembrare&raquo; — equivalente diretto, ma l'inglese ha più flessibilità sintattica con questa struttura.",
+        nowUseIt: "Her smile <em>made the whole room look like</em> a darker place when she left.",
+        family: 'cuore',
+        register: 'figurato / iperbolico'
+      },
+      {
+        id: 'just-the-way',
+        at: 63,
+        expression: 'just the way (you/it) are/is',
+        position: 'Ritornello (titolo)',
+        context: "L'idea centrale: lei è straordinaria esattamente così come è, senza bisogno di cambiare nulla.",
+        literal: 'proprio nel modo in cui sei',
+        real: 'esattamente così come sei, senza modifiche, senza condizioni',
+        explanation: "Espressione fissa di accettazione totale. <strong>Just</strong> qui ha valore enfatico (&laquo;proprio&raquo;, &laquo;esattamente&raquo;), non &laquo;solo&raquo;. <em>The way you are</em> = il modo in cui sei = la tua identità intera. Si usa per dichiarazioni d'amore, di amicizia, di accettazione di sé. Forma parallela: <em>as you are</em> (più formale, da prestiti come &laquo;come sei&raquo; in chiesa). Bruno Mars ha consolidato questa frase nella cultura pop dei 2010s.",
+        nowUseIt: "Don't try to change for them. They should love you <em>just the way you are</em>.",
+        family: 'cuore',
+        register: 'standard / iconico'
+      },
+      {
+        id: 'whole-world-stops',
+        at: 78,
+        expression: '(the) whole world stops (and stares)',
+        position: 'Ritornello',
+        context: "Quando lei sorride, il mondo intero si ferma e la guarda — iperbole del fascino.",
+        literal: 'il mondo intero si ferma e fissa',
+        real: 'tutti notano qualcuno o qualcosa con stupore, attirando attenzione totale',
+        explanation: "Iperbole classica del complimento. <strong>Stops and stares</strong> è una collocation alliterativa — l'inglese ama queste coppie sonore (<em>safe and sound</em>, <em>life and limb</em>, <em>kith and kin</em>). Costruzione che fissa due azioni in sequenza: prima ci si ferma, poi si guarda fissamente. La forza dell'idiom sta nella sproporzione: non &laquo;qualcuno&raquo; ma &laquo;il mondo intero&raquo; si ferma.",
+        nowUseIt: "When she walked into the gala, the <em>whole room stopped and stared</em>.",
+        family: 'cuore',
+        register: 'figurato / iperbolico'
+      },
+      {
+        id: 'stay-the-same',
+        at: 109,
+        expression: 'stay the same',
+        position: 'Verso 2',
+        context: "Bruno consiglia: se cerchi la perfezione, allora resta esattamente come sei adesso.",
+        literal: 'restare lo stesso',
+        real: 'non cambiare, mantenere la propria identità così com\'è',
+        explanation: "Espressione fissa che esprime continuità nell'identità. Differenza con <em>stay the same way</em>: qui c'è un articolo determinativo che rende l'idiom completo. Spesso usato in contesti di affermazione di sé (<em>some things never change</em>, <em>I want to stay the same person I was</em>). Forme parallele: <em>remain unchanged</em> (formale), <em>be true to yourself</em> (più filosofico, ma esprime un'idea simile).",
+        nowUseIt: "Some people change after they get famous, but she has <em>stayed the same</em>.",
+        family: 'vita',
+        register: 'standard / iconico'
+      },
+      {
+        id: 'dont-bother',
+        at: 114,
+        expression: "don't (even) bother (asking/doing something)",
+        position: 'Verso 2',
+        context: "Bruno la rassicura: non sprecare nemmeno il fiato a chiedere se sei bella, lo dirò sempre io.",
+        literal: 'non disturbarti nemmeno (a)',
+        real: "non sprecare tempo o energia a fare qualcosa, non vale la pena",
+        explanation: "Phrasal verb fondamentale. <strong>To bother</strong> (verbo) significa &laquo;disturbarsi&raquo;, &laquo;darsi pena&raquo;. <em>Don't bother</em> è il consiglio di non investire energia in qualcosa di inutile. <em>Don't even bother</em> intensifica: nemmeno provarci. In italiano si traduce con &laquo;non darti pena&raquo;, ma più spesso con il diretto &laquo;lascia perdere&raquo;. Costruzione ricca pedagogicamente: insegna sia il phrasal verb sia l'uso enfatico di <em>even</em>.",
+        nowUseIt: "<em>Don't even bother</em> calling him — he never picks up his phone.",
+        family: 'relazioni',
+        register: 'colloquiale / enfatico'
+      }
+    ]
+  },
+  {
+    id: 'dua-newrules',
+    artist: 'Dua Lipa',
+    title: 'New Rules',
+    year: 2017,
+    era: 'contemporary',
+    level: 'B1',
+    youtubeId: 'O1TFUEMzTvE',
+    srtFile: 'Dua_Lipa_-_New_Rules_en.srt',
+    summary: "Il manuale di sopravvivenza alle relazioni tossiche, in tre regole. Sette modi di dire dell'autocura — phrasal verbs e proverbi in dose massiccia, perfetti per analizzare il lessico delle scelte difficili.",
+    coverColors: ['#A04A60','#F8E2EA'],
+    ready: true,
+    idioms: [
+      {
+        id: 'out-of-mind',
+        at: 13,
+        expression: "out of (one's) mind",
+        position: 'Verso 1',
+        context: "Dua si descrive: parla nel sonno, si fa impazzire da sola — è fuori di testa.",
+        literal: 'fuori della propria mente',
+        real: 'pazzo, fuori di testa, in uno stato di forte squilibrio emotivo',
+        explanation: "Idiom emotivo molto comune. <strong>Out of</strong> + parte del corpo è una struttura ricorrente in inglese per esprimere stati alterati: <em>out of breath</em> (senza fiato), <em>out of sight</em> (lontano dalla vista), <em>out of reach</em> (irraggiungibile). <em>Out of one's mind</em> ha sfumatura emotiva: si usa per la disperazione amorosa, la paura, lo stress che fa &laquo;perdere la testa&raquo;. In italiano abbiamo &laquo;fuori di testa&raquo; — equivalente perfetto, raro caso di traduzione 1:1.",
+        nowUseIt: "She drove me <em>out of my mind</em> with her constant phone calls.",
+        family: 'emozioni',
+        register: 'colloquiale / forte'
+      },
+      {
+        id: 'pick-up-phone',
+        at: 42,
+        expression: 'pick up the phone',
+        position: 'Ritornello (regola 1)',
+        context: 'La prima regola di Dua: non rispondere al telefono quando lui chiama.',
+        literal: 'prendere su il telefono',
+        real: "rispondere a una telefonata, sollevare la cornetta (oggi metaforico, dato che gli smartphone non si sollevano)",
+        explanation: "Phrasal verb storico, dell'epoca dei telefoni a cornetta. Sopravvive intatto nell'era degli smartphone perché l'inglese ama i phrasal verbs. <strong>To pick up</strong> ha decine di significati: raccogliere da terra, prendere a bordo (<em>I'll pick you up at 8</em>), imparare casualmente (<em>I picked up some Spanish on holiday</em>). In questo caso specifico è anche metafora di scelta: &laquo;rispondere&raquo; emotivamente, lasciar entrare l'altro nella propria vita.",
+        nowUseIt: "If your boss calls during dinner, sometimes it's better to <em>not pick up the phone</em>.",
+        family: 'relazioni',
+        register: 'standard / phrasal classico'
+      },
+      {
+        id: 'let-him-in',
+        at: 46,
+        expression: 'let (someone) in',
+        position: 'Ritornello (regola 2)',
+        context: "La seconda regola: non lasciarlo entrare in casa, e per estensione nella propria vita.",
+        literal: 'lasciarlo entrare',
+        real: "permettere a qualcuno di avvicinarsi fisicamente o emotivamente, riaprirgli la porta (anche metaforica)",
+        explanation: "Phrasal verb a doppio senso, fisico ed emotivo. Letteralmente: aprire la porta di casa. Metaforicamente: aprire le difese emotive, lasciare che qualcuno torni vicino. Forma parallela: <em>let (someone) into your life</em> — esplicita la dimensione emotiva. Costruzione speculare: <em>kick (someone) out</em> (cacciar fuori). La canzone usa entrambi nella stessa frase: <em>you'll have to kick him out again</em> — costruzione che insegna due phrasal verbs alla volta.",
+        nowUseIt: "After he hurt her so much, she promised never to <em>let him in</em> again.",
+        family: 'relazioni',
+        register: 'standard / a doppio senso'
+      },
+      {
+        id: 'kick-out',
+        at: 48,
+        expression: 'kick (someone) out',
+        position: 'Ritornello (regola 2)',
+        context: "Conseguenza: se lo lasci entrare, dovrai cacciarlo via di nuovo. Energia sprecata.",
+        literal: 'prendere a calci fuori qualcuno',
+        real: "cacciare via qualcuno con forza, espellere qualcuno da un luogo o da una situazione",
+        explanation: "Phrasal verb idiomatico — il <strong>kick</strong> (calcio) è metaforico, non fisico (di solito). Si usa per: cacciare un ospite (<em>my parents kicked him out at midnight</em>), espellere uno studente (<em>kicked out of school</em>), licenziare con durezza, finire una relazione bruscamente. Variante più forte di <em>throw out</em>. Sfumatura: implica una situazione che ha richiesto pazienza e che è arrivata al limite.",
+        nowUseIt: "When he started arguing loudly, the manager <em>kicked him out</em> of the restaurant.",
+        family: 'relazioni',
+        register: 'colloquiale / forte'
+      },
+      {
+        id: 'get-over',
+        at: 55,
+        expression: 'get over (someone/something)',
+        position: 'Ritornello (chiusura)',
+        context: "Dua mette in chiaro: se sei ancora sotto di lui, non ce la farai mai a superarlo.",
+        literal: 'andare sopra qualcosa',
+        real: "superare emotivamente qualcuno o qualcosa, andare avanti dopo una rottura, una delusione, un trauma",
+        explanation: "Phrasal verb essenziale dell'inglese delle emozioni. Funziona per relazioni amorose finite, lutti, paure, malattie. Costruzione: <em>get over + persona/oggetto</em>. La sfumatura è sempre di superamento attivo: non basta che il tempo passi, devi fare lavoro emotivo. Forme correlate: <em>be over (someone)</em> (averlo già superato), <em>not be over (someone)</em> (non averlo ancora superato). Idiom che gli adolescenti vivono in prima persona.",
+        nowUseIt: "It took me a year to <em>get over</em> the breakup, but now I feel free.",
+        family: 'emozioni',
+        register: 'standard / phrasal essenziale'
+      },
+      {
+        id: 'practice-perfect',
+        at: 137,
+        expression: 'practice makes perfect',
+        position: 'Bridge',
+        context: "Dua sa che imparare a non cedere richiede esercizio — la pratica rende perfetti.",
+        literal: 'la pratica fa perfetto',
+        real: "ripetere una cosa molte volte è il modo per diventare bravi a farla",
+        explanation: "Proverbio iconico, di origine medievale. Forma una delle frasi più note dell'inglese, citata in scuole, manuali, motivational speeches. La struttura grammaticale è particolare: soggetto (<em>practice</em>) + verbo (<em>makes</em>) + complemento (<em>perfect</em>) — tutto al singolare, tutto astratto. In italiano abbiamo &laquo;la pratica rende perfetti&raquo; (con accordo plurale) — equivalente diretto. Dua Lipa lo applica al lavoro emotivo, non solo a quello pratico: bisogna esercitarsi a non cedere alle vecchie tentazioni.",
+        nowUseIt: "Don't worry if you can't play the song yet — <em>practice makes perfect</em>.",
+        family: 'vita',
+        register: 'standard / proverbiale iconico'
+      },
+      {
+        id: 'learn-by-heart',
+        at: 139,
+        expression: "learn (something) by heart",
+        position: 'Bridge',
+        context: 'Dua sta cercando di imparare le sue regole a memoria — non vuole dimenticarle nei momenti deboli.',
+        literal: 'imparare qualcosa col cuore',
+        real: "imparare a memoria, in modo che resti fisso nella mente come istinto",
+        explanation: "Idiom didattico costantissimo. Origine medievale: si pensava che la memoria risiedesse nel cuore (non nel cervello), quindi imparare profondamente significava &laquo;col cuore&raquo;. L'italiano dice &laquo;a memoria&raquo; (riferendosi al cervello) — diversa concezione anatomica! Ottimo gancio interlinguistico. Forme parallele: <em>know by heart</em> (saperlo a memoria), <em>recite by heart</em> (recitare a memoria). Idiom di registro standard, usato a scuola, in chiesa, nei discorsi.",
+        nowUseIt: "By the end of the year, all the students could recite the poem <em>by heart</em>.",
+        family: 'vita',
+        register: 'standard / didattico'
+      }
+    ]
+  },
 ];
 
 /* =========================================================
