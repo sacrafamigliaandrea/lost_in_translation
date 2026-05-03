@@ -2522,6 +2522,12 @@ You played it to the beat.
 00:03:47,900 --> 00:03:56,900        */
   `,
 
+  'queen-bohemian': `
+/* INCOLLA QUI il contenuto completo del file Queen_-_Bohemian_Rhapsody_en.srt
+   Stessa procedura della canzone precedente.
+   Mantieni i backticks esterni.                                       */
+  `,
+
   // Le altre canzoni saranno aggiunte qui mano a mano:
   // 'queen-bohemian': ` ... `,
   // 'beatles-letitbe': ` ... `,
@@ -2869,7 +2875,124 @@ const SONGS = [
     ]
   },
   // PLACEHOLDERS — schede in arrivo
-  { id:'queen-bohemian', artist:'Queen', title:'Bohemian Rhapsody', year:1975, era:'evergreen', level:'B1+', summary:'Un mosaico di registri linguistici. La sezione operistica è piena di immagini idiomatiche.', coverColors:['#3D2645','#C8A36A'], ready:false, idioms:[] },
+  {
+    id: 'queen-bohemian',
+    artist: 'Queen',
+    title: 'Bohemian Rhapsody',
+    year: 1975,
+    era: 'evergreen',
+    level: 'B1+',
+    youtubeId: '5zLnaNY58j8',
+    summary: "Un'opera in sei minuti. Sei sezioni musicali diverse, registri linguistici che vanno dal confessionale all'operetta, dal rock duro al lamento. Fra le mille immagini, otto idiom forti — i più cantati, i meno tradotti.",
+    coverColors: ['#3D2645','#C8A36A'],
+    ready: true,
+    idioms: [
+      {
+        id: 'caught-landslide',
+        at: 12,
+        expression: 'caught in a landslide',
+        position: 'Verso 1 (intro a cappella)',
+        context: "Il narratore confessa di essersi trovato in una situazione totalmente fuori controllo: un evento lo ha travolto come una valanga.",
+        literal: 'preso dentro una frana',
+        real: 'travolto da eventi incontrollabili, sopraffatto da una situazione che non puoi gestire',
+        explanation: "<strong>Landslide</strong> significa <em>frana</em>, ma in inglese politico significa anche <em>vittoria schiacciante</em> (a landslide victory). L'espressione <em>caught in a landslide</em> si usa quando qualcosa di troppo grande ti coglie senza scampo. Frequentissima nel giornalismo finanziario, sportivo, politico.",
+        nowUseIt: "After the merger, the small startup was <em>caught in a landslide</em> of corporate decisions.",
+        family: 'tempo',
+        register: 'figurato / giornalistico'
+      },
+      {
+        id: 'easy-come-easy-go',
+        at: 36,
+        expression: 'easy come, easy go',
+        position: 'Verso 1',
+        context: "Il narratore si descrive come una persona accomodante, senza attaccamenti: prende quello che viene, lascia andare quello che parte.",
+        literal: 'facile venire, facile andare',
+        real: "prendere le cose come vengono, senza affezionarsi — atteggiamento filosofico verso guadagni e perdite",
+        explanation: "Proverbio dell'inglese antico (XVI secolo). Si usa soprattutto per soldi, opportunità, relazioni — tutto ciò che si guadagna senza fatica si perde anche facilmente. In italiano esiste &laquo;come è venuto se n'è andato&raquo;, ma non ha la stessa fissità proverbiale dell'inglese: gli inglesi lo dicono come noi diciamo &laquo;chi si accontenta gode&raquo;.",
+        nowUseIt: "I won fifty pounds at the lottery and lost it the next day. <em>Easy come, easy go.</em>",
+        family: 'vita',
+        register: 'standard / proverbiale'
+      },
+      {
+        id: 'wind-blows',
+        at: 43,
+        expression: 'anyway the wind blows',
+        position: 'Verso 1 (chiusura)',
+        context: "Il narratore conferma la sua filosofia di non-attaccamento: niente lo tocca davvero, qualunque cosa succeda.",
+        literal: 'comunque soffi il vento',
+        real: 'qualunque cosa accada, in qualunque direzione vadano le cose',
+        explanation: "Variante più poetica della forma standard <em>however the wind blows</em>. Allude all'immagine della banderuola: chi si lascia portare dal vento accetta qualunque direzione. A seconda del contesto può esprimere flessibilità sana o accettazione fatalista. Queen sceglie la seconda.",
+        nowUseIt: "I'll be fine <em>anyway the wind blows</em> — I have a backup plan for everything.",
+        family: 'vita',
+        register: 'figurato / poetico'
+      },
+      {
+        id: 'thrown-away',
+        at: 82,
+        expression: 'thrown it all away',
+        position: 'Verso 2 (confessione)',
+        context: 'Il narratore si rende conto di aver buttato via la propria vita con un gesto irreversibile.',
+        literal: "buttato tutto via",
+        real: 'rovinare tutto, sprecare ogni opportunità in un colpo solo',
+        explanation: "Il phrasal verb base <strong>throw away</strong> significa &laquo;gettare via&raquo; (oggetti, spazzatura). Con <em>it all</em> in mezzo diventa figurato: distruggere il proprio futuro, le proprie possibilità. Frequentissimo nei discorsi di motivazione (&laquo;don't throw it all away&raquo;) e nelle scuse a posteriori.",
+        nowUseIt: "He had a great career and <em>threw it all away</em> over one bad decision.",
+        family: 'vita',
+        register: 'standard / figurato'
+      },
+      {
+        id: 'carry-on',
+        at: 102,
+        expression: 'carry on',
+        position: 'Bridge (mamma)',
+        context: "Il narratore chiede alla madre di continuare la propria vita normalmente, come se nulla fosse, anche se lui non tornerà.",
+        literal: 'porta avanti',
+        real: 'andare avanti, continuare nonostante le difficoltà',
+        explanation: "Phrasal verb iconico dell'inglese britannico — celebrato dal poster <em>Keep Calm and Carry On</em> (governo UK, 1939). Significa &laquo;continuare&raquo; ma con sfumatura di stoicismo, di non lasciarsi abbattere. Diverso da <em>go on</em> (più neutro): <em>carry on</em> implica perseveranza in mezzo alla difficoltà.",
+        nowUseIt: "Even after losing the match, the team <em>carried on</em> training every day.",
+        family: 'tempo',
+        register: 'standard / iconico britannico'
+      },
+      {
+        id: 'shivers-spine',
+        at: 125,
+        expression: "send shivers down (someone's) spine",
+        position: 'Verso 3',
+        context: 'Il narratore descrive la paura fisica che lo coglie — la consapevolezza di ciò che sta per accadere gli scuote il corpo.',
+        literal: 'mandare brividi giù per la spina dorsale',
+        real: 'provocare un\'emozione fortissima — quasi sempre paura, a volte ammirazione o eccitazione',
+        explanation: "Idiom anatomico costantissimo nel parlato e nei thriller. La spina dorsale è il sito metaforico delle reazioni viscerali. Forme parallele: <em>shivers ran down my spine</em> (passivo), <em>chills down my spine</em> (più freddo). L'italiano &laquo;mi sono venuti i brividi&raquo; è meno specifico — l'inglese localizza l'effetto sulla colonna vertebrale.",
+        nowUseIt: 'Just thinking about that horror movie <em>sends shivers down my spine</em>.',
+        family: 'emozioni',
+        register: 'standard / vivido'
+      },
+      {
+        id: 'face-truth',
+        at: 143,
+        expression: 'face the truth',
+        position: 'Verso 3 (saluti)',
+        context: 'Il narratore si congeda dai suoi cari — deve smettere di nascondersi e accettare la realtà di ciò che ha fatto.',
+        literal: 'affrontare la verità',
+        real: 'ammettere la realtà, smettere di negare o di fuggire',
+        explanation: "<strong>To face</strong> significa &laquo;affrontare faccia a faccia&raquo;: implica coraggio. Famiglia di idiom affini: <em>face the music</em> (subire le conseguenze, più colloquiale), <em>face up to (something)</em> (assumersi la responsabilità). L'italiano ha &laquo;guardare in faccia la verità&raquo; ma è più letterario — gli inglesi lo usano nel parlato quotidiano.",
+        nowUseIt: "He had to <em>face the truth</em>: the relationship was over, no matter how much he wanted to fix it.",
+        family: 'rivelazione',
+        register: 'standard / morale'
+      },
+      {
+        id: 'spit-eye',
+        at: 263,
+        expression: "spit in (someone's) eye",
+        position: 'Sezione hard rock (finale)',
+        context: "Il narratore sfida l'avversario: pensi davvero di poter umiliarmi a tal punto?",
+        literal: 'sputare in un occhio a qualcuno',
+        real: 'trattare qualcuno con totale disprezzo, umiliarlo apertamente',
+        explanation: "Espressione di registro alto, con radici bibliche e shakespeariane. Più forte e rara di <em>spit on someone</em>. Si usa quando si vuole sottolineare un'umiliazione plateale, un tradimento clamoroso, soprattutto in retorica drammatica. In italiano l'equivalente meno violento è &laquo;mettere i piedi in testa&raquo;, ma manca lo shock fisico dell'inglese.",
+        nowUseIt: "After all I did for him, he just <em>spat in my eye</em> and walked away with our biggest client.",
+        family: 'relazioni',
+        register: 'letterario / forte'
+      }
+    ]
+  },
   { id:'beatles-letitbe', artist:'The Beatles', title:'Let It Be', year:1970, era:'evergreen', level:'A2', summary:"Il titolo stesso è un idiom: \"lascia perdere\", \"così sia\". Un classico dei classici.", coverColors:['#2C4A52','#E8C547'], ready:false, idioms:[] },
   { id:'taylor-shake', artist:'Taylor Swift', title:'Shake It Off', year:2014, era:'contemporary', level:'A2-B1', summary:'Un manuale di phrasal verbs travestito da pop hit. Shake off, brush off, fake it.', coverColors:['#D4A5A5','#5C3A3A'], ready:false, idioms:[] },
   { id:'olivia-drivers', artist:'Olivia Rodrigo', title:"drivers license", year:2021, era:'contemporary', level:'B1', summary:'Slang adolescenziale + immagini emotive forti. Imperfetto inglese da camera da letto.', coverColors:['#5A6E8C','#F2D5CE'], ready:false, idioms:[] },
