@@ -1111,6 +1111,261 @@ body.is-home .topbar { display: none; }
 .info-credits strong { color: var(--ink); }
 
 /* =========================================================
+   AUDIO PLAYER — custom UI sopra YT IFrame API (audio only)
+   ========================================================= */
+.audio-player {
+  background: linear-gradient(135deg, #1A2438 0%, #2C3854 100%);
+  border-radius: var(--r-md);
+  padding: 26px 28px 22px;
+  color: var(--paper);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--sh-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 320px;
+}
+.audio-player::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 80%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(216,93,79,0.15), transparent 60%);
+  pointer-events: none;
+}
+.audio-player-top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+}
+.audio-play-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--coral);
+  color: var(--paper);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: all var(--t-fast);
+  box-shadow: 0 8px 24px rgba(216,93,79,0.45);
+  position: relative;
+}
+.audio-play-btn:hover {
+  transform: scale(1.06);
+  background: #E87766;
+  box-shadow: 0 10px 30px rgba(216,93,79,0.6);
+}
+.audio-play-btn:active { transform: scale(0.98); }
+.audio-play-btn svg { width: 28px; height: 28px; }
+.audio-play-btn[data-playing="false"] svg { transform: translateX(2px); }
+.audio-play-btn[data-loading="true"] {
+  background: var(--ink-faint);
+  cursor: wait;
+}
+.audio-play-btn[data-loading="true"] svg { display: none; }
+.audio-play-btn[data-loading="true"]::after {
+  content: "";
+  width: 24px; height: 24px;
+  border: 3px solid rgba(250,246,238,0.3);
+  border-top-color: var(--paper);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.audio-meta { flex: 1; min-width: 0; }
+.audio-meta .label {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--coral);
+  margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.audio-meta .label::before {
+  content: "";
+  width: 6px; height: 6px;
+  background: var(--coral);
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100% { opacity:0.4 } 50% { opacity:1 } }
+.audio-meta .title {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-style: italic;
+  font-size: 26px;
+  line-height: 1.1;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.audio-meta .artist-line {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: rgba(250,246,238,0.6);
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+/* Equalizer */
+.audio-eq {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 5px;
+  height: 70px;
+  padding: 0 8px;
+  position: relative;
+}
+.audio-eq span {
+  width: 5px;
+  height: 12px;
+  background: linear-gradient(to top, var(--coral) 0%, var(--gold) 100%);
+  border-radius: 3px;
+  opacity: 0.35;
+  transition: opacity 0.3s ease;
+}
+.audio-player.is-playing .audio-eq span {
+  opacity: 1;
+  animation: eqBounce 0.8s ease-in-out infinite alternate;
+}
+.audio-eq span:nth-child(1)  { animation-duration: 0.65s; animation-delay: 0.0s; }
+.audio-eq span:nth-child(2)  { animation-duration: 0.85s; animation-delay: 0.1s; }
+.audio-eq span:nth-child(3)  { animation-duration: 0.55s; animation-delay: 0.2s; }
+.audio-eq span:nth-child(4)  { animation-duration: 0.95s; animation-delay: 0.05s; }
+.audio-eq span:nth-child(5)  { animation-duration: 0.7s;  animation-delay: 0.15s; }
+.audio-eq span:nth-child(6)  { animation-duration: 0.9s;  animation-delay: 0.25s; }
+.audio-eq span:nth-child(7)  { animation-duration: 0.6s;  animation-delay: 0.0s; }
+.audio-eq span:nth-child(8)  { animation-duration: 0.8s;  animation-delay: 0.1s; }
+.audio-eq span:nth-child(9)  { animation-duration: 0.7s;  animation-delay: 0.2s; }
+.audio-eq span:nth-child(10) { animation-duration: 0.85s; animation-delay: 0.3s; }
+.audio-eq span:nth-child(11) { animation-duration: 0.55s; animation-delay: 0.05s; }
+.audio-eq span:nth-child(12) { animation-duration: 0.9s;  animation-delay: 0.25s; }
+.audio-eq span:nth-child(13) { animation-duration: 0.65s; animation-delay: 0.15s; }
+.audio-eq span:nth-child(14) { animation-duration: 0.8s;  animation-delay: 0.1s; }
+.audio-eq span:nth-child(15) { animation-duration: 0.7s;  animation-delay: 0.2s; }
+@keyframes eqBounce {
+  0%   { height: 8px; }
+  100% { height: 60px; }
+}
+
+/* Progress bar */
+.audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+}
+.audio-progress {
+  flex: 1;
+  height: 6px;
+  background: rgba(250,246,238,0.18);
+  border-radius: 99px;
+  cursor: pointer;
+  position: relative;
+}
+.audio-progress-fill {
+  height: 100%;
+  background: var(--coral);
+  border-radius: 99px;
+  width: 0%;
+  position: relative;
+  transition: width 200ms linear;
+  pointer-events: none;
+}
+.audio-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px; height: 14px;
+  background: var(--paper);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--coral), 0 2px 6px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+.audio-progress:hover .audio-progress-fill::after { opacity: 1; }
+
+.audio-time {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: rgba(250,246,238,0.75);
+  white-space: nowrap;
+  min-width: 88px;
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+
+.audio-skip {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+.audio-skip-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 99px;
+  background: rgba(250,246,238,0.1);
+  color: rgba(250,246,238,0.85);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: all var(--t-fast);
+  border: 1px solid rgba(250,246,238,0.08);
+}
+.audio-skip-btn:hover {
+  background: rgba(250,246,238,0.2);
+  color: var(--paper);
+  border-color: rgba(250,246,238,0.2);
+}
+.audio-skip-btn[data-skip^="-"] svg { transform: scaleX(-1); }
+.audio-skip-btn svg { width: 11px; height: 11px; }
+
+/* Hidden iframe for YT API */
+.yt-hidden {
+  position: fixed;
+  width: 1px; height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  top: -9999px;
+  left: -9999px;
+}
+
+/* "Ascolta qui" button on idiom cards (when timestamp is set) */
+.idiom-jump {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-left: auto;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: var(--coral-soft);
+  color: var(--coral-deep);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border: 1px solid transparent;
+  transition: all var(--t-fast);
+}
+.idiom-jump:hover {
+  background: var(--coral);
+  color: var(--paper);
+}
+.idiom-jump svg { width: 11px; height: 11px; }
+
+/* =========================================================
    PRINT
    ========================================================= */
 @media print {
@@ -1206,6 +1461,16 @@ body.is-home .topbar { display: none; }
   </symbol>
   <symbol id="i-shuffle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M16 4h4v4M20 4l-7 7M16 20h4v-4M20 20l-5-5M4 8l4-4M4 16l5 5"/>
+  </symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M7 4l14 8-14 8z"/>
+  </symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24" fill="currentColor">
+    <rect x="6" y="4" width="4" height="16" rx="1"/>
+    <rect x="14" y="4" width="4" height="16" rx="1"/>
+  </symbol>
+  <symbol id="i-jump" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 4l8 8-8 8M13 4l8 8-8 8"/>
   </symbol>
 </svg>
 
@@ -1460,7 +1725,7 @@ body.is-home .topbar { display: none; }
       </ul>
 
       <h2>Copyright sui testi</h2>
-      <p>L'app non riproduce versi originali delle canzoni: indica solo posizione (es. "ritornello") e contesto narrativo. Per leggere il testo completo, ogni scheda canzone offre un link diretto a Musixmatch (servizio licenziato).</p>
+      <p>L'app non riproduce versi originali delle canzoni: indica solo posizione nel brano (es. <em>ritornello</em>, <em>verso 2</em>) e parafrasi narrativa del contesto. L'apprendimento passa attraverso l'<strong>ascolto attivo</strong>: il pulsante <em>Ascolta qui</em> presente sulle card degli idiom porta direttamente al punto del brano dove l'espressione viene pronunciata. Lo studente lavora sempre dentro l'app, senza distrazioni esterne.</p>
 
       <div class="info-credits">
         <p><strong>Lost in Translation</strong> — © 2026 Andrea Cerioli, Animatore Digitale</p>
@@ -1496,7 +1761,7 @@ const SONGS = [
     year: 2010,
     era: 'contemporary',
     level: 'B1',
-    youtubeId: 'rYEDA3JcQqw',
+    youtubeId: 'bDtjO-R0QSo',
     musixmatch: 'https://www.musixmatch.com/it/testo/Adele-3/Rolling-in-the-Deep/traduzione/italiano',
     summary: 'Una rottura raccontata come una marea che monta. Il titolo stesso è un idiom: nessuno lo traduce correttamente la prima volta.',
     coverColors: ['#1A2438', '#D85D4F'],
@@ -1504,6 +1769,7 @@ const SONGS = [
     idioms: [
       {
         id: 'rolling-deep',
+        at: 62,
         expression: 'rolling in the deep',
         position: 'Titolo + ritornello',
         context: "Adele rimprovera l'ex amante: avrebbero potuto vivere una storia totalizzante, immersi anima e corpo l'uno nell'altra.",
@@ -1516,6 +1782,7 @@ const SONGS = [
       },
       {
         id: 'crystal-clear',
+        at: 13,
         expression: 'crystal clear',
         position: 'Verso 2',
         context: "Adele dice di vedere finalmente l'altra persona per quello che è realmente, senza più illusioni.",
@@ -1528,6 +1795,7 @@ const SONGS = [
       },
       {
         id: 'sell-out',
+        at: 18,
         expression: 'sell (someone) out',
         position: 'Post-ritornello',
         context: "Lei sfida l'ex: vai pure a tradirmi, ne pagherai il prezzo.",
@@ -1540,6 +1808,7 @@ const SONGS = [
       },
       {
         id: 'lay-bare',
+        at: 20,
         expression: 'lay (something) bare',
         position: 'Post-ritornello',
         context: 'Lei minaccia: se mi tradisci, esporrò tutta la verità su di te.',
@@ -1552,6 +1821,7 @@ const SONGS = [
       },
       {
         id: 'fever-pitch',
+        at: 9,
         expression: 'fever pitch',
         position: 'Verso 1',
         context: 'Adele descrive il fuoco che le brucia dentro raggiungere il punto più alto, il momento di non ritorno.',
@@ -1564,6 +1834,7 @@ const SONGS = [
       },
       {
         id: 'bring-out',
+        at: 11,
         expression: 'bring (someone) out of the dark',
         position: 'Verso 1',
         context: 'Il fuoco che brucia dentro la sta tirando fuori dal buio in cui era caduta.',
@@ -1576,6 +1847,7 @@ const SONGS = [
       },
       {
         id: 'have-it-all',
+        at: 57,
         expression: 'have it all',
         position: 'Ritornello',
         context: "Il rimpianto centrale del brano: avrebbero potuto possedere tutto — vita, amore, futuro.",
@@ -1635,10 +1907,184 @@ function saveState() {
 }
 
 /* =========================================================
+   AUDIO PLAYER — YouTube IFrame API (audio only)
+   ========================================================= */
+
+let ytPlayer = null;
+let ytAPIReady = false;
+let ytAPILoading = false;
+let progressTimer = null;
+let pendingVideoId = null;
+
+function loadYouTubeAPI() {
+  return new Promise((resolve) => {
+    if (ytAPIReady) { resolve(); return; }
+    if (ytAPILoading) {
+      // Already loading — wait
+      const check = setInterval(() => {
+        if (ytAPIReady) { clearInterval(check); resolve(); }
+      }, 80);
+      return;
+    }
+    ytAPILoading = true;
+    window.onYouTubeIframeAPIReady = () => {
+      ytAPIReady = true;
+      resolve();
+    };
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+  });
+}
+
+async function initAudioPlayer(videoId) {
+  pendingVideoId = videoId;
+  await loadYouTubeAPI();
+  // If user navigated away while loading, abort
+  if (pendingVideoId !== videoId) return;
+
+  destroyAudioPlayer();
+
+  const target = document.getElementById('ytplayer');
+  if (!target) return;
+
+  ytPlayer = new YT.Player('ytplayer', {
+    videoId: videoId,
+    width: '1',
+    height: '1',
+    playerVars: {
+      autoplay: 0,
+      controls: 0,
+      disablekb: 1,
+      playsinline: 1,
+      rel: 0,
+      modestbranding: 1,
+      iv_load_policy: 3,
+      fs: 0
+    },
+    events: {
+      onReady: () => {
+        const btn = document.getElementById('playBtn');
+        if (btn) btn.dataset.loading = 'false';
+        startProgressLoop();
+      },
+      onStateChange: (e) => {
+        const playing = (e.data === YT.PlayerState.PLAYING);
+        const buffering = (e.data === YT.PlayerState.BUFFERING);
+        const player = document.getElementById('audioPlayer');
+        const btn = document.getElementById('playBtn');
+        const icon = document.querySelector('#playIcon use');
+        if (player) player.classList.toggle('is-playing', playing);
+        if (btn) btn.dataset.playing = playing ? 'true' : 'false';
+        if (btn) btn.dataset.loading = buffering ? 'true' : 'false';
+        if (icon) icon.setAttribute('href', playing ? '#i-pause' : '#i-play');
+      },
+      onError: (e) => {
+        console.warn('YT player error:', e.data);
+        const btn = document.getElementById('playBtn');
+        if (btn) btn.dataset.loading = 'false';
+      }
+    }
+  });
+}
+
+function destroyAudioPlayer() {
+  if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+  if (ytPlayer) {
+    try { ytPlayer.destroy(); } catch(e) {}
+    ytPlayer = null;
+  }
+}
+
+function startProgressLoop() {
+  if (progressTimer) clearInterval(progressTimer);
+  progressTimer = setInterval(() => {
+    if (!ytPlayer || typeof ytPlayer.getCurrentTime !== 'function') return;
+    try {
+      const cur = ytPlayer.getCurrentTime() || 0;
+      const dur = ytPlayer.getDuration() || 0;
+      const fill = document.getElementById('audioProgressFill');
+      const time = document.getElementById('audioTime');
+      if (fill) fill.style.width = dur ? `${(cur/dur)*100}%` : '0%';
+      if (time) time.textContent = `${formatTime(cur)} / ${formatTime(dur)}`;
+    } catch(e) { /* iframe might have been removed */ }
+  }, 250);
+}
+
+function formatTime(s) {
+  if (!isFinite(s) || s < 0) return '--:--';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2,'0')}`;
+}
+
+function audioToggle() {
+  if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return;
+  try {
+    const st = ytPlayer.getPlayerState();
+    if (st === YT.PlayerState.PLAYING) ytPlayer.pauseVideo();
+    else ytPlayer.playVideo();
+  } catch(e) {}
+}
+
+function audioSeek(seconds, absolute = false) {
+  if (!ytPlayer || typeof ytPlayer.seekTo !== 'function') return;
+  try {
+    const dur = ytPlayer.getDuration() || 0;
+    let target;
+    if (absolute) {
+      target = seconds;
+    } else {
+      const cur = ytPlayer.getCurrentTime() || 0;
+      target = cur + seconds;
+    }
+    target = Math.max(0, Math.min(dur || target, target));
+    ytPlayer.seekTo(target, true);
+  } catch(e) {}
+}
+
+function audioSeekToPosition(clientX, barEl) {
+  if (!ytPlayer || typeof ytPlayer.getDuration !== 'function') return;
+  try {
+    const rect = barEl.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const dur = ytPlayer.getDuration() || 0;
+    if (dur) ytPlayer.seekTo(dur * pct, true);
+  } catch(e) {}
+}
+
+function bindAudioControls() {
+  const playBtn = document.getElementById('playBtn');
+  const progress = document.getElementById('audioProgress');
+
+  if (playBtn) playBtn.addEventListener('click', audioToggle);
+  if (progress) progress.addEventListener('click', (e) => audioSeekToPosition(e.clientX, progress));
+
+  document.querySelectorAll('.audio-skip-btn').forEach(b => {
+    b.addEventListener('click', () => audioSeek(parseInt(b.dataset.skip, 10)));
+  });
+
+  document.querySelectorAll('.idiom-jump').forEach(b => {
+    b.addEventListener('click', () => {
+      const t = parseFloat(b.dataset.at);
+      if (!isNaN(t)) {
+        audioSeek(t, true);
+        if (ytPlayer && typeof ytPlayer.playVideo === 'function') ytPlayer.playVideo();
+      }
+    });
+  });
+}
+
+/* =========================================================
    VIEW MANAGEMENT
    ========================================================= */
 
 function navigate(view, opts = {}) {
+  // If leaving scheda, stop & destroy the audio player
+  if (state.currentView === 'scheda' && view !== 'scheda') {
+    destroyAudioPlayer();
+  }
+
   state.currentView = view;
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   const target = document.querySelector(`.view[data-view="${view}"]`);
@@ -1781,21 +2227,39 @@ function renderScheda(songId) {
         </div>
         <p class="scheda-summary">${s.summary}</p>
         <div class="scheda-actions">
-          <a class="btn btn-primary" href="${s.musixmatch}" target="_blank" rel="noopener">
-            <svg><use href="#i-external"/></svg>
-            Apri testo originale (Musixmatch)
-          </a>
-          <button class="btn btn-ghost" data-go="quiz">
+          <button class="btn btn-primary" data-go="quiz">
             <svg><use href="#i-quiz"/></svg>
-            Vai al quiz
+            Mettiti alla prova: Letterale o reale?
           </button>
         </div>
       </div>
-      <div class="scheda-yt">
-        <iframe src="https://www.youtube.com/embed/${s.youtubeId}?rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&enablejsapi=1"
-                title="${s.title} — ${s.artist}"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
+      <div class="audio-player" id="audioPlayer" data-video="${s.youtubeId}">
+        <div class="audio-player-top">
+          <button class="audio-play-btn" id="playBtn" data-playing="false" data-loading="true" title="Play / Pause">
+            <svg id="playIcon"><use href="#i-play"/></svg>
+          </button>
+          <div class="audio-meta">
+            <div class="label">Audio · in cuffia</div>
+            <div class="title">${s.title}</div>
+            <div class="artist-line">${s.artist} · ${s.year}</div>
+          </div>
+        </div>
+        <div class="audio-eq">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="audio-controls">
+          <button class="audio-skip-btn" data-skip="-10" title="Indietro 10s"><svg><use href="#i-jump"/></svg>10s</button>
+          <div class="audio-progress" id="audioProgress">
+            <div class="audio-progress-fill" id="audioProgressFill"></div>
+          </div>
+          <button class="audio-skip-btn" data-skip="10" title="Avanti 10s">10s<svg><use href="#i-jump"/></svg></button>
+          <span class="audio-time" id="audioTime">0:00 / --:--</span>
+        </div>
+      </div>
+      <div class="yt-hidden">
+        <div id="ytplayer"></div>
       </div>
     </div>
 
@@ -1829,12 +2293,20 @@ function renderScheda(songId) {
     // TTS
     card.querySelector('.tts-btn').addEventListener('click', () => speak(idiom.expression, card.querySelector('.tts-btn')));
 
-    // Collect
+    // Collect — update only this card's visuals (no full re-render = audio keeps playing)
     card.querySelector('.collect-btn').addEventListener('click', () => {
       toggleCollection(s.id, idiom.id);
-      renderScheda(s.id); // re-render to update visuals
+      const isCollected = state.collection.some(c => c.songId === s.id && c.idiomId === idiom.id);
+      card.classList.toggle('collected', isCollected);
+      const btn = card.querySelector('.collect-btn');
+      btn.classList.toggle('collected', isCollected);
+      btn.innerHTML = `<svg><use href="#${isCollected ? 'i-check' : 'i-bookmark'}"/></svg>${isCollected ? 'Raccolto' : 'Raccogli'}`;
     });
   });
+
+  // Initialize audio player and bind controls
+  bindAudioControls();
+  initAudioPlayer(s.youtubeId);
 }
 
 function idiomCard(song, i) {
@@ -1846,6 +2318,7 @@ function idiomCard(song, i) {
         <div class="idiom-position">
           <span class="idiom-position-tag"><svg><use href="#i-pin"/></svg>${i.position}</span>
           <span class="idiom-family ${fam.cls}">${fam.label}</span>
+          ${typeof i.at === 'number' ? `<button class="idiom-jump" data-at="${i.at}" title="Vai a questo punto del brano"><svg><use href="#i-play"/></svg>Ascolta qui</button>` : ''}
         </div>
         <div class="idiom-expression">
           <em>${i.expression}</em>
