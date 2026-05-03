@@ -230,63 +230,40 @@ body.is-home .app-footer { display: none; }
 .home-noscroll {
   height: calc(100vh - 72px);  /* sottraggo altezza topbar */
   display: grid;
-  grid-template-rows: 48vh 1fr;
+  grid-template-rows: auto 1fr;
   overflow: hidden;
+  background: var(--paper);
 }
 
 .home-banner {
-  position: relative;
-  background: var(--ink);
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 64px 12px 64px;
 }
 .home-banner-img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center 35%;  /* sposto in basso → vediamo bene ragazzo+testo */
   display: block;
+  width: 100%;
+  max-width: 1100px;
+  height: auto;
+  max-height: 38vh;
+  object-fit: contain;
+  border-radius: 18px;
+  box-shadow:
+    0 1px 2px rgba(15,36,85,0.04),
+    0 8px 24px rgba(15,36,85,0.10),
+    0 24px 60px rgba(15,36,85,0.08);
 }
-.banner-overlay {
-  position: absolute; top: 0; left: 0; right: 0;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 22px 36px;
-  z-index: 5;
-}
-.banner-overlay .brand-mark { background: var(--paper); color: var(--ink); }
-.banner-overlay .brand-text strong { color: var(--paper); }
-.banner-overlay .brand-text small { color: var(--paper-soft); opacity: 0.8; }
-.banner-nav {
-  display: flex; gap: 6px;
-  background: rgba(15,36,85,0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(250,246,238,0.2);
-  border-radius: 99px;
-  padding: 5px;
-}
-.banner-nav-btn {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 8px 16px;
-  border-radius: 99px;
-  color: var(--paper);
-  opacity: 0.85;
-  font-size: 13px;
-  font-weight: 700;
-  transition: all var(--t-fast);
-}
-.banner-nav-btn svg { width: 15px; height: 15px; }
-.banner-nav-btn:hover { opacity: 1; background: rgba(250,246,238,0.12); }
-.banner-nav-btn.active { background: var(--paper); color: var(--ink); opacity: 1; }
 
 /* Fascia azione sotto banner — orizzontale */
 .home-action {
   display: grid;
   grid-template-rows: auto 1fr;
-  padding: 30px 64px 24px 64px;
+  padding: 14px 64px 24px 64px;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
-  gap: 22px;
+  gap: 18px;
   align-items: start;
 }
 .home-headline {
@@ -385,7 +362,9 @@ body.is-home .app-footer { display: none; }
 
 /* Schermi non altissimi: stringo padding e dimensioni */
 @media (max-height: 800px) {
-  .home-action { padding: 22px 48px 18px 48px; gap: 16px; }
+  .home-banner { padding: 20px 48px 8px 48px; }
+  .home-banner-img { max-height: 32vh; max-width: 900px; border-radius: 14px; }
+  .home-action { padding: 10px 48px 16px 48px; gap: 14px; }
   .home-text .lead { font-size: 17px; }
   .step-card { padding: 12px 14px; }
   .step-card h3 { font-size: 15px; }
@@ -1857,6 +1836,92 @@ body.is-home .app-footer { display: none; }
 .stage-skip-btn[data-skip^="-"] svg { transform: scaleX(-1); }
 .stage-skip-btn svg { width: 11px; height: 11px; }
 
+/* SYNC CALIBRATOR — fascia sotto il player per allineare audio e karaoke */
+.stage-sync {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 28px 16px;
+  border-top: 1px dashed rgba(250,246,238,0.1);
+  flex-wrap: wrap;
+}
+.sync-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(250,246,238,0.55);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.sync-label::before {
+  content: "⇄";
+  color: var(--coral);
+  font-size: 13px;
+}
+.sync-help {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: rgba(250,246,238,0.45);
+  letter-spacing: 0.04em;
+  font-style: italic;
+}
+.sync-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 28px;
+  min-width: 36px;
+  padding: 0 10px;
+  border-radius: 6px;
+  background: rgba(250,246,238,0.08);
+  color: rgba(250,246,238,0.85);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: all var(--t-fast);
+  border: 1px solid rgba(250,246,238,0.1);
+  flex-shrink: 0;
+}
+.sync-btn:hover {
+  background: rgba(200,16,46,0.5);
+  color: var(--paper);
+  border-color: var(--coral);
+}
+.sync-btn:active {
+  transform: scale(0.95);
+}
+.sync-btn.reset {
+  background: transparent;
+  color: rgba(250,246,238,0.45);
+  font-size: 10px;
+}
+.sync-btn.reset:hover {
+  background: rgba(250,246,238,0.05);
+  color: rgba(250,246,238,0.85);
+  border-color: transparent;
+}
+.sync-value {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--paper);
+  min-width: 60px;
+  text-align: center;
+  padding: 4px 10px;
+  background: rgba(250,246,238,0.06);
+  border-radius: 4px;
+  border: 1px solid rgba(250,246,238,0.12);
+  letter-spacing: 0.02em;
+}
+.sync-value.modified {
+  color: var(--coral);
+  border-color: rgba(200,16,46,0.4);
+  background: rgba(200,16,46,0.1);
+}
+
 .stage-progress {
   flex: 1;
   height: 6px;
@@ -1923,14 +1988,15 @@ body.is-home .app-footer { display: none; }
    RESPONSIVE
    ========================================================= */
 @media (max-width: 980px) {
-  .home-action { padding: 24px 24px; gap: 18px; }
+  .home-banner { padding: 16px 16px 8px 16px; }
+  .home-banner-img { max-height: 240px; border-radius: 12px; }
+  .home-action { padding: 16px 24px 24px; gap: 18px; }
   .home-headline { grid-template-columns: 1fr; gap: 16px; }
   .home-cta { width: 100%; justify-content: center; }
   .home-steps { grid-template-columns: 1fr; gap: 10px; }
   .scheda-hero { grid-template-columns: 1fr; gap: 24px; }
   .idiom-grid { grid-template-columns: 1fr; }
-  .home-noscroll { height: auto; grid-template-rows: 280px auto; }
-  .home-banner { height: 280px; }
+  .home-noscroll { height: auto; grid-template-rows: auto auto; }
   .topnav button span:not(.count-badge) { display: none; }
   .container { padding: 24px 20px; }
 }
@@ -2058,7 +2124,7 @@ body.is-home .app-footer { display: none; }
 
       <div class="home-headline">
         <div class="home-text">
-          <p class="lead">Otto canzoni, cinquanta modi di dire. Ogni espressione ha due traduzioni: una <em>letterale</em> e una <em>reale</em>. La sorpresa è il motore della memoria.</p>
+          <p class="lead">Cinque canzoni, trenta modi di dire. Ogni espressione ha due traduzioni: una <em>letterale</em> e una <em>reale</em>. La sorpresa è il motore della memoria.</p>
         </div>
         <button class="home-cta" data-go="catalogo">
           Esplora il catalogo
@@ -2071,7 +2137,7 @@ body.is-home .app-footer { display: none; }
           <div class="step-num">01</div>
           <div>
             <h3>Scegli una canzone</h3>
-            <p>Otto brani tra contemporanei ed evergreen, dal pop adolescenziale al rock classico.</p>
+            <p>Cinque brani tra contemporanei ed evergreen, dal pop adolescenziale al rock classico.</p>
           </div>
         </div>
         <div class="step-card">
@@ -2707,87 +2773,6 @@ const SONGS = [
       }
     ]
   },
-  // PLACEHOLDERS — schede in arrivo
-  {
-    id: 'beatles-letitbe',
-    artist: 'The Beatles',
-    title: 'Let It Be',
-    year: 1970,
-    era: 'evergreen',
-    level: 'A2',
-    youtubeId: 'egCy1KoE1Ss',
-    srtFile: 'Beatles.srt',
-    summary: "Il titolo è uno dei più piccoli e potenti idiom dell'inglese: tre parole che insegnano l'arte di lasciare andare. Cinque modi di dire che si nascondono dentro un brano apparentemente semplice.",
-    coverColors: ['#2C4A52','#E8C547'],
-    ready: true,
-    idioms: [
-      {
-        id: 'words-of-wisdom',
-        at: 21,
-        expression: 'words of wisdom',
-        position: 'Verso 1',
-        context: "Madre Maria viene a parlargli e a offrirgli il suo consiglio nei momenti difficili.",
-        literal: 'parole di saggezza',
-        real: 'consigli profondi e veri di chi ha esperienza, parole che guidano nelle decisioni',
-        explanation: "Collocation fissa nell'inglese di tutti i registri. Si usa per consigli ricevuti da figure più sagge — genitori, anziani, mentori, leader spirituali. Forma parallela: <em>pearls of wisdom</em> (più formale e a volte ironica). In italiano &laquo;parole di saggezza&raquo; esiste ma è più aulico — l'inglese lo usa anche nel parlato quotidiano.",
-        nowUseIt: "My grandfather always had some <em>words of wisdom</em> when I was confused about life.",
-        family: 'rivelazione',
-        register: 'standard / poetico'
-      },
-      {
-        id: 'let-it-be',
-        at: 23,
-        expression: 'let it be',
-        position: 'Ritornello (titolo)',
-        context: "Il consiglio centrale del brano: davanti alle difficoltà, smettere di lottare contro la realtà e accettarla.",
-        literal: 'lascialo essere',
-        real: 'lasciare che le cose seguano il loro corso, non opporsi, accettare ciò che non si può cambiare',
-        explanation: "Idiom centralissimo dell'inglese. Esprime una filosofia di accettazione attiva — non rassegnazione, ma scelta consapevole di non interferire. Differente da <em>give up</em> (arrendersi): <em>let it be</em> è saggezza, <em>give up</em> è sconfitta. Forma parallela: <em>let go</em> (lasciar andare), che ha sfumatura di liberazione personale. Reso iconico dai Beatles e poi rivisitato da molte canzoni successive — la frase è entrata nella cultura inglese ben oltre la musica.",
-        nowUseIt: "Stop trying to control everything. Sometimes you just have to <em>let it be</em>.",
-        family: 'vita',
-        register: 'standard / iconico'
-      },
-      {
-        id: 'hour-of-darkness',
-        at: 27,
-        expression: '(in your) hour of darkness',
-        position: 'Verso 2',
-        context: "Nel momento più buio della propria vita, lei è lì, presente.",
-        literal: 'nella tua ora di oscurità',
-        real: 'nel momento più difficile, durante una crisi profonda',
-        explanation: "Espressione di registro alto, di derivazione biblica e letteraria. <strong>Hour</strong> qui non è 60 minuti ma il <em>momento decisivo</em> della vita — significato simile a &laquo;l'ora del giudizio&raquo; in italiano. Forma parallela: <em>(in your) darkest hour</em> (più frequente nel parlato). Si usa in discorsi commemorativi, biografie, romanzi — raramente nel chiacchiericcio quotidiano.",
-        nowUseIt: "She was there for me in my <em>hour of darkness</em>, and I'll never forget it.",
-        family: 'tempo',
-        register: 'letterario / formale'
-      },
-      {
-        id: 'broken-hearted',
-        at: 53,
-        expression: 'broken-hearted',
-        position: 'Verso 3',
-        context: "Le persone con il cuore spezzato che vivono nel mondo, se accettano, troveranno una risposta.",
-        literal: 'cuore-spezzato (aggettivo composto)',
-        real: 'profondamente addolorato per una delusione amorosa o un lutto',
-        explanation: "Composto idiomatico costituito da participio passato + sostantivo (forma tipica dell'inglese). Si scrive spesso col trattino quando è aggettivo (<em>a broken-hearted woman</em>), senza trattino quando è sostantivo (<em>the brokenhearted</em>). L'italiano &laquo;col cuore spezzato&raquo; richiede una preposizione — l'inglese fa tutto con un solo aggettivo. Famiglia parallela: <em>heartbroken</em> (variante più moderna, stessa cosa), <em>heartsick</em> (più formale e raro).",
-        nowUseIt: "After her dog died, she was completely <em>broken-hearted</em> for weeks.",
-        family: 'emozioni',
-        register: 'standard / poetico'
-      },
-      {
-        id: 'light-shines',
-        at: 165,
-        expression: 'a light that shines on (someone)',
-        position: 'Verso 4',
-        context: "Anche quando la notte è nuvolosa, c'è ancora una luce che brilla per lui.",
-        literal: 'una luce che splende su qualcuno',
-        real: 'speranza, presenza protettiva, qualcosa o qualcuno che illumina i momenti bui',
-        explanation: "Metafora cristallizzata nella lingua — la luce come simbolo di guida, speranza, presenza divina o amica. Costantissima in canzoni, sermoni, discorsi motivazionali. Forma parallela secolare: <em>a guiding light</em> (un faro nella vita). Funziona benissimo come gancio per spiegare ai ragazzi la differenza tra metafora e idiom: qui il significato è quasi letterale (qualcuno che &laquo;illumina&raquo; emotivamente), ma la frase ha cristallizzato un senso preciso che non si traduce parola per parola.",
-        nowUseIt: "Even after losing his job, his family was <em>a light that shone on him</em> through the dark months.",
-        family: 'vita',
-        register: 'letterario / poetico'
-      }
-    ]
-  },
   {
     id: 'taylor-shake',
     artist: 'Taylor Swift',
@@ -2891,100 +2876,6 @@ const SONGS = [
         nowUseIt: "He's been <em>down and out</em> since he lost the championship, but his friends are helping him recover.",
         family: 'emozioni',
         register: 'colloquiale / vivido'
-      }
-    ]
-  },
-  {
-    id: 'sheeran-shape',
-    artist: 'Ed Sheeran',
-    title: 'Shape of You',
-    year: 2017,
-    era: 'contemporary',
-    level: 'B1',
-    youtubeId: 'erd3fTm-2t8',
-    srtFile: 'Ed.srt',
-    srtOffset: 10,
-    summary: "Il romanticismo moderno raccontato come un balletto fisico. Sei modi di dire del corteggiamento contemporaneo — senza romanticismi astratti, tutto carne, ritmo, gesto.",
-    coverColors: ['#8C5A3A','#F4D8AC'],
-    ready: true,
-    idioms: [
-      {
-        id: 'follow-lead',
-        at: 77,
-        expression: "follow (one's) lead",
-        position: 'Pre-ritornello',
-        context: "Ed invita la ragazza a seguire la sua iniziativa — sulla pista, nel corteggiamento, nella vita.",
-        literal: "seguire la guida di qualcuno",
-        real: "fare quello che fa qualcun altro, lasciarsi guidare, fidarsi della direzione che un'altra persona sta dando",
-        explanation: "Idiom di origine danza/militare: <strong>lead</strong> nel ballo è chi guida (tradizionalmente l'uomo, ma sempre meno oggi); nel mondo del lavoro indica chi prende l'iniziativa. <em>Follow my lead</em> è invito esplicito a fidarsi e seguire. Affine in struttura a <em>follow my example</em> (segui il mio esempio) ma con sfumatura più immediata, di gesto. In italiano si traduce con &laquo;fidati di me&raquo; o &laquo;segui me&raquo; — perde la metafora della danza.",
-        nowUseIt: "If you don't know what to do at the party, just <em>follow my lead</em> and you'll be fine.",
-        family: 'relazioni',
-        register: 'colloquiale / fisso'
-      },
-      {
-        id: 'dont-mind-me',
-        at: 79,
-        expression: "don't mind me",
-        position: 'Pre-ritornello',
-        context: "Ed scherza sulla sua eccentricità: anche se sembra strano, lei non se ne preoccupi.",
-        literal: 'non preoccuparti di me',
-        real: 'non farci caso, ignora questa stranezza, fai pure quello che stavi facendo',
-        explanation: "Espressione fissa di ammorbidimento sociale. Si usa quando si interrompe qualcuno o si fa qualcosa di leggermente strano in pubblico, per dire &laquo;continuate pure, non sono qui&raquo;. <strong>To mind</strong> qui non significa &laquo;mente&raquo; ma &laquo;dare importanza&raquo;, &laquo;preoccuparsi di&raquo; (stesso uso di <em>I don't mind</em> = non mi importa). Costantissima nel parlato britannico. In italiano abbiamo &laquo;non fateci caso&raquo; — equivalente perfetto.",
-        nowUseIt: "Sorry, I'll just grab a book from the shelf — <em>don't mind me</em>, keep talking.",
-        family: 'relazioni',
-        register: 'colloquiale / britannico'
-      },
-      {
-        id: 'push-and-pull',
-        at: 94,
-        expression: 'push and pull',
-        position: 'Ritornello',
-        context: "Ed descrive la dinamica della loro attrazione: una spinta-tirata costante, come due magneti.",
-        literal: 'spingere e tirare',
-        real: "alternanza tra avvicinamento e allontanamento, dinamica conflittuale ma magnetica in una relazione",
-        explanation: "Idiom relazionale e psicologico molto forte. Originariamente meccanico (forze fisiche opposte), poi metaforico per dinamiche umane: rapporti dove uno avanza e l'altro si ritrae, oppure relazioni di tira-e-molla. Usato in psicologia delle relazioni (<em>push-pull dynamic</em>). In italiano si traduce con &laquo;tira e molla&raquo;, ma l'inglese aggiunge la dimensione del <em>push</em> attivo — non solo &laquo;mollare&raquo;, ma &laquo;respingere&raquo;.",
-        nowUseIt: "Their relationship is all <em>push and pull</em> — they break up every month and get back together.",
-        family: 'relazioni',
-        register: 'standard / psicologico'
-      },
-      {
-        id: 'magnet-do',
-        at: 94,
-        expression: '(push and pull) like a magnet do',
-        position: 'Ritornello',
-        context: "L'attrazione tra di loro è inevitabile, fisica come quella tra due magneti.",
-        literal: 'come fa un magnete',
-        real: 'attrarsi e respingersi in modo automatico, irresistibile, fuori dal controllo della volontà',
-        explanation: "Simile (<em>simile</em> in inglese) iconico. La forma grammaticalmente corretta sarebbe <em>like a magnet does</em>, ma Ed Sheeran usa <em>do</em> per ragioni di rima — licenza poetica frequente nel pop. I magneti sono diventati il riferimento universale per attrazione fisica/emotiva inevitabile. Forme parallele: <em>like flies to honey</em> (di chi è attratto da qualcosa di dolce/pericoloso), <em>like moths to a flame</em> (di chi è attratto pericolosamente).",
-        nowUseIt: "We were drawn to each other <em>like magnets</em> from the first day we met.",
-        family: 'relazioni',
-        register: 'figurato / poetico'
-      },
-      {
-        id: 'one-week-in',
-        at: 129,
-        expression: '(one week / a year / X) in',
-        position: 'Verso 2',
-        context: "A una settimana dall'inizio della loro storia, lasciano che il racconto cominci.",
-        literal: 'una settimana dentro',
-        real: "dopo un periodo di tempo dall'inizio di qualcosa, già a quel punto del processo",
-        explanation: "Costruzione compatta dell'inglese moderno per indicare il tempo trascorso dentro un processo o un'esperienza. <em>Three months in</em> (a tre mesi dall'inizio), <em>five years in</em> (dopo cinque anni), <em>one week into the relationship</em> (versione più formale). L'italiano richiede giri di parole (&laquo;dopo una settimana&raquo;, &laquo;a una settimana di distanza&raquo;) — l'inglese fa tutto in due parole. Costruzione molto utile da imparare e riutilizzare.",
-        nowUseIt: "<em>Two months in</em> at my new job, I already know I love it.",
-        family: 'tempo',
-        register: 'colloquiale / contemporaneo'
-      },
-      {
-        id: 'sweet-and-sour',
-        at: 138,
-        expression: 'the sweet and the sour',
-        position: 'Verso 2',
-        context: "Parlano per ore di tutto: i momenti dolci e quelli amari della loro vita.",
-        literal: 'il dolce e l\'aspro',
-        real: 'il bello e il brutto della vita, le esperienze positive e quelle negative',
-        explanation: "Idiom contrastivo dei sapori. La cucina cinese ha portato la combinazione <em>sweet and sour</em> nei dizionari occidentali (pollo agrodolce); poi è diventata metafora per le esperienze contrastanti della vita. Forma parallela: <em>ups and downs</em> (alti e bassi, più frequente). In italiano abbiamo &laquo;il dolce e l'amaro&raquo; — equivalente diretto, raro caso di traduzione fedele.",
-        nowUseIt: "When you've been together for years, you share <em>the sweet and the sour</em> of life.",
-        family: 'vita',
-        register: 'figurato / proverbiale'
       }
     ]
   },
@@ -3380,6 +3271,34 @@ function destroyAudioPlayer() {
   }
 }
 
+// Get the effective SRT offset for a song:
+// 1. localStorage user calibration (highest priority)
+// 2. hardcoded srtOffset on song object
+// 3. zero
+function getEffectiveOffset(songId) {
+  try {
+    const saved = localStorage.getItem(`lit_offset_${songId}`);
+    if (saved !== null) {
+      const n = parseFloat(saved);
+      if (!isNaN(n)) return n;
+    }
+  } catch(e) {}
+  const song = SONGS.find(s => s.id === songId);
+  return (song && typeof song.srtOffset === 'number') ? song.srtOffset : 0;
+}
+
+function setUserOffset(songId, offset) {
+  try {
+    localStorage.setItem(`lit_offset_${songId}`, String(offset));
+  } catch(e) {}
+}
+
+function clearUserOffset(songId) {
+  try {
+    localStorage.removeItem(`lit_offset_${songId}`);
+  } catch(e) {}
+}
+
 function startProgressLoop() {
   if (progressTimer) clearInterval(progressTimer);
   progressTimer = setInterval(() => {
@@ -3391,10 +3310,8 @@ function startProgressLoop() {
       const time = document.getElementById('audioTime');
       if (fill) fill.style.width = dur ? `${(cur/dur)*100}%` : '0%';
       if (time) time.textContent = `${formatTime(cur)} / ${formatTime(dur)}`;
-      // Karaoke sync with optional per-song offset (positive = SRT delayed → anticipa testo;
-      // negative = SRT in anticipo → ritarda testo)
-      const song = SONGS.find(s => s.id === state.currentSongId);
-      const offset = (song && typeof song.srtOffset === 'number') ? song.srtOffset : 0;
+      // Karaoke sync with effective offset (user calibration or default)
+      const offset = getEffectiveOffset(state.currentSongId);
       syncKaraoke(cur + offset);
     } catch(e) { /* iframe might have been removed */ }
   }, 200);
@@ -3423,12 +3340,8 @@ function audioSeek(seconds, absolute = false, applyOffset = false) {
     let target;
     if (absolute) {
       target = seconds;
-      // When jumping to an idiom timestamp (which is based on SRT time),
-      // subtract the SRT offset to land on the correct AUDIO time
       if (applyOffset) {
-        const song = SONGS.find(s => s.id === state.currentSongId);
-        const offset = (song && typeof song.srtOffset === 'number') ? song.srtOffset : 0;
-        target = target - offset;
+        target = target - getEffectiveOffset(state.currentSongId);
       }
     } else {
       const cur = ytPlayer.getCurrentTime() || 0;
