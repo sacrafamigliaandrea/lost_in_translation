@@ -91,8 +91,46 @@ img { max-width: 100%; height: auto; display: block; }
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--paper-line);
+  position: relative;
 }
-body.is-home .topbar { display: none; }
+
+/* Topbar in home: navy istituzionale piena con fascia tricolore */
+body.is-home .topbar {
+  display: flex;
+  position: relative;
+  background: var(--ink);
+  border-bottom: none;
+  padding: 12px 32px;
+  z-index: 50;
+}
+body.is-home .topbar::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg,
+    var(--paper) 0%, var(--paper) 25%,
+    var(--coral) 25%, var(--coral) 50%,
+    var(--paper) 50%, var(--paper) 75%,
+    var(--coral) 75%, var(--coral) 100%);
+}
+body.is-home .brand-co { background: transparent; }
+body.is-home .brand-co:hover { background: rgba(250,246,238,0.06); }
+body.is-home .brand-co .brand-eyebrow { color: #FFB3BD; }
+body.is-home .brand-co .brand-title { color: var(--paper); }
+body.is-home .brand-co .brand-sub { color: rgba(250,246,238,0.7); }
+body.is-home .topnav button {
+  color: rgba(250,246,238,0.78);
+}
+body.is-home .topnav button:hover {
+  color: var(--paper);
+  background: rgba(250,246,238,0.08);
+}
+body.is-home .topnav button.active {
+  color: var(--ink);
+  background: var(--paper);
+}
+body.is-home .topnav button.active svg { color: var(--coral); }
 body.is-home .school-stripe { display: none; }
 body.is-home .app-footer { display: none; }
 
@@ -190,9 +228,9 @@ body.is-home .app-footer { display: none; }
    HOME — no-scroll layout
    ========================================================= */
 .home-noscroll {
-  height: 100vh;
+  height: calc(100vh - 72px);  /* sottraggo altezza topbar */
   display: grid;
-  grid-template-rows: 52vh 48vh;
+  grid-template-rows: 48vh 1fr;
   overflow: hidden;
 }
 
@@ -205,7 +243,7 @@ body.is-home .app-footer { display: none; }
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: center 35%;  /* sposto in basso → vediamo bene ragazzo+testo */
   display: block;
 }
 .banner-overlay {
@@ -2010,24 +2048,9 @@ body.is-home .app-footer { display: none; }
 <main class="view active" data-view="home">
   <div class="home-noscroll">
 
-    <!-- BANNER: immagine raster + brand+nav overlay -->
+    <!-- BANNER: immagine raster a piena larghezza, niente overlay -->
     <div class="home-banner">
       <img src="music.jpg" alt="Le canzoni inglesi che ascolti sono piene di espressioni che non significano quello che sembrano" class="home-banner-img">
-
-      <div class="banner-overlay">
-        <button class="brand-co" data-go="home" style="padding:0;background:rgba(15,36,85,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(250,246,238,0.18);border-radius:12px;padding:6px 14px 6px 6px">
-          <img src="logo_english.jpg" alt="Lezioni di Inglese — Sacra Famiglia" class="school-logo" style="background:var(--paper);width:48px;height:48px">
-          <span class="brand-text">
-            <span class="brand-eyebrow" style="color:#FFB3BD">Lezioni di Inglese · Sacra Famiglia</span>
-            <span class="brand-title" style="color:var(--paper)">Lost in Translation</span>
-            <span class="brand-sub" style="color:rgba(250,246,238,0.85)">English idioms · in cuffia</span>
-          </span>
-        </button>
-        <nav class="banner-nav">
-          <button class="banner-nav-btn active" data-go="home"><svg><use href="#i-home"/></svg>Home</button>
-          <button class="banner-nav-btn" data-go="catalogo"><svg><use href="#i-grid"/></svg>Catalogo</button>
-        </nav>
-      </div>
     </div>
 
     <!-- FASCIA AZIONE: headline + CTA + 3 step orizzontali -->
